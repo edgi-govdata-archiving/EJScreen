@@ -1,0 +1,946 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>EJScreen Report API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/css/main.css">
+    <link rel="SHORTCUT ICON" href="images/ej.ico" />
+    <style>
+        body {
+            margin: 8px;
+            font-family: Verdana;
+        }
+
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 20px;
+            left: 74px;
+        }
+
+        #loadingDiv {
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            display: none;
+            z-index: 500;
+            position: absolute;
+            left: 40%;
+            top: 50%;
+        }
+
+        .formTable {
+            background-color: #d9edf7;
+            width: 100%;
+            font-family: Verdana;
+            font-size: 11pt;
+            padding-top: 4px;
+        }
+
+        .blackfont {
+            color: Black !important;
+        }
+
+        .custompanel {
+            margin: 4px 15px 4px 15px;
+            word-wrap: break-word;
+        }
+    </style>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <script src="https://js.arcgis.com/4.11/"></script>
+    <script type="text/javascript" src="javascript/config.js"></script>
+    <script type="text/javascript" src="javascript/tagmanager.js"></script>
+    <!-- <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-32633028-1', 'auto');
+        ga('send', 'pageview');
+    </script> -->
+
+    <script type="text/javascript">
+        require(["dojo",
+            "esri/views/MapView",
+            "esri/Map",
+            'esri/widgets/Sketch/SketchViewModel',
+            "esri/tasks/QueryTask",
+            "esri/tasks/support/Query",
+            "esri/geometry/SpatialReference",
+            "esri/Graphic",
+            "esri/layers/GraphicsLayer",
+            "esri/geometry/Point",
+            "esri/geometry/Polyline",
+            "esri/geometry/Polygon",
+            "esri/PopupTemplate",
+            "esri/widgets/Search",
+            "esri/geometry/support/webMercatorUtils",
+            "esri/geometry/geometryEngine",
+            "esri/config",
+            "esri/request",
+            "dojo/on",
+            "dojo/parser",
+            "dijit/registry",
+            "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+            "dijit/form/Button", "dijit/WidgetSet", "dojo/domReady!"
+        ], function (
+            dojo,
+            MapView, Map, SketchViewModel,
+            QueryTask,
+            Query,
+            SpatialReference,
+            Graphic,
+            GraphicsLayer,
+            Point,
+            Polyline,
+            Polygon,
+            PopupTemplate,
+            Search,
+            webMercatorUtils,
+            geometryEngine,
+            esriConfig,
+            esriRequest,
+            on, parser, registry
+        ) {
+            var pointsym = { // symbol used for points
+                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                style: "cross",
+                color: "rgba(255, 0, 255, 1.0)",
+                size: "12px",
+                outline: { // autocasts as new SimpleLineSymbol()
+                    color: "rgba(255, 0, 255, 1.0)",
+                    width: 1 // points
+                }
+            };
+            var linesym = { // symbol used for polylines
+                type: "simple-line", // autocasts as new SimpleMarkerSymbol()
+                color: "#ff0000",
+                width: "2",
+                style: "solid"
+            };
+            var polysym = { // symbol used for polygons
+                type: "simple-fill", // autocasts as new SimpleMarkerSymbol()
+                color: "rgba(0, 255, 0, 0.25)",
+                style: "solid",
+                outline: {
+                    color: "red",
+                    width: 2
+                }
+            };
+            var pname = location.pathname;
+            var pos = pname.lastIndexOf("/");
+            pname = pname.substr(0, pos);
+            var rooturl = location.protocol + "//" + location.host + pname + "/";
+
+            var ejscreenSOEbrokerurl = rooturl + "ejscreenRESTbroker.aspx";
+            var ejscreenReportfile = "EJSCREEN_report.aspx";
+            var charLimit = 2048;
+
+            var typedesc = {
+                "point": "Use the location box below to find an address or place and then click on the map or enter/paste a JSON geometry string in the Geometry box.",
+                "polyline": "Use the location box below to find an address or place and then click on the map to draw a line or polyline (line segments cannot cross each other). Enter 'C' to end the drawing. Or enter/paste a JSON geometry string in the Geometry box.",
+                "polygon": "Use the location box below to find an address or place and then click on the map to draw a polygon (lines cannot cross each other). Click on the starting point to end the drawing. Or enter/paste a JSON geometry string in the Geometry box.",
+                "rectangle": "Use the location box below to find an address or place. Hold down the mouse and drag left to define a rectangle area. Release the mouse to finish dragging. Or enter/paste a JSON geometry string in the Geometry box.",
+                "blockgroup": "Use the location box below to find an address or place. Click on the map to select a Census block group. Or you can enter a FIPS code for the Census block group.",
+                "tract": "Use the location box below to find an address or place. Click on the map to select a Census tract. Or you can enter a FIPS code for the Census tract.",
+                "city": "Use the location box below to find an address or place. Click on the map to select a city. Or you can enter a FIPS code for the city.",
+                "county": "Use the location box below to find an address or place. Click on the map to select a county. Or you can enter a FIPS code for the county."
+            };
+
+            //valid areatypes for census based inputs
+            var censusidtypes = ["blockgroup", "tract", "city", "county"];
+            //track whether result are from identify, used to distinguish from text input
+            var valsById = false;
+
+            var ejscreenform = dojo.byId("ejform");
+            //global id and namestr, set by identify or text input;
+            var areaid;
+            var namestr;
+     const fieldsMapping = {RAW_D_PEOPCOLOR:"RAW_D_MINOR",
+                    RAW_D_DEMOGIDX2:"RAW_D_INDEX",
+                    S_D_PEOPCOLOR:"S_D_MINOR",
+                    S_D_DEMOGIDX2:"S_D_INDEX",
+                    S_D_PEOPCOLOR_PER:"S_D_MINOR_PER",
+                    S_D_DEMOGIDX2_PER:"S_D_INDEX_PER",
+                    S_P2_LEAD:"S_P_LEAD",
+                    S_P2_DIESEL:"S_P_DIESEL",
+                    S_P2_CANCER:"S_P_CANCER",
+                    S_P2_RESP:"S_P_RESP",
+                    S_P2_TRAFFIC:"S_P_TRAFFIC",
+                    S_P2_NPDES:"S_P_NPDES",
+                    S_P2_NPL: "S_P_NPL",
+                    S_P2_RMP: "S_P_RMP",
+                    S_P2_TSDF: "S_P_TSDF",
+                    S_P2_O3: "S_P_O3",
+                    S_P2_PM25: "S_P_PM25",
+                    S_P2_UST: "S_P_UST",
+					S_P2_RSEI_AIR:"S_P_RSEI_AIR",
+                    N_D_PEOPCOLOR: "N_D_MINOR",
+                    N_D_DEMOGIDX2: "N_D_INDEX",
+                    N_D_PEOPCOLOR_PER: "N_D_MINOR_PER",
+                    N_D_DEMOGIDX2_PER: "N_D_INDEX_PER",
+                    N_P2_LEAD: "N_P_LEAD",
+                    N_P2_DIESEL: "N_P_DIESEL",
+                    N_P2_CANCER: "N_P_CANCER",
+                    N_P2_RESP: "N_P_RESP",
+                    N_P2_TRAFFIC: "N_P_TRAFFIC",
+                    N_P2_NPDES: "N_P_NPDES",
+                    N_P2_NPL: "N_P_NPL",
+                    N_P2_RMP: "N_P_RMP",
+                    N_P2_TSDF: "N_P_TSDF",
+                    N_P2_O3: "N_P_O3",
+                    N_P2_PM25: "N_P_PM25",
+                    N_P2_UST: "N_P_UST",
+					N_P2_RSEI_AIR:"N_P_RSEI_AIR"
+
+                    }
+            var fieldDelete =[
+            "RAW_D_DEMOGIDX5",
+                "RAW_D_LIFEEXP",
+			"RAW_D_LIFEEXP",
+			"S_D_LIFEEXP",
+			"S_D_DEMOGIDX5ST",
+			
+			"S_D_LIFEEXP_PER",
+			"S_D_DEMOGIDX5ST_PER",
+			"N_D_LIFEEXP",
+			"N_D_DEMOGIDX5",
+			"N_D_LIFEEXP_PER",
+			"N_D_DEMOGIDX5_PER",
+			"N_P5_DIESEL",
+			"N_P5_CANCER",
+			"N_P5_RESP",
+			"N_P5_TRAFFIC",
+			"N_P5_NPDES",
+			"N_P5_NPL",
+			"N_P5_RMP",
+			"N_P5_TSDF",
+			"N_P5_O3",
+			"N_P5_PM25",
+			"N_P5_UST",
+			"N_P5_LEAD",
+			"N_P5_RSEI_AIR" ,
+			"S_P5_O3",
+			"S_P5_PM25",
+			"S_P5_TSDF",
+			"S_P5_LEAD",
+			"S_P5_DIESEL",
+			"S_P5_CANCER",
+			"S_P5_RESP",
+			"S_P5_TRAFFIC",
+			"S_P5_NPDES",
+			"S_P5_NPL",
+			"S_P5_RMP",
+			"S_P5_UST",
+             "S_P5_RSEI_AIR",
+			"NUM_WATERDIS",
+			  "NUM_AIRPOLL",
+			  "NUM_BROWNFIELD",
+			  "NUM_TRI",
+			  "NUM_SCHOOL",
+			  "NUM_HOSPITAL",
+			  "NUM_CHURCH",
+			  "YESNO_TRIBAL",
+			  "YESNO_CEJSTDIS",
+			  "YESNO_IRADIS",
+			  "YESNO_AIRNONATT",
+			  "YESNO_IMPWATERS",
+			  "YESNO_HOUSEBURDEN",
+			  "YESNO_TRANSDIS",
+			  "YESNO_FOODDESERT",
+			  "centroidX",
+			  "centroidY",
+			    "stateName",
+                "stateAbbr"						   
+			]
+            on(dojo.byId("submitget"), "click", function (event) {
+                submitAction("get");
+            });
+            on(dojo.byId("submitpost"), "click", function (event) {
+                submitAction("post");
+            });
+            on(dojo.byId("copyurl"), "click", function (event) {
+                selectText("urlcontent");
+                document.execCommand('copy');
+            });
+            on(dojo.byId("copyjson"), "click", function (event) {
+                selectText("resultjson");
+                document.execCommand('copy');
+            });
+            var marginwidth = 28;
+            var bwsWidth = getWinWidth() - marginwidth;
+
+            dojo.byId("geometry").style.width = (bwsWidth - 120) + "px";
+            window.onresize = function (event) {
+                var bwsWidth = getWinWidth() - marginwidth;
+
+                dojo.byId("geometry").style.width = (bwsWidth - 120) + "px";
+            };
+            var geomtype;
+            var idconnect = null;
+
+            var map = new Map({
+                basemap: "gray"
+            });
+            var view = new MapView({
+                container: "map",
+                map: map,
+              //  center: [-100.11, 36.65],
+              center: [-77.0369, 38.9072],
+                zoom: 10
+            });
+            var drawGraphicsLayer = new GraphicsLayer();
+            map.add(drawGraphicsLayer);
+            var search = new Search({
+                container: "search",
+                view: view,
+                popupEnabled: false,
+                resultGraphicEnabled: false
+            });
+            //search.startup();
+            var sketchViewModel;
+            view.when(function () {
+                ejscreenform.reset();
+                sketchViewModel = new SketchViewModel({
+                    view: view,
+                    layer: drawGraphicsLayer,
+                    pointSymbol: pointsym,
+                    polylineSymbol: linesym,
+                    polygonSymbol: polysym,
+                    updateOnGraphicClick: false
+                });
+
+                sketchViewModel.on("create", function (event) {
+                    if (event.state === "complete") {
+                        drawGraphicsLayer.removeAll();
+                        var g = event.graphic;
+                        drawGraphicsLayer.add(g);
+                        //console.log("is simple: " + geometryEngine.isSimple(g.geometry))
+                        if (geometryEngine.isSimple(g.geometry)) {
+                            var mgeometry = g.geometry;
+                            var geometry = webMercatorUtils.webMercatorToGeographic(mgeometry);
+                            var jstr = JSON.stringify(geometry.toJSON());
+
+                            ejscreenform.geometry.value = jstr;
+                            //clearRadio();
+                            if (event.tool == "polygon") {
+                                setTimeout(function () {
+                                    sketchViewModel.create(event.tool);
+                                }, 1000);
+                            } else {
+                                sketchViewModel.create(event.tool);
+                            }
+
+                        } else {
+                            alert("The geometry is invalid. Please draw a new one.");
+                        }
+                    }
+
+                });
+
+
+                var radioObj = dojo.byId("rform").inmethod;
+                var rl = radioObj.length;
+                for (var k = 0; k < rl; k++) {
+                    if (radioObj[k].checked) {
+                        var s = radioObj[k].value;
+                        geomtype = s;
+                        activateTool(s);
+                    }
+                    on(radioObj[k], "click", function (e) {
+                        var s = e.target.value;
+                        geomtype = s;
+
+                        //clear areatype when the radio button is clicked
+                        ejscreenform.areatype.value = "";
+                        //only send census based areatypes in for report, not needed for geometry types (point,line,poly,rect)
+                        if (censusidtypes.includes(geomtype.toLowerCase())) {
+                            ejscreenform.areatype.value = s;
+                        }
+
+                        activateTool(s);
+                    });
+                }
+            });
+
+            function clearRadio() {
+                var radioObj = dojo.byId("rform").inmethod;
+                var rl = radioObj.length;
+                for (var k = 0; k < rl; k++) {
+                    radioObj[k].checked = false;
+
+                }
+            }
+
+            function submitAction(method) {
+
+                //test if values are from identify task
+                if (valsById == false) {
+                    //if not, it's from the input text box, use that as the name string
+                    ejscreenform.namestr.value = ejscreenform.areaid.value;
+                } else {
+                    //valsById == true
+                    //values are from a previous identify
+                    //if the value in text box does match the previous areaid, replace with current text box value
+                    if (ejscreenform.areaid.value != areaid) {
+                        areaid = ejscreenform.areaid.value;
+                        //update name string and remove the flag for values by identify
+                        ejscreenform.namestr.value = ejscreenform.areaid.value;
+                        valsById = false;
+                    }
+                }
+
+
+                var r = validateform(ejscreenform);
+                dojo.byId("forjson").style.display = "block";
+                if (r) {
+                    var kvpairs = [];
+
+                    for (var i = 0; i < ejscreenform.elements.length; i++) {
+                        var e = ejscreenform.elements[i];
+                        if (e.type != "submit") {
+                            kvpairs.push(e.name + "=" + e.value);
+                        }
+                    }
+                    var queryString = kvpairs.join("&");
+                    var poststr = kvpairs.join("<br />");
+
+                    if (ejscreenform.f.value == "report") {
+                        dojo.byId("jsondiv").style.display = "none";
+                        dojo.byId("reportdiv").style.display = "block";
+                        if (!(dojo.byId("reportframe"))) {
+                            var iframe = document.createElement('iframe');
+                            iframe.id = "reportframe";
+                            iframe.name = "reportframe";
+                            iframe.src = ejscreenReportfile;
+                            iframe.style.width = "100%";
+                            iframe.style.height = "2140px";
+                            iframe.style.overflow = "auto";
+                            dojo.byId("reportdiv").appendChild(iframe);
+                        }
+                        if (method == "get") {
+                            //dojo.byId("urlcontent").innerHTML = rooturl + ejscreenReportfile + "?" + queryString;
+							var urlcon = rooturl+ejscreenReportfile + "?" + queryString;
+                            if(urlcon.trim().length > charLimit){
+                                 alert("2048 character limit exceeded for GET. Consider using POST.");
+                                 return false; 
+                            }else{
+                                dojo.byId("urlcontent").innerHTML = urlcon;
+                            }
+                        } else {
+
+                            var postcontent = "HTTP POST URL: " + rooturl + ejscreenReportfile + "<br />HTTP POST Body:<div style='padding-left: 10px;'>" + poststr + "</div>";
+                            dojo.byId("urlcontent").innerHTML = postcontent;
+                        }
+                        ejscreenform.action = ejscreenReportfile;
+                        ejscreenform.target = "reportframe";
+                        ejscreenform.method = method;
+                        ejscreenform.submit();
+                        document.getElementById('urlcontent').scrollIntoView();
+                    } else {
+                        if (dojo.byId("reportframe")) {
+                            dojo.byId("reportdiv").removeChild(dojo.byId("reportframe"));
+                        }
+                        dojo.byId("jsondiv").style.display = "block";
+                        dojo.byId("reportdiv").style.display = "none";
+
+                        if (method == "get") {
+                           var urlcon = ejscreenSOEbrokerurl + "?" + queryString;
+                            if(urlcon.trim().length > charLimit){ 
+                                 alert("2048 character limit exceeded for GET. Consider using POST.");
+                                 return false; 
+                            }else{
+                                dojo.byId("urlcontent").innerHTML = urlcon;
+                            }
+							
+                        } else {
+                            var postcontent = "HTTP POST URL: " + ejscreenSOEbrokerurl + "<br />HTTP POST Body:<div style='padding-left: 10px;'>" + poststr + "</div>";
+                            dojo.byId("urlcontent").innerHTML = postcontent;
+                        }
+                        dojo.byId("resultjson").innerHTML = "Loading...Please wait";
+                        document.getElementById('resultjson').scrollIntoView();
+                        if (!method) {
+                            method = "POST";
+                        }
+                        $.ajax({
+                            type: method,
+                            url: ejscreenApiPageUrl,
+                            data: $('#ejform').serialize(),
+                            dataType: 'json',
+                            success: function (response) {
+                                //alert(JSON.stringify(response));
+                                //dojo.byId("resultjson").innerHTML = JSON.stringify(response, undefined, 2);
+							   //we are deleting the extra fields to replicate production
+                               for(var i=0 ;i <fieldDelete.length;i++){
+                                  delete response[fieldDelete[i]];
+                               }
+                              // console.log(JSON.stringify(response))
+                               var strResponse = JSON.stringify(response, undefined, 2);
+							   
+							   if (ejscreenform.f.value == "pjson"){
+							     strResponse = JSON.stringify(response, undefined, 2);
+								 
+							    }else if (ejscreenform.f.value == "json"){
+							     strResponse = JSON.stringify(response);
+							   }
+                               //replacing the fields to show the old fields
+                               for (const property in fieldsMapping) {
+                                strResponse =strResponse.replace(property,fieldsMapping[property]);
+                                 }
+                                dojo.byId("resultjson").innerHTML = strResponse;
+                            },
+                            error: function (err) {
+							if (ejscreenform.f.value == "pjson"){
+                                dojo.byId("resultjson").innerHTML = JSON.stringify(err, undefined, 2);
+								}
+							else if (ejscreenform.f.value == "json"){
+							     strResponse = JSON.stringify(response);
+							   }
+                            }
+                        });
+                        /*    esriRequest(ejscreenSOEbrokerurl, {
+                                query: queryString,
+                                responseType: "json",
+                                callbackParamName: "callback"
+                            }, {
+                                "usePost": true
+                            }).then(function (result) {
+                                dojo.byId("resultjson").innerHTML = JSON.stringify(result.data, undefined, 2);
+                            }).catch(function (err) {
+                                dojo.byId("resultjson").innerHTML = "error occurred: " + err;
+                            });*/
+                    }
+                }
+            }
+
+            function activateTool(mtype) {
+
+                ejscreenform.reset();
+                drawGraphicsLayer.removeAll();
+                if (dojo.byId("reportframe")) {
+                    var iframe = dojo.byId("reportframe");
+                    dojo.byId("reportdiv").removeChild(iframe);
+                }
+                dojo.byId("censusdiv").style.display = "none";
+                dojo.byId("geomdiv").style.display = "none";
+                dojo.byId("forjson").style.display = "none";
+                if (idconnect != null) {
+                    idconnect.remove();
+                    idconnect = null;
+                }
+                dojo.byId("methodnote").innerHTML = "Note: " + typedesc[mtype];
+                switch (mtype.toLowerCase()) {
+                    case "blockgroup":
+                    case "tract":
+                    case "city":
+                    case "county":
+                        sketchViewModel.cancel();;
+                        if (idconnect == null) {
+                            idconnect = on(view, "click", doIdentify);
+                        }
+                        dojo.byId("censusdiv").style.display = "block";
+                        break;
+                    case "point":
+                        sketchViewModel.create("point");
+                        ejscreenform.distance.value = "1";
+                        dojo.byId("geomdiv").style.display = "block";
+                        break;
+                    case "line":
+                    case "polyline":
+                        sketchViewModel.create("polyline");;
+                        ejscreenform.distance.value = "1";
+                        dojo.byId("geomdiv").style.display = "block";
+                        break;
+                    case "polygon":
+                        sketchViewModel.create("polygon");
+                        dojo.byId("geomdiv").style.display = "block";
+                        break;
+                    case "rectangle":
+                        sketchViewModel.create("rectangle");
+                        dojo.byId("geomdiv").style.display = "block";
+                        break;
+                }
+            }
+
+
+
+            function doIdentify(evt) {
+                console.log("identify")
+                showLoading();
+                drawGraphicsLayer.removeAll();
+                var lindex = typelookup[geomtype].layer;
+                var idfield = typelookup[geomtype].idfield;
+                var namefld = typelookup[geomtype].namefield;
+                var layerurl = typelookup[geomtype].url;
+                var bgurl = layerurl + "/" + lindex;
+                var queryfields = [idfield];
+                if (idfield != namefld) queryfields.push(namefld);
+
+
+                var query = new Query();
+                query.returnGeometry = true;
+                query.outFields = queryfields;
+                query.geometry = evt.mapPoint;
+                query.geometryPrecision = 1;
+                query.spatialRelationship = Query.SPATIAL_REL_INTERSECTS;
+
+                var queryTask = new QueryTask(bgurl);
+
+                queryTask.execute(query).then(function (results) {
+                    if (results.features.length > 0) {
+
+                        var feature = results.features[0];
+
+
+                        var featureAttributes = feature.attributes;
+                        areaid = featureAttributes[idfield];
+                        namestr = featureAttributes[namefld];
+
+                        ejscreenform.areaid.value = areaid;
+
+
+                        ejscreenform.namestr.value = namestr;
+                        ejscreenform.geometry.value = "";
+                        ejscreenform.distance.value = "";
+
+                        var graphic = new Graphic(feature.geometry, polysym);
+                        drawGraphicsLayer.add(graphic);
+                        //track if vals by identify vs text input
+                        valsById = true;
+
+                    } else {
+                        alert("Did not find a feature!");
+                    }
+                    hideLoading();
+                }).catch(function (err) {
+                    alert("error occurred when querying block group: " + err);
+                    hideLoading();
+
+                });
+            }
+
+            function showLoading() {
+                dojo.byId("loadingDiv").style.display = "block";
+            }
+
+            function hideLoading() {
+                dojo.byId("loadingDiv").style.display = "none";
+            }
+
+            function getWinWidth() {
+                var myWidth = 0;
+                if (typeof (window.innerWidth) == 'number') {
+                    //Non-IE
+                    myWidth = window.innerWidth;
+                } else if (document.documentElement && (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+                    //IE 6+ in 'standards compliant mode'
+                    myWidth = document.documentElement.clientWidth;
+                } else if (document.body && (document.body.clientWidth || document.body.clientHeight)) {
+                    //IE 4 compatible
+                    myWidth = document.body.clientWidth;
+                }
+                return myWidth;
+            }
+
+            function validateform(frm) {
+                if (dojo.byId("censusdiv").style.display == "block") {
+                    var idvalue = dojo.trim(frm.areaid.value);
+                    var idtype = frm.areatype.value;
+                    //var idtype= geomtype;
+                    if (idvalue == "") {
+                        alert("Please input FIPS code!");
+                        return false;
+                    } else {
+
+                        if (idtype == "blockgroup") {
+                            var bgreg = /^\d{12}$/;
+                            if (bgreg.test(idvalue)) {
+                                return true;
+                            } else {
+                                alert("Invalid blockgroup ID. It needs to be 12 digits.");
+                                return false;
+                            }
+                        } else if (idtype == "tract") {
+                            var trreg = /^\d{11}$/;
+                            if (trreg.test(idvalue)) {
+                                return true;
+                            } else {
+                                alert("Invalid tract ID. It needs to be 11 digits.");
+                                return false;
+                            }
+                        } else if (idtype == "city") {
+                            var cityreg = /^\d{7}$/;
+                            if (cityreg.test(idvalue)) {
+                                return true;
+                            } else {
+                                alert("Invalid city FIPS code. It needs to be 7 digits.");
+                                return false;
+                            }
+                        } else if (idtype == "county") {
+                            var cnreg = /^\d{5}$/;
+                            if (cnreg.test(idvalue)) {
+                                return true;
+                            } else {
+                                alert("Invalid county FIPS code. It needs to be 5 digits.");
+                                return false;
+                            }
+                        } else {
+                            alert("Invalid type!");
+                            return false;
+                        }
+                    }
+                } else {
+
+                    var gvalue = dojo.trim(frm.geometry.value);
+                    if (gvalue == "") {
+                        alert("Please input geometry string!");
+                        return false;
+                    } else {
+                        try {
+                            var gobj = JSON.parse(gvalue);
+                            var bdist = dojo.trim(frm.distance.value);
+
+                            if (((gobj.x) || (gobj.paths)) && ((bdist == "") || (bdist == "0"))) {
+                                alert("For point or line geometry, you have to input buffer size!");
+                                return false;
+                            } else {
+                                var distreg = /[a-z]/i;
+                                if (distreg.test(bdist)) {
+                                    alert("Buffer Size needs to be numeric value!");
+                                    return false;
+                                }
+                                var geometry, gtype;
+                                if (gobj.x) {
+                                    gtype = "point";
+                                    geometry = new Point(gobj);
+                                } else if (gobj.paths) {
+                                    gtype = "polyline";
+                                    geometry = new Polyline(gobj);
+                                } else if (gobj.rings) {
+                                    gtype = "polygon";
+                                    geometry = new Polygon(gobj);
+                                } else {
+                                    alert("Invalid geometry.");
+                                    return false;
+                                }
+                                var bunit = dojo.trim(frm.unit.value);
+                                var showArea = checkArea(geometry, gtype, bdist, bunit);
+                                if (showArea) {
+                                    return true;
+                                } else {
+                                    alert("The area is too large to run the analysis report. Please refine the study area.");
+                                    return false;
+                                }
+
+                            }
+                        } catch (e) {
+                            alert("Invalid geometry json string.");
+                            return false;
+                        }
+                    }
+
+                }
+            }
+
+            function checkArea(cgeom, gtype, radius, unit) {
+
+                var arealimit = 500;
+                var showanalysis = true;
+                var geom, mgeom;
+                if (cgeom.spatialReference.wkid == 4326) {
+                    geom = cgeom;
+                    mgeom = webMercatorUtils.geographicToWebMercator(cgeom);
+                } else {
+                    geom = webMercatorUtils.webMercatorToGeographic(cgeom);
+                    mgeom = cgeom;
+                }
+                if (Number(radius) > 0) {
+                    var bufGeoms;
+                    if (gtype == "point") {
+                        bufGeoms = geometryEngine.geodesicBuffer([geom], [radius], unit, true);
+                    } else {
+                        bufGeoms = geometryEngine.buffer([mgeom], [radius], unit, true);
+                    }
+                    if (bufGeoms.length == 1) {
+                        var polyarea = geometryEngine.geodesicArea(bufGeoms[0], "square-miles");
+                        console.log("area: " + polyarea);
+                        if (parseFloat(polyarea) > arealimit) {
+                            showanalysis = false;
+                        } else {
+                            showanalysis = true;
+                        }
+                    } else {
+                        showanalysis = false;
+                    }
+                } else {
+                    var polyarea = geometryEngine.geodesicArea(geom, "square-miles");
+                    if (parseFloat(polyarea) > arealimit) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+                return showanalysis;
+            }
+
+            function selectText(containerid) {
+                if (document.selection) {
+                    var range = document.body.createTextRange();
+                    range.moveToElementText(document.getElementById(containerid));
+                    range.select();
+                } else if (window.getSelection) {
+                    window.getSelection().removeAllRanges();
+                    var range = document.createRange();
+                    range.selectNode(document.getElementById(containerid));
+                    window.getSelection().addRange(range);
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row padding">
+            <div class="custompanel">
+                <h4>EJScreen Report API
+                    <a href="EJAPIinstructions.pdf" class="btn btn-link btn-sm" role="button" target="_blank"
+                        title="Instruction">Help</a>
+                </h4>
+
+                <form id="rform" onsubmit="return false;">
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="point" checked />Point
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="polyline" />Line
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="polygon" />Polygon
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="rectangle" />Rectangle
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="blockgroup" />Blockgroup
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="tract" />Tract
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="city" />City
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inmethod" value="county" />County
+                    </label>
+                </form>
+
+                <div id="methodnote" style="background-color: #EEEEEE; font-size: 10pt; margin: 8px 0px 8px 0px;"></div>
+            </div>
+        </div>
+        <div class="row padding">
+            <div class="custompanel">
+                <div id="map" style="position: relative;width: 100%; height: 450px; margin-bottom: 4px;">
+                    <div id="search"></div>
+                    <div id="loadingDiv">Please wait...</div>
+                </div>
+            </div>
+        </div>
+        <div class="row padding">
+            <div class="custompanel">
+                <form id="ejform" onsubmit="return false;">
+                    <input type="hidden" name="namestr" value="" />
+
+                    <table id="geomdiv" class="formTable">
+                        <tr valign="top">
+                            <td width="90px">Geometry:</td>
+                            <td align="left">
+                                <textarea id="geometry" name="geometry" rows="3"></textarea>
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap>Buffer Size:</td>
+                            <td align="left">
+                                <input type="text" name="distance" value="" />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <td nowrap>Buffer Unit:</td>
+                            <td align="left">
+                                <select name="unit" size="1">
+                                    <option value="9035" selected>mile</option>
+                                    <option value="9036">kilometer</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table id="censusdiv" class="formTable">
+
+                        <tr>
+                            <td width="90px" nowrap>FIPS Code:</td>
+                            <td align="left">
+                                <input type="hidden" name="areatype" value="" />
+                                <input type="text" name="areaid" value="" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="formTable">
+                        <tr>
+                            <td width="90px">Format:</td>
+                            <td align="left">
+                                <select name="f">
+								    <option value="json" selected>json</option>
+                                    <option value="pjson">pjson</option>
+                                    <option value="report">report</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button id="submitget" title="Get result (GET)">Submit (GET)</button>
+                                <button id="submitpost" title="Get result (POST)">Submit (POST)</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="row padding" id="forjson" style="display: none;">
+            <div class="custompanel">
+                <div class="panel panel-info">
+                    <div class="panel-heading blackfont">API Url<button style="float: right; cursor: pointer;"
+                            id="copyurl">Copy</button></div>
+                    <div class="panel-body" id="urlcontent">Panel Content</div>
+                </div>
+                <div class="panel panel-info" id="jsondiv" style="display: none;">
+                    <div class="panel-heading blackfont">Results (<a href="ejsoefielddesc.html" target="_blank">Field
+                            Description</a>)<button style="float: right; cursor: pointer;" id="copyjson">Copy</button>
+                    </div>
+                    <pre class="panel-body" id="resultjson">Panel Content</pre>
+                </div>
+                <div class="panel panel-info" id="reportdiv" style="display: none;">
+                    <div class="panel-heading blackfont">Results</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,1662 @@
+<!-- 
+  ********************************************************************************************************
+  * Title: EJScreen Side by Side Comparisons
+  * Description: The file includes descriptions of each data field, which the API returns in a JSON format.
+  * 
+  * Author: SAIC, EPA OMS Contractor
+  * Creation Date: 01/22/2024
+  * Last Updated: 01/22/2024
+  ********************************************************************************************************
+-->
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <title>EJScreen field description</title>
+    <style type="text/css">
+        table th {
+            font-size: 12pt;
+        }
+
+        table td {
+            font-size: 10pt;
+            padding: 4px;
+        }
+    </style>
+</head>
+
+<body style="font-family: Tahoma;">
+    <table border=1 cellpadding=0 cellspacing=0>
+        <tr>
+            <th>
+                JSON Variable
+            </th>
+            <th>Description</th>
+            <th>Section</th>
+        </tr>
+		
+		<tr>
+            <td>P_ENGLISH</td>
+            <td>Percent of population speaking English at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_SPANISH</td>
+            <td>Percent of population speaking Spanish at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_FRENCH</td>
+            <td>Percent of population speaking French  at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+   
+        <tr>
+            <td>P_RUS_POL_SLAV</td>
+            <td>Percent of population speaking Russian, Polish or Other Slavic at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_OTHER_IE</td>
+            <td>Percent of population speaking Indo-European at home </td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+      
+      
+        <tr>
+            <td>P_VIETNAMESE</td>
+            <td>Percent of population speaking Vietnamese at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+   
+        <tr>
+            <td>P_OTHER_ASIAN</td>
+            <td>Percent of population speaking Other Asian and Pacific Island languages at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_ARABIC</td>
+            <td>Percent of population speaking Arabic at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_OTHER</td>
+            <td>Percent of population speaking Other and Unspecified languages at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_NON_ENGLISH</td>
+            <td>Percent of population speaking Non English languages at home</td>
+            <td>Languages Spoken at Home</td>
+        </tr>
+        <tr>
+            <td>P_NHWHITE</td>
+            <td>Percent of Non-Hispanic Whites</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_NHBLACK</td>
+            <td>Percent of Non-Hispanic Blacks</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_NHASIAN</td>
+            <td>Percent of Non-Hispanic Asians</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_HISP</td>
+            <td>Percent of Hispanics</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_NHAMERIND</td>
+            <td>Percent of Non-Hispanic American Indians</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_NHHAWPAC</td>
+            <td>Percent of Non-Hispanic Hawaiian/Pacific</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_NHOTHER_RACE</td>
+            <td>Percent of Non-Hispanic Other Race</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_NHTWOMORE</td>
+            <td>Percent of Two or More Non-Hispanic Races</td>
+            <td>Breakdown by Race</td>
+        </tr>
+        <tr>
+            <td>P_AGE_LT5</td>
+            <td>Percent Break Down by Age below 5 Years</td>
+            <td>Breakdown by Age</td>
+        </tr>
+        <tr>
+            <td>P_AGE_LT18</td>
+            <td>Percent Break Down by Age below 18 Years</td>
+            <td>Breakdown by Age</td>
+        </tr>
+        <tr>
+            <td>P_AGE_GT17</td>
+            <td>Percent Break Down by Age above 17 Years</td>
+            <td>Breakdown by Age</td>
+        </tr>
+        <tr>
+            <td>P_AGE_GT64</td>
+            <td>Percent Break Down by Age below 64 Years</td>
+            <td>Breakdown by Age</td>
+        </tr>
+        <tr>
+            <td>P_HLI_SPANISH_LI</td>
+            <td>Speak Spanish</td>
+            <td>Breakdown by Limited English Speaking</td>
+        </tr>
+        <tr>
+            <td>P_HLI_IE_LI</td>
+            <td>Speak Other Indo-European Languages</td>
+            <td>Breakdown by Limited English Speaking</td>
+        </tr>
+        <tr>
+            <td>P_HLI_API_LI</td>
+            <td>Speak Asian-Pacific Island Languages</td>
+            <td>Breakdown by Limited English Speaking</td>
+        </tr>
+        <tr>
+            <td>P_HLI_OTHER_LI</td>
+            <td>Speak Other Languages</td>
+            <td>Breakdown by Limited English Speaking</td>
+        </tr>
+        <tr>
+            <td>P_LOWINC</td>
+            <td>Percent Low Income</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>PCT_MINORITY</td>
+            <td>Percent People of Color</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_EDU_LTHS</td>
+            <td>Percent People Who Has Less Than High School Education</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_LIMITED_ENG_HH</td>
+            <td>Limited English Speaking Households</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_EMP_STAT_UNEMPLOYED</td>
+            <td>Percentage of Unemployment</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_DISABILITY</td>
+            <td>Percent population with Disabilities</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_MALES</td>
+            <td>Percent Males</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_FEMALES</td>
+            <td>Percent Females</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>LIFEEXP</td>
+            <td>Life Expectancy in Years</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>PER_CAP_INC</td>
+            <td>Per Capita Income</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>HSHOLDS</td>
+            <td>Number of Households</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>P_OWN_OCCUPIED</td>
+            <td>Owner Occupied households</td>
+            <td>Community</td>
+        </tr>
+        <tr>
+            <td>inputAreaMiles</td>
+            <td>Size for the Area of Interest</td>
+            <td>General information</td>
+        </tr>
+        
+        <tr>
+            <td>TOTALPOP</td>
+            <td>Total Population</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>RAW_D_PEOPCOLOR</td>
+            <td>People of Color</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_INCOME</td>
+            <td>Low Income</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_LESSHS</td>
+            <td>Less Than High School Education</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_LING</td>
+            <td>Limited English Speaking</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_UNDER5</td>
+            <td>Under Age 5</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_OVER64</td>
+            <td>Over Age 64</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        
+      
+        <tr>
+            <td>RAW_D_LIFEEXP</td>
+            <td>Limited Life Expectancy</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_DEMOGIDX2</td>
+            <td>Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_DEMOGIDX5</td>
+            <td>Supplemental Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_LEAD</td>
+            <td>Lead Paint</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_DIESEL</td>
+            <td>Diesel Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_NO2</td>
+            <td>Nitrogen Dioxide (NO<sub>2</sub>)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_DWATER</td>
+            <td>Drinking Water Non-Compliance (points)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+       
+        <tr>
+            <td>RAW_E_TRAFFIC</td>
+            <td>Traffic Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_NPDES</td>
+            <td>Wastewater Discharge</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_NPL</td>
+            <td>Superfund Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_RMP</td>
+            <td>RMP Facility Proximity </td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_TSDF</td>
+            <td>Hazardous Waste Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_O3</td>
+            <td>Ozone</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_PM25</td>
+            <td>Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_UST</td>
+            <td>Underground Storage Tanks</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_E_RSEI_AIR</td>
+            <td>Toxic Releases to Air</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_DEMOGIDX2ST</td>
+            <td>Demographic Index State</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_DEMOGIDX5ST</td>
+            <td>Supplemental Demographic Index State</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_D_UNEMPLOYED</td>
+            <td>Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_PEOPCOLOR</td>
+            <td>State Average of People of Color</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_INCOME</td>
+            <td>State Average of Low Income</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_LESSHS</td>
+            <td>State Average of Less Than High School Education</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_LING</td>
+            <td>State Average of Limited English Speaking</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_UNDER5</td>
+            <td>State Average of Under Age 5</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_OVER64</td>
+            <td>State Average of Over Age 64</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+       
+        <tr>
+            <td>S_D_LIFEEXP</td>
+            <td>State Average of Limited Life Expectancy</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_DEMOGIDX5ST</td>
+            <td>State Average of Supplemental Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td> S_D_DEMOGIDX2ST</td>
+            <td>State Average of Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+      
+        <tr>
+            <td>S_E_LEAD</td>
+            <td>State Average of Lead Paint</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_DIESEL</td>
+            <td>State Average of Diesel Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_NO2</td>
+            <td>State Average of Nitrogen Dioxide (NO<sub>2</sub>)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_DWATER</td>
+            <td>State Average of Drinking Water Non-Compliance (points)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_TRAFFIC</td>
+            <td>State Average of Traffic Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_NPDES</td>
+            <td>State Average of Wastewater Discharge</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_NPL</td>
+            <td>State Average of Superfund Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_RMP</td>
+            <td>State Average of RMP Facility Proximity </td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_TSDF</td>
+            <td>State Average of Hazardous Waste Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_O3</td>
+            <td>State Average of Ozone</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_PM25</td>
+            <td>State Average of Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_UST</td>
+            <td>State Average of Underground Storage Tanks</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_RSEI_AIR</td>
+            <td>State Average of Toxic Releases to Air</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_UNEMPLOYED</td>
+            <td>State Average of Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+     
+        <tr>
+            <td>S_D_PEOPCOLOR_PER</td>
+            <td>State Percentile of People of Color</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_INCOME_PER</td>
+            <td>State Percentile of Low Income</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_LESSHS_PER</td>
+            <td>State Percentile of Less Than High School Education</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_LING_PER</td>
+            <td>State Percentile of Limited English Speaking</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_UNDER5_PER</td>
+            <td>State Percentile of Under Age 5</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_OVER64_PER</td>
+            <td>State Percentile of Over Age 64</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+       <tr>
+            <td>S_D_LIFEEXP_PER</td>
+            <td>State Percentile of Limited Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr> 
+       
+        <tr>
+            <td>S_D_DEMOGIDX2ST_PER</td>
+            <td>State Percentile of Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_D_DEMOGIDX5ST_PER</td>
+            <td>State Percentile of Supplemental Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_LEAD_PER</td>
+            <td>State Percentile of Lead Paint</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_DIESEL_PER</td>
+            <td>State Percentile of Diesel Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_NO2_PER</td>
+            <td>State Percentile of Nitrogen Dioxide (NO<sub>2</sub>)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+       
+        <tr>
+            <td>S_E_DWATER_PER</td>
+            <td>State Percentile of Drinking Water Non-Compliance (points)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+      
+        <tr>
+            <td>S_E_TRAFFIC_PER</td>
+            <td>State Percentile of Traffic Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_NPDES_PER</td>
+            <td>State Percentile of Wastewater Discharge</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_NPL_PER</td>
+            <td>State Percentile of Superfund Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_RMP_PER</td>
+            <td>State Percentile of RMP Facility Proximity </td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_TSDF_PER</td>
+            <td>State Percentile of Hazardous Waste Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_O3_PER</td>
+            <td>State Percentile of Ozone</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_PM25_PER</td>
+            <td>State Percentile of Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_UST_PER</td>
+            <td>State Percentile of Underground Storage Tanks</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_E_RSEI_AIR_PER</td>
+            <td>State Percentile of Toxic Releases to Air</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>S_P2_LEAD</td>
+            <td>State Percentile of Lead Paint EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_DIESEL</td>
+            <td>State Percentile of Diesel Particulate Matter EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_NO2</td>
+            <td>State Percentile of Nitrogen Dioxide (NO<sub>2</sub>) EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_DWATER</td>
+            <td>State Percentile of Drinking Water Non-Compliance (points) EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_TRAFFIC</td>
+            <td>State Percentile of Traffic Proximity EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_NPDES</td>
+            <td>State Percentile of Wastewater Discharge EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_NPL</td>
+            <td>State Percentile of Superfund Proximity EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_RMP</td>
+            <td>State Percentile of RMP Facility Proximity  EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_TSDF</td>
+            <td>State Percentile of Hazardous Waste Proximity EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_O3</td>
+            <td>State Percentile of Ozone EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_PM25</td>
+            <td>State Percentile of Particulate Matter EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_UST</td>
+            <td>State Percentile of Underground Storage Tanks EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P2_RSEI_AIR</td>
+            <td>State Percentile of Toxic Releases to Air EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_LEAD</td>
+            <td>State Percentile of Lead Paint Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_DIESEL</td>
+            <td>State Percentile of Diesel Particulate Matter Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_NO2</td>
+            <td>State Percentile of Nitrogen Dioxide (NO<sub>2</sub>) Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_DWATER</td>
+            <td>State Percentile of Drinking Water Non-Compliance (points) Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_TRAFFIC</td>
+            <td>State Percentile of Traffic Proximity Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_NPDES</td>
+            <td>State Percentile of Wastewater Discharge Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_NPL</td>
+            <td>State Percentile of Superfund Proximity Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_RMP</td>
+            <td>State Percentile of RMP Facility Proximity  Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_TSDF</td>
+            <td>State Percentile of Hazardous Waste Proximity Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_O3</td>
+            <td>State Percentile of Ozone Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_PM25</td>
+            <td>State Percentile of Particulate Matter Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_UST</td>
+            <td>State Percentile of Underground Storage Tanks Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_P5_RSEI_AIR</td>
+            <td>State Percentile of Toxic Releases to Air Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>S_D_UNEMPLOYED_PER</td>
+            <td>State Percentile of Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_PEOPCOLOR</td>
+            <td>National Average of People of Color</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_INCOME</td>
+            <td>National Average of Low Income</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_LESSHS</td>
+            <td>National Average of Less Than High School Education</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_LING</td>
+            <td>National Average of Limited English Speaking</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_UNDER5</td>
+            <td>National Average of Under Age 5</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_OVER64</td>
+            <td>National Average of Over Age 64</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <!-- <tr>
+            <td>N_D_UNEMPLOYED</td>
+            <td>National Average of Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr> -->
+        <tr>
+            <td>N_D_LIFEEXP</td>
+            <td>National Average of Limited Life Expectancy</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_DEMOGIDX2</td>
+            <td>National Average of Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_DEMOGIDX5</td>
+            <td>National Average of Supplemental Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_LEAD</td>
+            <td>National Average of Lead Paint</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_DIESEL</td>
+            <td>National Average of Diesel Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_NO2</td>
+            <td>National Average of Nitrogen Dioxide (NO<sub>2</sub>)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_DWATER</td>
+            <td>National Average of Drinking Water Non-Compliance (points)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_TRAFFIC</td>
+            <td>National Average of Traffic Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_NPDES</td>
+            <td>National Average of Wastewater Discharge</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_NPL</td>
+            <td>National Average of Superfund Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_RMP</td>
+            <td>National Average of RMP Facility Proximity </td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_TSDF</td>
+            <td>National Average of Hazardous Waste Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_O3</td>
+            <td>National Average of Ozone</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_PM25</td>
+            <td>National Average of Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_UST</td>
+            <td>National Average of Underground Storage Tanks</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_RSEI_AIR</td>
+            <td>National Average of Toxic Releases to Air</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_UNEMPLOYED</td>
+            <td>National Average of Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_PEOPCOLOR_PER</td>
+            <td>National Percentile of People of Color</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_INCOME_PER</td>
+            <td>National Percentile of Low Income</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_LESSHS_PER</td>
+            <td>National Percentile of Less Than High School Education</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_LING_PER</td>
+            <td>National Percentile of Limited English Speaking</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_UNDER5_PER</td>
+            <td>National Percentile of Under Age 5</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_OVER64_PER</td>
+            <td>National Percentile of Over Age 64</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <!-- <tr>
+            <td>N_D_UNEMPLOYED_PER</td>
+            <td>National Percentile of Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr> -->
+        <tr>
+            <td>N_D_LIFEEXP_PER</td>
+            <td>National Percentile of Limited Life Expectancy</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_DEMOGIDX2_PER</td>
+            <td>National Percentile of Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_D_DEMOGIDX5_PER</td>
+            <td>National Percentile of Supplemental Demographic Index</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_LEAD_PER</td>
+            <td>National Percentile of Lead Paint</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_DIESEL_PER</td>
+            <td>National Percentile of Diesel Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_NO2_PER</td>
+            <td>National Percentile of Nitrogen Dioxide (NO<sub>2</sub>)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_DWATER_PER</td>
+            <td>National Percentile of Drinking Water Non-Compliance (points)</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_TRAFFIC_PER</td>
+            <td>National Percentile of Traffic Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_NPDES_PER</td>
+            <td>National Percentile of Wastewater Discharge</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_NPL_PER</td>
+            <td>National Percentile of Superfund Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_RMP_PER</td>
+            <td>National Percentile of RMP Facility Proximity </td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_TSDF_PER</td>
+            <td>National Percentile of Hazardous Waste Proximity</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_O3_PER</td>
+            <td>National Percentile of Ozone</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_PM25_PER</td>
+            <td>National Percentile of Particulate Matter</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_UST_PER</td>
+            <td>National Percentile of Underground Storage Tanks</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_E_RSEI_AIR_PER</td>
+            <td>National Percentile of Toxic Releases to Air</td>
+            <td>Environmental Burden Indicators</td>
+        </tr>
+        <tr>
+            <td>N_P2_LEAD</td>
+            <td>National Percentile of Lead Paint EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_DIESEL</td>
+            <td>National Percentile of Diesel Particulate Matter EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_NO2</td>
+            <td>National Percentile of Nitrogen Dioxide (NO<sub>2</sub>) EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_DWATER</td>
+            <td>National Percentile of Drinking Water Non-Compliance (points) EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_TRAFFIC</td>
+            <td>National Percentile of Traffic Proximity EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_NPDES</td>
+            <td>National Percentile of Wastewater Discharge EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_NPL</td>
+            <td>National Percentile of Superfund Proximity EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_RMP</td>
+            <td>National Percentile of RMP Facility Proximity  EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_TSDF</td>
+            <td>National Percentile of Hazardous Waste Proximity EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_O3</td>
+            <td>National Percentile of Ozone EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_PM25</td>
+            <td>National Percentile of Particulate Matter EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_UST</td>
+            <td>National Percentile of Underground Storage Tanks EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P2_RSEI_AIR</td>
+            <td>National Percentile of Toxic Releases to Air EJ Index</td>
+            <td>EJ Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_LEAD</td>
+            <td>National Percentile of Lead Paint Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_DIESEL</td>
+            <td>National Percentile of Diesel Particulate Matter Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_NO2</td>
+            <td>National Percentile of Nitrogen Dioxide (NO<sub>2</sub>) Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_DWATER</td>
+            <td>National Percentile of Drinking Water Non-Compliance (points) Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_TRAFFIC</td>
+            <td>National Percentile of Traffic Proximity Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_NPDES</td>
+            <td>National Percentile of Wastewater Discharge Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_NPL</td>
+            <td>National Percentile of Superfund Proximity Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_RMP</td>
+            <td>National Percentile of RMP Facility Proximity  Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_TSDF</td>
+            <td>National Percentile of Hazardous Waste Proximity Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_O3</td>
+            <td>National Percentile of Ozone Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_PM25</td>
+            <td>National Percentile of Particulate Matter Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_UST</td>
+            <td>National Percentile of Underground Storage Tanks Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_P5_RSEI_AIR</td>
+            <td>National Percentile of Toxic Releases to Air Supplemental Index</td>
+            <td>Supplemental Indexes</td>
+        </tr>
+        <tr>
+            <td>N_D_UNEMPLOYED_PER</td>
+            <td>National Percentile of Unemployment Rate</td>
+            <td>Socioeconomic Indicators</td>
+        </tr>
+   
+        <!--<tr>
+            <td>stateAbbr</td>
+            <td>State Abbreviation</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>stateName</td>
+            <td>State Name</td>
+            <td>General information</td>
+        </tr>-->
+        <tr>
+            <td>epaRegion</td>
+            <td>EPA Region</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>totalPop</td>
+            <td>Total Population</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_NPL</td>
+            <td>Number of Superfund Sites within the Area of Interest</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_TSDF</td>
+            <td>Number of Hazardous Waste Facilities within the Area of Interest</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_WATERDIS</td>
+            <td>Number of Water Discharge Facilities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_AIRPOLL</td>
+            <td>Number of Air Pollution Facilities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_BROWNFIELD</td>
+            <td>Number of Brownfields</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_TRI</td>
+            <td>Number of Toxic Release Facilities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_SCHOOL</td>
+            <td>Number of Schools</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_HOSPITAL</td>
+            <td>Number of Hospitals</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>NUM_CHURCH</td>
+            <td>Number of Worship Places</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_TRIBAL</td>
+            <td>Flag for Overlapping with Tribes</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_CEJSTDIS</td>
+            <td>Flag for Overlapping with CJEST Disadvantaged Communities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_IRADIS</td>
+            <td>Flag for Overlapping with EPA IRA Disadvantaged Communities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_AIRNONATT</td>
+            <td>Flag for Overlapping with Non-Attainment Areas</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_IMPWATERS</td>
+            <td>Flag for Overlapping with Impaired Waters</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_HOUSEBURDEN</td>
+            <td>Flag for Overlapping with Housing Burden Communities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_TRANSDIS</td>
+            <td>Flag for Overlapping with Transportation Disadvantaged Communities</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>YESNO_FOODDESERT</td>
+            <td>Flag for Overlapping with Food Desert Areas</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>centroidX</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>centroidY</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>geometry</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>statLayerCount</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>statLayerZeroPopCount</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>weightLayerCount</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>timeSeconds</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>distance</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>unit</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>areaid</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>areatype</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>statlevel</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>inputAreaMiles</td>
+            <td>Size for the Area of Interest</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>placename</td>
+            <td>City or County Plus State for the Area of Interest</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>RAW_HI_LIFEEXP</td>
+            <td>Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_HI_LIFEEXPPCT</td>
+            <td>Percent of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_HI_HEARTDISEASE</td>
+            <td>Heart Diseases</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_HI_ASTHMA</td>
+            <td>Asthma</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_HI_CANCER</td>
+            <td>Cancer</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_HI_DISABILITYPCT</td>
+            <td>Persons with Disabilities</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_CG_LIMITEDBBPCT</td>
+            <td>Households without Broadband Internet</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_CG_NOHINCPCT</td>
+            <td>Households without Health Insurance</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_CI_FLOOD</td>
+            <td>Estimated Current Flood Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_CI_FLOOD30</td>
+            <td>Estimated Flood Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_CI_FIRE</td>
+            <td>Estimated Current Fire Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>RAW_CI_FIRE30</td>
+            <td>Estimated Fire Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+       
+        <tr>
+            <td>S_HI_LIFEEXP_AVG</td>
+            <td>State Average of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        
+        <tr>
+            <td>S_HI_LIFEEXPPCT_AVG</td>
+            <td>State Average of Percent of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_HEARTDISEASE_AVG</td>
+            <td>State Average of Heart Diseases</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_ASTHMA_AVG</td>
+            <td>State Average of Asthma</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_CANCER_AVG</td>
+            <td>State Average of Cancer</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_DISABILITYPCT_AVG</td>
+            <td>State Average of Persons with Disabilities</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CG_LIMITEDBBPCT_AVG</td>
+            <td>State Average of Households without Broadband Internet</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CG_NOHINCPCT_AVG</td>
+            <td>State Average of Households without Health Insurance</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FLOOD_AVG</td>
+            <td>State Average of Estimated Current Flood Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FLOOD30_AVG</td>
+            <td>State Average of Estimated Flood Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FIRE_AVG</td>
+            <td>State Average of Estimated Current Fire Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FIRE30_AVG</td>
+            <td>State Average of Estimated Fire Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_LIFEEXP_PCTILE</td>
+            <td>State Percentile of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_LIFEEXPPCT_PCTILE</td>
+            <td>State Percentile of Percent of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_HEARTDISEASE_PCTILE</td>
+            <td>State Percentile of Heart Diseases</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_ASTHMA_PCTILE</td>
+            <td>State Percentile of Asthma</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_CANCER_PCTILE</td>
+            <td>State Percentile of Cancer</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>S_HI_DISABILITYPCT_PCTILE</td>
+            <td>State Percentile of Persons with Disabilities</td>
+            <td>Health Indicators</td>
+        </tr>
+         
+       
+        <tr>
+            <td>S_CG_LIMITEDBBPCT_PCTILE</td>
+            <td>State Percentile of Households without Broadband Internet</td>
+            <td>Critical Service Gaps Indicators
+            </td>
+        </tr>
+        <tr>
+            <td>S_CG_NOHINCPCT_PCTILE</td>
+            <td>State Percentile of Households without Health Insurance</td>
+            <td>Critical Service Gaps Indicators
+            </td>
+        </tr>
+        <tr>
+            <td>S_CI_FLOOD_PCTILE</td>
+            <td>State Percentile of Estimated Current Flood Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FLOOD30_PCTILE</td>
+            <td>State Percentile of Estimated Flood Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FIRE_PCTILE</td>
+            <td>State Percentile of Estimated Current Fire Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>S_CI_FIRE30_PCTILE</td>
+            <td>State Percentile of Estimated Fire Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_LIFEEXP_AVG</td>
+            <td>National Average of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_LIFEEXPPCT_AVG</td>
+            <td>National Average of Percent of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_HEARTDISEASE_AVG</td>
+            <td>National Average of Heart Diseases</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_ASTHMA_AVG</td>
+            <td>National Average of Asthma</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_CANCER_AVG</td>
+            <td>National Average of Cancer</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_DISABILITYPCT_AVG</td>
+            <td>National Average of Persons with Disabilities</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CG_LIMITEDBBPCT_AVG</td>
+            <td>National Average of Households without Broadband Internet</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CG_NOHINCPCT_AVG</td>
+            <td>National Average of Households without Health Insurance</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FLOOD_AVG</td>
+            <td>National Average of Estimated Current Flood Risk</td>
+            <td>Extras</td>
+        </tr>
+        <tr>
+            <td>N_CI_FLOOD30_AVG</td>
+            <td>National Average of Estimated Flood Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FIRE_AVG</td>
+            <td>National Average of Estimated Current Fire Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FIRE30_AVG</td>
+            <td>National Average of Estimated Fire Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_LIFEEXP_PCTILE</td>
+            <td>National Percentile of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_LIFEEXPPCT_PCTILE</td>
+            <td>National Percentile of Percent of Low Life Expectancy</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_HEARTDISEASE_PCTILE</td>
+            <td>National Percentile of Heart Diseases</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_ASTHMA_PCTILE</td>
+            <td>National Percentile of Asthma</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_CANCER_PCTILE</td>
+            <td>National Percentile of Cancer</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_HI_DISABILITYPCT_PCTILE</td>
+            <td>National Percentile of Persons with Disabilities</td>
+            <td>Health Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CG_LIMITEDBBPCT_PCTILE</td>
+            <td>National Percentile of Households without Broadband Internet</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CG_NOHINCPCT_PCTILE</td>
+            <td>National Percentile of Households without Health Insurance</td>
+            <td>Critical Service Gaps Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FLOOD_PCTILE</td>
+            <td>National Percentile of Estimated Current Flood Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FLOOD30_PCTILE</td>
+            <td>National Percentile of Estimated Flood Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FIRE_PCTILE</td>
+            <td>National Percentile of Estimated Current Fire Risk</td>
+            <td>Climate Indicators</td>
+        </tr>
+        <tr>
+            <td>N_CI_FIRE30_PCTILE</td>
+            <td>National Percentile of Estimated Fire Risk in 30 Years</td>
+            <td>Climate Indicators</td>
+        </tr>
+       <!-- <tr>
+            <td>stateAbbr</td>
+            <td>State Abbreviation</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>stateName</td>
+            <td>State Name</td>
+            <td>General information</td>
+        </tr>-->
+        <tr>
+            <td>epaRegion</td>
+            <td>EPA Region</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>totalPop</td>
+            <td>Total Population</td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>geometry</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>statLayerCount</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>statLayerZeroPopCount</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>weightLayerCount</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>timeSeconds</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>distance</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>unit</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>areaid</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>areatype</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+        <tr>
+            <td>statlevel</td>
+            <td><i>for internal use only</i></td>
+            <td>General information</td>
+        </tr>
+    </table>
+</body>
+
+</html>

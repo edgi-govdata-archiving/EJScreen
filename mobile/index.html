@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="description" content="EJScreen Mobile">
+    <!-- <link rel="icon" href="https://www.esri.com/favicon.ico"> -->
+    <title>EJScreen Mobile</title>
+
+    <!-- Calcite Maps Bootstrap -->
+    <link rel="stylesheet" href="css/calcite-maps-bootstrap.min-v0.5.css">
+
+    <!-- Calcite Maps -->
+    <link rel="stylesheet" href="css/calcite-maps-arcgis-4.x.min-v0.5.css">
+
+    <!-- ArcGIS JS 4 -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/css/main.css">
+
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .identityPopup {
+            white-space: nowrap;
+            padding-left: 5px;
+            padding-right: 5px;
+            margin: 5px;
+        }
+
+        .calcite-maps .esri-search,
+        .calcite-maps .esri-search .esri-search__input {
+            color: black;
+        }
+
+        .calcite-dropdown .dropdown-toggle,
+        .calcite-layout-inline-right .calcite-dropdown .dropdown-toggle {
+            background-color: #999999;
+            padding: 9px 10px;
+            margin-top: 15px;
+            margin-left: 15px;
+            margin-bottom: 0px;
+            border-radius: 6px;
+        }
+
+        .calcite-dropdown .dropdown-toggle:hover,
+        .calcite-layout-inline-right .calcite-dropdown .dropdown-toggle:hover {
+            background-color: #333;
+        }
+
+        .calcite-dropdown .dropdown-menu>li>a {
+            cursor: pointer;
+        }
+
+        .calcite-nav-top.calcite-nav-hidden .calcite-panels {
+            right: 60px !important;
+            z-index: 100 !important;
+        }
+
+        #epalogo {
+            position: absolute;
+            top: 15px;
+            left: 56px;
+            z-index: 20;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .switch {
+            position: absolute;
+            top: 90px;
+            right: 6px;
+            z-index: 20;
+            width: 40px;
+            height: 24px;
+        }
+
+        /* @media screen and (min-width: 769px) {
+  .switch {
+        left: 40px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .switch {
+        right: 4px;
+  }
+} */
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #999;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #333;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #333;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(16px);
+            -ms-transform: translateX(16px);
+            transform: translateX(16px);
+        }
+
+        /* Rounded sliders */
+
+        .slider.round {
+            border-radius: 24px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .calcite-maps .esri-widget .esri-widget-button {
+            background-color: #999999;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .calcite-maps .esri-widget .esri-widget-button:hover {
+            background-color: #333;
+        }
+    </style>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-L8ZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="calcite-maps calcite-nav-top calcite-nav-hidden calcite-zoom-top-right">
+
+    <!-- Navbar -->
+
+    <nav class="navbar calcite-navbar navbar-fixed-top">
+        <!-- Menu -->
+        <div class="dropdown calcite-dropdown" role="presentation">
+            <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0">
+                <div class="calcite-dropdown-toggle">
+                    <span class="sr-only">Toggle dropdown menu</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </a>
+            <ul class="dropdown-menu calcite-menu-drawer">
+                <!-- <li><a class="hidden-md hidden-lg" href="#2dTab" aria-controls="2Dtab" role="tab" data-toggle="tab"> Map</a></li>
+        <li><a class="active hidden-md hidden-lg" href="#3dTab" aria-controls="3Dtab" role="tab" data-toggle="tab"> Scene</a></li> -->
+                <li><a role="menuitem" tabindex="0" data-target="#panelLocation" aria-haspopup="true"><span
+                            class="glyphicon glyphicon-search"></span> Enter Location</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelEJ" aria-haspopup="true"><span
+                            class="glyphicon glyphicon-cog"></span> Show EJScreen Maps</a></li>
+                <li><a id="rptmenu" role="menuitem" tabindex="0" data-target="#panelReport" aria-haspopup="true"><span
+                            class="glyphicon glyphicon-file"></span> EJ Report</a></li>
+                <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLegend" aria-haspopup="true"><span
+                            class="glyphicon glyphicon-list-alt"></span> Map Legend</a></li>
+                <li><a role="menuitem" tabindex="0" href="#" data-target="#panelLayers" aria-haspopup="true"><span
+                            class="glyphicon glyphicon-list"></span> Layers</a></li>
+                <li><a role="menuitem" tabindex="0" data-target="#panelBasemaps" aria-haspopup="true"><span
+                            class="glyphicon glyphicon-th-large"></span> Basemaps</a></li>
+                <li>
+                    <a href="../index.html?app=desktop" target="_blank"><img src="images/ejscreenlogo.png"
+                            style="border:0; width: 16px; height: 16px;"> Full Version EJScreen</a>
+                </li>
+                <li><a href="javascript: void(0);" data-toggle="modal" data-target="#myModal"><span
+                            class="glyphicon glyphicon-info-sign"></span> About EJScreen</a></li>
+            </ul>
+        </div>
+        <!-- Title -->
+        <div class="calcite-title calcite-overflow-hidden">
+            <span class="calcite-title-main">Calcite Maps</span>
+            <span class="calcite-title-divider hidden-xs"></span>
+            <span class="calcite-title-sub hidden-xs">Starter app for the ArcGIS API for JS 4.x (dojo)</span>
+        </div>
+        <!-- Nav -->
+        <ul class="calcite-nav nav navbar-nav">
+            <li class="active"><a id="mapNav" class="hidden-xs hidden-sm" href="#2dTab" aria-controls="2Dtab"
+                    aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="2D View"
+                    data-placement="bottom">Map</a></li>
+            <li><a id="sceneNav" class="hidden-xs hidden-sm" href="#3dTab" aria-controls="3Dtab" role="tab"
+                    data-toggle="tab" data-tooltip="tip" title="3D View" data-placement="bottom">Scene</a></li>
+
+        </ul>
+    </nav>
+    <!--/.navbar -->
+
+    <!-- Map Container  -->
+
+    <div class="calcite-map calcite-map-absolute">
+        <div id="tabContainer" class="tab-content">
+            <div id="2dTab" class="tab-pane fade in active" role="tabpanel">
+                <div id="mapViewDiv">
+                    <div id="epalogo">
+                        <img src="images/epa_logo_black.png" alt="EPA logo" />
+                    </div>
+                    <div id="layerswitch" title="toggle layer on/off" style="display: none;">
+                        <label class="switch">
+                            <input type="checkbox" id="myonoffswitch" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="3dTab" class="tab-pane fade" role="tabpanel">
+                <div id="sceneViewDiv"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel Container -->
+
+    <div class="calcite-panels calcite-panels-right calcite-bg-light calcite-text-dark panel-group" role="tablist"
+        aria-multiselectable="true">
+
+        <div id="panelLocation" class="panel collapse">
+            <div id="headingLoc" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLoc"
+                        aria-expanded="true" aria-controls="collapseLoc"><span class="glyphicon glyphicon-search"
+                            aria-hidden="true"></span><span class="panel-label">Location</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLocation"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseLoc" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLoc">
+                <div class="panel-body">
+                    Enter a location:
+
+                    <div id="searchNavDiv"></div>
+
+                    or click on the map to add a location.
+                </div>
+            </div>
+        </div>
+
+        <!-- EJ Indexes Panel -->
+
+        <div id="panelEJ" class="panel collapse">
+            <div id="headingEJ" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseEJ" aria-expanded="true"
+                        aria-controls="collapseEJ"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span
+                            class="panel-label">Show EJScreen Maps</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelEJ"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseEJ" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEJ">
+                <div id="ejdiv" class="panel-body">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel - Report -->
+
+        <div id="panelReport" class="panel collapse">
+            <div id="headingReport" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseReport"
+                        aria-expanded="false" aria-controls="collapseReport"><span class="glyphicon glyphicon-file"
+                            aria-hidden="true"></span><span class="panel-label">EJ report for this location</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelReport"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseReport" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingReport">
+                <div class="panel-body">
+                    <div id="reportDiv">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Panel - Legend -->
+
+        <div id="panelLegend" class="panel collapse">
+            <div id="headingLegend" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLegend"
+                        aria-expanded="false" aria-controls="collapseLegend"><span class="glyphicon glyphicon-list-alt"
+                            aria-hidden="true"></span><span class="panel-label">Map Legend</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLegend"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseLegend" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLegend">
+                <div class="panel-body">
+                    <div id="legendDiv"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel - Layers -->
+
+        <div id="panelLayers" class="panel collapse">
+            <div id="headingLayers" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseLayers"
+                        aria-expanded="false" aria-controls="collapseLayers"><span class="glyphicon glyphicon-list"
+                            aria-hidden="true"></span><span class="panel-label">Layers</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelLayers"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseLayers" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingLayers">
+                <div class="panel-body">
+                    <div id="layersDiv"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basemaps Panel -->
+
+        <div id="panelBasemaps" class="panel collapse">
+            <div id="headingBasemaps" class="panel-heading" role="tab">
+                <div class="panel-title">
+                    <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps"
+                        aria-expanded="false" aria-controls="collapseBasemaps"><span
+                            class="glyphicon glyphicon-th-large" aria-hidden="true"></span><span
+                            class="panel-label">Basemaps</span></a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelBasemaps"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseBasemaps" class="panel-collapse collapse" role="tabpanel"
+                aria-labelledby="headingBasemaps">
+                <div class="panel-body">
+                    <select id="selectBasemapPanel" class="form-control">
+                        <option value="streets" data-vector="streets-vector" selected>Streets</option>
+                        <option value="satellite" data-vector="satellite">Satellite</option>
+                        <option value="hybrid" data-vector="hybrid">Hybrid</option>
+                        <option value="topo" data-vector="topo-vector">Topographic</option>
+                        <option value="gray" data-vector="gray-vector">Gray</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- Identify Panel -->
+        <div id="panelQuery" class="panel collapse">
+            <div id="headingQuery" class="panel-heading" role="tab">
+                <div class="panel-title" style="height:60px;">
+                    <!-- <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> -->
+                    <div class="grid-container">
+                        <div class='grid-child identityPopup'>
+                            <span id="locationDisplay"></span>
+                        </div>
+                        <div class='grid-child identityPopup'><span id="percentileDisplay"></span></div>
+
+                        <div class='grid-child identityPopup'><span id="populationDisplay"></span></div>
+                        <div class="identityPopup">&nbsp;</div>
+                    </div>
+                    <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseEJ" aria-expanded="true"
+                        aria-controls="collapseQuery">
+                        <!-- <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> -->
+                        <!-- <span class="panel-label">Map Info</span> -->
+                    </a>
+                    <a class="panel-close" role="button" data-toggle="collapse" tabindex="0" href="#panelQuery"><span
+                            class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+                </div>
+            </div>
+            <div id="collapseQuery" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingQuery">
+                <div id="querydiv" class="panel-body">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.calcite-panels -->
+    <!-- Info modal -->
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" style="height: 90%; overflow: auto;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-info-sign" style="margin-top: 2px;"
+                            aria-hidden="true"></span> About EJScreen Report</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Viewing the EJScreen maps and report on a mobile device!</p>
+                    Want to know more about EPA’s effort on environmental justice, please visit the <a
+                        href="https://www.epa.gov/ejscreen" target="_blank">EJScreen</a> website!
+                    <br /><br /> EJScreen is a screening tool for pre-decisional use only. It can help identify areas
+                    that may warrant additional consideration, analysis, or outreach. It does not provide a basis for
+                    decision-making, but it may help identify
+                    potential areas of EJ concern. Users should keep in mind that screening tools are subject to
+                    substantial uncertainty in their demographic and environmental data, particularly when looking at
+                    small geographic areas. Important caveats
+                    and uncertainties apply to this screening-level information, so it is essential to understand the
+                    limitations on appropriate interpretations and applications of these indicators. Please see EJScreen
+                    documentation for discussion of
+                    these issues before using reports. This screening tool does not provide data on every environmental
+                    impact and demographic factor that may be relevant to a particular location. EJScreen outputs should
+                    be supplemented with additional
+                    information and local knowledge before taking any action to address potential EJ concerns.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        var dojoConfig = {
+            packages: [{
+                name: "bootstrap",
+                location: path_location + "/bootstrap"
+            }, {
+                name: "mapdijit",
+                location: path_location + "/mapdijit"
+            }]
+        };
+    </script>
+
+    <!-- ArcGIS JS 4 -->
+    <script src="https://js.arcgis.com/4.19/"></script>
+    <script type="text/javascript" src="../javascript/config.js"></script>
+    <script type="text/javascript" src="../javascript/tagmanager.js"></script>
+    <script>
+        var app;
+        //var ejIdentifyJSON = {};
+        //start id obj - var is in config with empty obj, idfldname is used to show values in popup
+
+var identifyJSON = {
+	B_D5_PM25: {
+		description: "Particulate Matter 2.5",
+		mouseover: "Annual average concentration of particles 2.5 microns or smaller in air",
+		legendtitle: "EJ Index  Particulate Matter 2.5",
+		txtname: "T_D5_PM25",
+		idfldname: "T_DEMOGIDX_5,T_D5_PM25",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Particulate Matter 2.5 – Fine particulate matter levels in the air",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_OZONE: {
+		description: "Ozone",
+		mouseover: "Average of maximum daily ozone concentrations in air",
+		legendtitle: "EJ Index  Ozone",
+		txtname: "T_D5_OZONE",
+		idfldname: "T_DEMOGIDX_5,T_D5_OZONE",
+		cat: "P_EJ2",
+		hovertext: "EJ Indexes: Ozone - Ozone level in the air",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},	
+	B_D5_NO2: {
+		description: "Nitrogen Dioxide (NO\u2082)",
+		mouseover: "Annual average concentration of NO\u2082 levels in air",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nitrogen Dioxide (NO\u2082)",
+		txtname: "T_D5_NO2",
+		idfldname: "T_DEMOGIDX_5,T_D5_NO2",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Nitrogen Dioxide (NO\u2082)",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+        formatter: {						
+			"aliasnew":{"T_NO2":"Nitrogen Dioxide (NO<sub>2</sub>)","T_D5_NO2":"Nitrogen Dioxide (NO<sub>2</sub>)"}			
+			}
+	},
+	B_D5_DSLPM: {
+		description: "Diesel Particulate Matter",
+		mouseover: "Concentration of diesel particulate matter in air",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diesel Particulate Matter",
+		txtname: "T_D5_DSLPM",
+		idfldname: "T_DEMOGIDX_5,T_D5_DSLPM",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Diesel Particulate Matter - Diesel particulate matter level in the air",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_RSEI_AIR: {
+		description: "Toxic Releases to Air",
+		mouseover: "Average annual chemical concentrations in air weighted by relative toxicity",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toxic Releases to Air",
+		txtname: "T_D5_RSEI_AIR",
+		idfldname: "T_DEMOGIDX_5,T_D5_RSEI_AIR",
+		cat: "P_EJ5",
+		hovertext:
+			"EJ Indexes: Toxic Releases to Air",
+		category: "P_EJ5",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_PTRAF: {
+		description: "Traffic Proximity",
+		mouseover: "Count of vehicles per day at major roads divided by distance",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Traffic Proximity",
+		txtname: "T_D5_PTRAF",
+		idfldname: "T_DEMOGIDX_5,T_D5_PTRAF",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Traffic Proximity - Count of vehicles per day at major roads divided by the distance",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_LDPNT: {
+		description: "Lead Paint",
+		mouseover: "Housing built before 1960, as indicator of potential exposure to lead paint",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lead Paint",
+		txtname: "T_D5_LDPNT",
+		idfldname: "T_DEMOGIDX_5,T_D5_LDPNT",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Lead Paint - Percent of housing built before 1960",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_PNPL: {
+		description: "Superfund Proximity",
+		mouseover: "Count of proposed and listed NPL (National Priorities List) sites divided by distance",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Superfund Proximity",
+		txtname: "T_D5_PNPL",
+		idfldname: "T_DEMOGIDX_5,T_D5_PNPL",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Superfund Proximity - Count of National Priorities List/Superfund sites divided by the distance",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_PRMP: {
+		description: "RMP Facility Proximity",
+		mouseover: "Count of facilities with required Risk Management Plans divided by distance",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMP Facility Proximity",
+		txtname: "T_D5_PRMP",
+		idfldname: "T_DEMOGIDX_5,T_D5_PRMP",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: RMP Facility Proximity - Count of facilities with Risk Management Plans divided by the distance",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_PTSDF: {
+		description: "Hazardous Waste Proximity",
+		mouseover: "Count of TSDFs and LQGs divided by distance",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hazardous Waste Proximity",
+		txtname: "T_D5_PTSDF",
+		idfldname: "T_DEMOGIDX_5,T_D5_PTSDF",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Waste Facility Proximity - Count of Transfer, Storage, and Disposal Facilities divided by the distance",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_UST: {
+		description: "Underground Storage Tanks",
+		mouseover: "Count of Leaking UST and USTs within a buffered block group",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underground Storage Tanks",
+		txtname: "T_D5_UST",
+		idfldname: "T_DEMOGIDX_5,T_D5_UST",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Underground Storage Tanks - UST facilities/square km",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_PWDIS: {
+		description: "Wastewater Discharge",
+		mouseover: "Average annual chemical concentrations in water weighted by relative toxicity",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wastewater Discharge",
+		txtname: "T_D5_PWDIS",
+		idfldname: "T_DEMOGIDX_2,T_D5_PWDIS",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Wastewater Discharge - Toxicity-weighted concentration/meter distance",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D5_DWATER: {
+		description: "Drinking Water Non-Compliance",
+		mouseover: "Number of drinking water violations for community water systems in non-compliance",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drinking Water Non-Compliance",
+		txtname: "T_D5_DWATER",
+		idfldname: "T_DEMOGIDX_5,T_D5_DWATER",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Drinking Water Non-Compliance",
+		category: "P_EJ2",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},
+	B_D2_PM25: {
+		description: "Particulate Matter 2.5",
+		legendtitle: "EJ Index  Particulate Matter 2.5",
+		txtname: "T_D2_PM25",
+		idfldname: "T_DEMOGIDX_2,T_D2_PM25",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Particulate Matter 2.5 - Fine particulate matter levels in the air",
+		category: "P_EJ2",
+	},
+	B_D2_OZONE: {
+		description: "Ozone",
+		legendtitle: "EJ Index  Ozone",
+		txtname: "T_D2_OZONE",
+		idfldname: "T_DEMOGIDX_2,T_D2_OZONE",
+		cat: "P_EJ2",
+		hovertext: "EJ Indexes: Ozone - Ozone level in the air",
+		category: "P_EJ2",
+	},
+	B_D2_NO2: {
+		description: "Nitrogen Dioxide (NO\u2082)",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nitrogen Dioxide (NO\u2082)",
+		txtname: "T_D2_NO2",
+		idfldname: "T_DEMOGIDX_2,T_D2_NO2",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes:Nitrogen Dioxide (NO\u2082)",
+		category: "P_EJ2",
+        formatter: {						
+			"aliasnew":{"T_NO2":"Nitrogen Dioxide (NO<sub>2</sub>)","T_D2_NO2":"Nitrogen Dioxide (NO<sub>2</sub>)"}			
+			}
+	},
+	B_D2_DSLPM: {
+		description: "Diesel Particulate Matter",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diesel Particulate Matter",
+		txtname: "T_D2_DSLPM",
+		idfldname: "T_DEMOGIDX_2,T_D2_DSLPM",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Diesel Particulate Matter - Diesel particulate matter level in the air",
+		category: "P_EJ2",
+	},		
+	B_D2_RSEI_AIR: {
+		description: "Toxic Releases to Air",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toxic Releases to Air",
+		txtname: "T_D2_RSEI_AIR",
+		idfldname: "T_DEMOGIDX_2,T_D2_RSEI_AIR",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes:Toxic Releases to Air",
+		category: "P_EJ2",
+	},
+	B_D2_PTRAF: {
+		description: "Traffic Proximity",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Traffic Proximity",
+		txtname: "T_D2_PTRAF",
+		idfldname: "T_DEMOGIDX_2,T_D2_PTRAF",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Traffic Proximity - Count of vehicles per day at major roads divided by the distance",
+		category: "P_EJ2",
+	},
+	B_D2_LDPNT: {
+		description: "Lead Paint",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lead Paint",
+		txtname: "T_D2_LDPNT",
+		idfldname: "T_DEMOGIDX_2,T_D2_LDPNT",
+		cat: "P_EJ2",
+		hovertext: "EJ Indexes: Lead Paint - Percent of housing built before 1960",
+		category: "P_EJ2",
+	},
+	B_D2_PNPL: {
+		description: "Superfund Proximity",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Superfund Proximity",
+		txtname: "T_D2_PNPL",
+		idfldname: "T_DEMOGIDX_2,T_D2_PNPL",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Superfund Proximity - Count of National Priorities List/Superfund sites divided by the distance",
+		category: "P_EJ2",
+	},
+	B_D2_PRMP: {
+		description: "RMP Facility Proximity",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMP Facility Proximity",
+		txtname: "T_D2_PRMP",
+		idfldname: "T_DEMOGIDX_2,T_D2_PRMP",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: RMP Facility Proximity - Count of facilities with Risk Management Plans divided by the distance",
+		category: "P_EJ2",
+	},
+	B_D2_PTSDF: {
+		description: "Hazardous Waste Proximity",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hazardous Waste Proximity",
+		txtname: "T_D2_PTSDF",
+		idfldname: "T_DEMOGIDX_2,T_D2_PTSDF",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Waste Facility Proximity - Count of Transfer, Storage, and Disposal Facilities divided by the distance",
+		category: "P_EJ2",
+	},
+	B_D2_UST: {
+		description: "Underground Storage Tanks",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underground Storage Tanks",
+		txtname: "T_D2_UST",
+		idfldname: "T_DEMOGIDX_2,T_D2_UST",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Underground Storage Tanks - UST facilities/square km",
+		category: "P_EJ2",
+	},
+	B_D2_PWDIS: {
+		description: "Wastewater Discharge",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wastewater Discharge",
+		txtname: "T_D2_PWDIS",
+		idfldname: "T_DEMOGIDX_2,T_D2_PWDIS",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Wastewater Discharge - Toxicity-weighted concentration/meter distance",
+		category: "P_EJ2",
+	},
+	B_D2_DWATER: {
+		description: "Drinking Water Non-Compliance",
+		legendtitle:
+			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drinking Water Non-Compliance",
+		txtname: "T_D2_DWATER",
+		idfldname: "T_DEMOGIDX_2,T_D2_DWATER",
+		cat: "P_EJ2",
+		hovertext:
+			"EJ Indexes: Drinking Water Non-Compliance",
+		category: "P_EJ2",
+	},
+	B_PM25: {
+		description: "Particulate Matter 2.5",
+		legendtitle: "Environmental Data Particulate Matter 2.5",
+		txtname: "T_PM25",
+		idfldname: "T_DEMOGIDX_2,PM25,T_PM25",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: PM 2.5 - Annual average concentration of particles 2.5 microns or smaller in air",
+		category: "P_ENV",
+		formatter: {
+			//optional format parameters
+			"suffixtext":{"PM25":"score","T_PM25":"percentile"},//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew":{"PM25":"Particulate Matter 2.5"}, //override default alias
+			"signifdigits":{"PM25":3},//number of decimal places, if category is p_env this is used for significant digits
+			"units":{"PM25":"µg/m3"} //field unit of measure appended to value			
+			}
+	},
+	B_OZONE: {
+		description: "Ozone",
+		legendtitle: "Environmental Data Ozone",
+		txtname: "T_OZONE",
+		idfldname: "T_DEMOGIDX_2,OZONE, T_OZONE",
+		cat: "P_ENV",
+		hovertext: "Environmental Indicators: Ozone - Ozone level in the air",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"OZONE":"score","T_OZONE":"percentile"},
+			"aliasnew":{"OZONE":"Ozone"}, 
+			"signifdigits":{"OZONE":3},
+			"units":{"OZONE":"ppb"} 		
+			}
+	},
+	B_NO2: {
+		description: "Nitrogen Dioxide (NO\u2082)",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nitrogen Dioxide (NO\u2082)",
+		txtname: "T_NO2",
+		idfldname: "T_DEMOGIDX_2,NO2,T_NO2",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Nitrogen Dioxide (NO\u2082)",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"NO2":"score","T_NO2":"percentile"},
+			"aliasnew":{"NO2":"Nitrogen Dioxide (NO<sub>2</sub>)","T_NO2":"Nitrogen Dioxide (NO<sub>2</sub>)"}, 
+			"signifdigits":{"NO2":2},
+			"units":{"NO2":"ppbv"} 		
+			}
+	},	
+	B_DSLPM: {
+		description: "Diesel Particulate Matter",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diesel Particulate Matter",
+		txtname: "T_DSLPM",
+		idfldname: "T_DEMOGIDX_2,DSLPM,T_DSLPM",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Diesel Particulate Matter - Diesel particulate matter level in the air",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"DSLPM":"score","T_DSLPM":"percentile"},
+			"aliasnew":{"DSLPM":"Diesel Particulate Matter"}, 
+			"signifdigits":{"DSLPM":3},
+			"units":{"DSLPM":"µg/m3"} 		
+			}
+	},
+	B_RSEI_AIR : {
+		description: "Toxic Releases to Air",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toxic Releases to Air",
+		txtname: "T_RSEI_AIR",
+		idfldname: "T_DEMOGIDX_2,RSEI_AIR,T_RSEI_AIR",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Toxic Releases to Air",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"RSEI_AIR":"score","T_RSEI_AIR":"percentile"},
+			"aliasnew":{"RSEI_AIR":"Toxic Releases to Air"}, 
+			"signifdigits":{"RSEI_AIR":2},
+			"units":{"RSEI_AIR":" (toxicity-weighted concentration)"} 		
+			}
+	},
+	B_PTRAF: {
+		description: "Traffic Proximity",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Traffic Proximity",
+		txtname: "T_PTRAF",
+		idfldname: "T_DEMOGIDX_2,PTRAF,T_PTRAF",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Traffic Proximity - Count of vehicles per day at major roads divided by the distance",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"PTRAF":"score","T_PTRAF":"percentile"},
+			"aliasnew":{"PTRAF":"Traffic Proximity"}, 
+			"signifdigits":{"PTRAF":2},
+			"units":{"PTRAF":"(daily count/distance)"} 		
+			}
+	},
+	B_LDPNT: {
+		description: "Lead Paint",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lead Paint",
+		txtname: "T_LDPNT",
+		idfldname: "T_DEMOGIDX_2,PRE1960PCT,T_LDPNT",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Lead Paint - Percent of housing built before 1960",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"PRE1960PCT":"score","T_LDPNT":"percentile"},
+			"aliasnew":{"PRE1960PCT":"Lead Paint"}, 
+			"signifdigits":{"PRE1960PCT":2},
+			"units":{"PRE1960PCT":"(% Pre-1960 Housing)"} 		
+			}
+	},
+	B_PNPL: {
+		description: "Superfund Proximity",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Superfund Proximity",
+		txtname: "T_PNPL",
+		idfldname: "T_DEMOGIDX_2,PNPL,T_PNPL",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Superfund Proximity - Count of National Priorities List/Superfund sites divided by the distance",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"PNPL":"score","T_PNPL":"percentile"},
+			"aliasnew":{"PNPL":"Superfund Proximity"}, 
+			"signifdigits":{"PNPL":2},
+			"units":{"PNPL":"(site/km)"} 		
+			}
+	},
+	B_PRMP: {
+		description: "RMP Facility Proximity",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMP Facility Proximity",
+		txtname: "T_PRMP",
+		idfldname: "T_DEMOGIDX_2,PRMP,T_PRMP",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: RMP Facility Proximity - Count of facilities with Risk Management Plans divided by the distance",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"PRMP":"score","T_PRMP":"percentile"},
+			"aliasnew":{"PRMP":"RMP Facility Proximity"}, 
+			"signifdigits":{"PRMP":2},
+			"units":{"PRMP":"(facility/km)"} 		
+			}
+	},
+	B_PTSDF: {
+		description: "Hazardous Waste Proximity",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hazardous Waste Proximity",
+		txtname: "T_PTSDF",
+		idfldname: "T_DEMOGIDX_2,PTSDF,T_PTSDF",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Waste Facility Proximity - Count of Transfer, Storage, and Disposal Facilities divided by the distance",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"PTSDF":"score","T_PTSDF":"percentile"},
+			"aliasnew":{"PTSDF":"Hazardous Waste Proximity"}, 
+			"signifdigits":{"PTSDF":2},
+			"units":{"PTSDF":"(facility/km)"} 		
+			}
+	},
+	B_UST: {
+		description: "Underground Storage Tanks",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underground Storage Tanks",
+		txtname: "T_UST",
+		idfldname: "T_DEMOGIDX_2,UST,T_UST",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicatores: Underground Storage Tanks - UST facilities/square km",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"UST":"score","T_UST":"percentile"},
+			"aliasnew":{"UST":"Underground Storage Tanks"}, 
+			"signifdigits":{"UST":2},
+			"units":{"UST":"(count/km2)"} 		
+			}
+	},
+	B_PWDIS: {
+		description: "Wastewater Discharge",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wastewater Discharge",
+		txtname: "T_PWDIS",
+		idfldname: "T_DEMOGIDX_2,PWDIS,T_PWDIS",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Wastewater Discharge - Toxicity-weighted concentration/meter distance",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"PWDIS":"score","T_PWDIS":"percentile"},
+			"aliasnew":{"PWDIS":"Wastewater Discharge"}, 
+			"signifdigits":{"PWDIS":2},
+			"units":{"PWDIS":" (toxicity-weighted concentration/m)"} 		
+			}
+	},
+	B_DWATER: {
+		description: "Drinking Water Non-Compliance",
+		legendtitle:
+			"Environmental Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drinking Water Non-Compliance",
+		txtname: "T_DWATER",
+		idfldname: "T_DEMOGIDX_2,DWATER,T_DWATER",
+		cat: "P_ENV",
+		hovertext:
+			"Environmental Indicators: Drinking Water Non-Compliance",
+		category: "P_ENV",
+		formatter: {			
+			"suffixtext":{"T_DWATER":"percentile"},
+			"aliasnew":{"DWATER":"Drinking Water Non-Compliance","T_DWATER":"Drinking Water Non-Compliance"}, 
+			"signifdigits":{"DWATER":2},
+			"units":{"DWATER":" (points)"} 		
+			}
+	},
+	B_DEMOGIDX_2: {
+		description: "Demographic Index",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographic Index",
+		txtname: "T_DEMOGIDX_2",
+		idfldname:
+			"T_DEMOGIDX_5,DEMOGIDX_2,T_DEMOGIDX_2",
+		cat: "P_DEM",
+		hovertext:
+			"Demographic Indicators: Demographic Index - Combination of percent low-income and percent minority",
+		category: "P_DEM",
+		formatter: {			
+			"suffixtext":{"DEMOGIDX_2":"score","T_DEMOGIDX_2":"percentile"},
+			"aliasnew":{"DEMOGIDX_2":"Demographic Index"},
+			"roundplaces":{"DEMOGIDX_2":2}
+							
+			}
+	},
+	B_DEMOGIDX_5: {
+		description: "Demographic Index",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographic Index",
+		txtname: "T_DEMOGIDX_5",
+		idfldname:
+			"T_DEMOGIDX_2,DEMOGIDX_5,T_DEMOGIDX_5",
+		cat: "P_DEM",
+		hovertext:
+			"Demographic Indicators: Demographic Index - Combination of percent low-income and percent minority",
+		category: "P_DEM",
+		formatter: {			
+			"suffixtext":{"DEMOGIDX_5":"score","T_DEMOGIDX_5":"percentile"},
+			"aliasnew":{"DEMOGIDX_5":"Supplemental Demographic Index"},
+			"roundplaces":{"DEMOGIDX_5":2}			
+			}
+	},
+	B_PEOPCOLORPCT: {
+		description: "People of Color",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;People of Color",
+		txtname: "T_PEOPCOLORPCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,PEOPCOLORPCT,T_PEOPCOLORPCT",		
+		cat: "P_DEM",
+		hovertext:
+			"Demographic Indicators: People of Color - All people except for Non-Hispanic white as defined by the U.S. Census",
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"PEOPCOLORPCT":"Percent"},		
+			"suffixtext":{"T_PEOPCOLORPCT":"percentile"},
+			"aliasnew":{"PEOPCOLORPCT":"people of color"}, 
+			"ispercent":{"PEOPCOLORPCT":true},	
+			"multiplier":{"PEOPCOLORPCT":100},	
+			"pctsign":{"PEOPCOLORPCT":"%"}	
+			}
+	},
+	B_LOWINCPCT: {
+		description: "Low Income",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Low Income",
+		txtname: "T_LOWINCPCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,LOWINCPCT,T_LOWINCPCT",
+		cat: "P_DEM",
+		hovertext:
+			"Demographic Indicators: Low Income - Individuals whose income is less than two times the poverty level",
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"LOWINCPCT":"Percent"},		
+			"suffixtext":{"T_LOWINCPCT":"percentile"},
+			"aliasnew":{"LOWINCPCT":"low income"}, 
+			"ispercent":{"LOWINCPCT":true},
+			"multiplier":{"LOWINCPCT":100},	
+			"pctsign":{"LOWINCPCT":"%"}				
+			}
+	},
+	B_LINGISOPCT: {
+		description: "Limited English Speaking",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Limited English Speaking",
+		txtname: "T_LINGISOPCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,LINGISOPCT,T_LINGISOPCT",
+		cat: "P_DEM",
+		hovertext:
+			'Demographic Indicators: Limited English Speaking - Households in which no one over age 14 speaks English "very well"',
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"LINGISOPCT":"Percent"},		
+			"suffixtext":{"T_LINGISOPCT":"percentile"},
+			"aliasnew":{"LINGISOPCT":"limited english speaking"}, 
+			"ispercent":{"LINGISOPCT":true},
+			"multiplier":{"LINGISOPCT":100},	
+			"pctsign":{"LINGISOPCT":"%"}				
+			}
+	},
+	B_LESSHSPCT: {
+		description: "Less Than High School Education",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Less Than High School Education",
+		txtname: "T_LESSHSPCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,LESSHSPCT,T_LESSHSPCT",
+		cat: "P_DEM",
+		hovertext:
+			"Demographic Indicators: Less Than High School Education - Individuals age 25 and over with less than high school degree",
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"LESSHSPCT":"Percent"},		
+			"suffixtext":{"T_LESSHSPCT":"percentile"},
+			"aliasnew":{"LESSHSPCT":"less than high school education"}, 
+			"ispercent":{"LESSHSPCT":true},
+			"multiplier":{"LESSHSPCT":100},	
+			"pctsign":{"LESSHSPCT":"%"}			
+			}
+	},
+	B_UNDER5PCT: {
+		description: "Under Age 5",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Under Age 5",
+		txtname: "T_UNDER5PCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,UNDER5PCT,T_UNDER5PCT",
+		cat: "P_DEM",
+		hovertext: "Demographic Indicators: Population under Age 5",
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"UNDER5PCT":"Percent"},		
+			"suffixtext":{"T_UNDER5PCT":"percentile"},
+			"aliasnew":{"UNDER5PCT":"under age 5"}, 
+			"ispercent":{"UNDER5PCT":true},
+			"multiplier":{"UNDER5PCT":100},	
+			"pctsign":{"UNDER5PCT":"%"}			
+			}
+	},
+	B_OVER64PCT: {
+		description: "Over Age 64",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Over Age 64",
+		txtname: "T_OVER64PCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,OVER64PCT,T_OVER64PCT",
+		cat: "P_DEM",
+		hovertext: "Demographic Indicators: Population over Age 64",
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"OVER64PCT":"Percent"},		
+			"suffixtext":{"T_OVER64PCT":"percentile"},
+			"aliasnew":{"OVER64PCT":"over age 64"}, 
+			"ispercent":{"OVER64PCT":true},
+			"multiplier":{"OVER64PCT":100},	
+			"pctsign":{"OVER64PCT":"%"}				
+			}
+	},
+	B_DISABILITYPCT: {
+		description: "Persons with Disabilities",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Persons with Disabilities",
+		txtname: "T_DISABILITYPCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,DISABILITYPCT,T_DISABILITYPCT",
+		cat: "P_DEM",
+		hovertext: "Demographic Indicators: Persons with Disabilities",
+		category: "P_DEM",
+		formatter: {	
+			"prefixtext":{"DISABILITYPCT":"Percent"},		
+			"suffixtext":{"T_DISABILITYPCT":"percentile"},
+			"aliasnew":{"DISABILITYPCT":"persons with disabilities","T_DISABILITYPCT":"Persons with Disabilities"}, 
+			"ispercent":{"DISABILITYPCT":true},
+			"multiplier":{"DISABILITYPCT":100},	
+			"pctsign":{"DISABILITYPCT":"%"}				
+			}
+	},
+	B_UNEMPPCT: {
+		description: "Unemployment Rate",
+		legendtitle:
+			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unemployment Rate",
+		txtname: "T_DISABILITYPCT",
+		idfldname:
+			"T_DEMOGIDX_5,T_DEMOGIDX_2,UNEMPPCT,T_UNEMPPCT",
+		cat: "P_DEM",
+		hovertext: "Demographic Indicators: Unemployment Rate",
+		category: "P_DEM",
+		formatter: {	
+			//"prefixtext":{"UNEMPPCT":"Percent"},		
+			"suffixtext":{"T_UNEMPPCT":"percentile"},
+			"aliasnew":{"UNEMPPCT":"Unemployment rate"}, 
+			"ispercent":{"UNEMPPCT":true},
+			"multiplier":{"UNEMPPCT":100},	
+			"pctsign":{"UNEMPPCT":"%"}				
+			}
+	},
+	B_95: {
+		description: "Over 95th Percentile",
+		legendtitle: "Over 95th Percentile",
+		txtname: "T_95",
+		idfldname:
+			"EXCEED_COUNT,T_D2_PM25,T_D2_OZONE,T_D2_DSLPM,T_D2_CANCR,T_D2_RESP,T_D2_RSEI_AIR,T_D2_LDPNT,T_D2_PTRAF,T_D2_PNPL,T_D2_PRMP,T_D2_PTSDF,T_D2_PWDIS,ID,ST_ABBREV",
+		cat: "P_MUL",
+		hovertext:
+			"Areas where at least one EJ index is at or above the 95th percentile",
+		category: "P_MUL",
+	},
+	B_90: {
+		description: "Over 90th Percentile",
+		legendtitle: "Over 90th Percentile",
+		txtname: "T_90",
+		idfldname:
+			"EXCEED_COUNT,T_D2_PM25,T_D2_OZONE,T_D2_DSLPM,T_D2_CANCER,T_D2_RESP,T_D2_RSEI_AIR,T_LDPNT_D2,T_D2_PTRAF,T_D2_PNPL,T_D2_PRMP,T_D2_PTSDF,T_D2_PWDIS,ID,ST_ABBREV",
+		cat: "P_MUL",
+		hovertext:
+			"Areas where at least one EJ index is at or above the 90th percentile",
+		category: "P_MUL",
+	},
+	B_80: {
+		description: "Over 80th Percentile",
+		legendtitle: "Over 80th Percentile",
+		txtname: "T_95",
+		idfldname:
+			"EXCEED_COUNT,T_D2_PM25,T_D2_OZONE,T_D2_DSLPM,T_D2_CANCR,T_D2_RESP,T_D2_RSEI_AIR,T_D2_LDPNT,T_D2_PTRAF,T_D2_PNPL,T_D2_PRMP,T_D2_PTSDF,T_D2_PWDIS,ID,ST_ABBREV",
+		cat: "P_MUL",
+		hovertext:
+			"Areas where at least one EJ index is at or above the 80th percentile",
+		category: "P_MUL",
+	},
+	B_75: {
+		description: "Over 75th Percentile",
+		legendtitle: "Over 75th Percentile",
+		txtname: "T_95",
+		idfldname:
+			"EXCEED_COUNT,T_D2_PM25,T_D2_OZONE,T_D2_DSLPM,T_D2_CANCR,T_D2_RESP,T_D2_RSEI_AIR,T_D2_LDPNT,T_D2,T_D2_PNPL,T_D2_PRMP,T_D2_PTSDF,T_D2_PWDIS,ID,ST_ABBREV",
+		cat: "P_MUL",
+		hovertext:
+			"Areas where at least one EJ index is at or above the 75th percentile",
+		category: "P_MUL",
+	},
+	lifeexpentancy_map: {
+		//description: "T_LIFEEXPPCT",
+		legendtitle: "Low Life Expectancy",
+		txtname: "T_LIFEEXPPCT",
+		idfldname: "ID,ST_ABBREV,T_LIFEEXPPCT,LIFEEXPPCT",
+		cat: "T_LIFEEXPPCT",
+		hovertext: "Low Life Expectancy",
+		category: "T_LIFEEXPPCT",
+		formatter: {
+			//optional format parameters
+			"suffixtext": { "LIFEEXPPCT ": "score", "T_LIFEEXPPCT": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "LIFEEXPPCT ": "Low Life Expectancy", "ST_ABBREV": "State" }, //override default alias
+			//"signifdigits":{"LIFEEXPPCT":0},//number of decimal places, if category is p_env this is used for significant digits
+			"ispercent": { "LIFEEXPPCT": true },
+			"units": { "LIFEEXPPCT": "(index)" }, //field unit of measure appended to value			
+			"multiplier": { "LIFEEXPPCT": 100 },
+		}
+	},
+
+	heartdisease_map: {
+		description: "T_HEARTDISEASE",
+		legendtitle: "Heart Disease",
+		txtname: "T_HEARTDISEASE",
+		idfldname: "ID,ST_ABBREV,T_HEARTDISEASE,HEARTDISEASE",
+		cat: "T_HEARTDISEASE",
+		hovertext:
+			"Heart Disease",
+		category: "T_HEARTDISEASE",
+		formatter: {
+			//optional format parameters
+			"suffixtext": { "HEARTDISEASE": "Prevalance", "T_HEARTDISEASE": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "HEARTDISEASE": "Heart Disease", "ST_ABBREV": "State" }, //override default alias
+			"signifdigits": { "HEARTDISEASE": 3 },//number of decimal places, if category is p_env this is used for significant digits		
+		}
+	},
+
+	asthma_map: {
+		description: "T_ASTHMA",
+		legendtitle: "Asthma",
+		txtname: "T_ASTHMA",
+		idfldname: "ID,ST_ABBREV,T_ASTHMA,ASTHMA",
+		cat: "T_ASTHMA",
+		hovertext:
+			"Asthma",
+		category: "T_ASTHMA",
+		formatter: {
+			//optional format parameters
+			"suffixtext": { "ASTHMA": "Prevalance", "T_ASTHMA": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "ASTHMA": "Asthma", "ST_ABBREV": "State" }, //override default alias
+			"signifdigits": { "ASTHMA": 3 },
+		}
+	},
+
+
+	cancer_map: {
+		description: "T_CANCER",
+		legendtitle: "Cancer",
+		txtname: "T_CANCER",
+		idfldname: "ID,ST_ABBREV,T_CANCER,CANCER",
+		cat: "T_CANCER",
+		hovertext: "Cancer",
+		category: "T_CANCER",
+		formatter: {
+			//optional format parameters
+			"suffixtext": { "CANCER": "Prevalance", "T_CANCER": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "CANCER ": "Cancer", "ST_ABBREV": "State" }, //override default alias
+			"signifdigits": { "CANCER": 3 },
+		}
+	},
+
+	personswithdisabilities_map: {
+		description: "T_DISABILITYPCT",
+		legendtitle: "Persons with Disabilities",
+		txtname: "T_DISABILITYPCT",
+		idfldname: "ID,ST_ABBREV,T_DISABILITYPCT,DISABILITYPCT",
+		cat: "T_DISABILITYPCT",
+		hovertext: "Persons with Disabilities",
+		category: "T_DISABILITYPCT",
+		formatter: {
+			//optional format parameters
+			"suffixtext": { "T_DISABILITYPCT": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "DISABILITYPCT": "Persons with Disabilities", "ST_ABBREV": "State" }, //override default alias
+			"signifdigits": { "DISABILITYPCT": 3 },//number of decimal places, if category is p_env this is used for significant digits
+			"multiplier": { "DISABILITYPCT": 100 },
+			"units": { "DISABILITYPCT": "%" } //field unit of measure appended to value
+		}
+	},
+	broadband_map: {
+		description: "T_LIMITEDBBPCT",
+		legendtitle: "Broadband Gaps",
+		txtname: "T_LIMITEDBBPCT",
+		idfldname: "ID,ST_ABBREV,T_LIMITEDBBPCT,LIMITEDBBPCT",
+		cat: "T_LIMITEDBBPCT",
+		hovertext: "Broadband Gaps",
+		category: "T_LIMITEDBBPCT",
+		formatter: {
+			//optional format parameters
+			"suffixtext": {"T_LIMITEDBBPCT": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "LIMITEDBBPCT": "Broadband Gaps", "ST_ABBREV": "State" }, //override default alias
+			//"signifdigits":{"LIMITEDBBPCT":2},//number of decimal places, if category is p_env this is used for significant digits
+			"units": { "LIMITEDBBPCT": "% households" }, //field unit of measure appended to value	
+			"roundplaces": { "LIMITEDBBPCT": 0 }
+		}
+	},
+
+	nohealthinsurance_map: {
+		description: "T_NOHINCPCT",
+		legendtitle: "Lack of Health Insurance",
+		txtname: "T_NOHINCPCT",
+		idfldname: "ID,ST_ABBREV,T_NOHINCPCT,NOHINCPCT",
+		cat: "T_NOHINCPCT",
+		hovertext: "Lack of Health Insurance",
+		category: "T_NOHINCPCT",
+		formatter: {
+			//optional format parameters
+			"suffixtext": { "NOHINCPCT ": "score", "T_NOHINCPCT": "percentile" },//text appended to alias, can be suffixtext or prefixtext
+			"aliasnew": { "ID": "Blockgroup ID", "NOHINCPCT": "Lack of Health Insurance", "ST_ABBREV": "State" }, //override default alias
+			//"signifdigits":{"NOHINCPCT":2},//number of decimal places, if category is p_env this is used for significant digits
+			"units": { "NOHINCPCT": "% persons" },//field unit of measure appended to value		
+			"roundplaces": { "NOHINCPCT": 0 }
+		}
+	},
+};
+
+//end id obj
+
+
+        var catJson = {};
+        var ejreporturl = "EJSCREEN_mobile.aspx";
+        require(["dojo",
+            "esri/Map",
+            "esri/Basemap",
+            "esri/views/MapView",
+            "esri/views/SceneView",
+            "esri/widgets/Search",
+            "esri/widgets/Legend",
+            "esri/widgets/LayerList",
+            "esri/core/watchUtils",
+            "esri/layers/GraphicsLayer",
+            "esri/Graphic",
+            "esri/geometry/Point",
+            "esri/Viewpoint",
+            "esri/widgets/Sketch/SketchViewModel",
+            "esri/tasks/QueryTask",
+            "esri/tasks/support/Query",
+            "esri/geometry/support/webMercatorUtils",
+            "dojo/query",
+            "dojo/on",
+            "dojo/dom-class",
+            "mapdijit/MapEJIndexMoile_v4",
+            "mapdijit/reportPanel_v4",
+            // Calcite-maps
+            "mapdijit/calcitemaps-v0.5",
+            "mapdijit/calcitemaps-arcgis-support-v0.5",
+
+            // Bootstrap
+            "bootstrap/Collapse",
+            "bootstrap/Dropdown",
+            "bootstrap/Tab",
+            "bootstrap/Modal",
+            "dojo/domReady!"
+        ], function (
+            dojo,
+            Map,
+            Basemap,
+            MapView,
+            SceneView,
+            Search,
+            Legend,
+            LayerList,
+            watchUtils,
+            GraphicsLayer,
+            Graphic,
+            Point,
+            Viewpoint,
+            SketchViewModel,
+            QueryTask,
+            QueryParameters,
+            webMercatorUtils,
+            query,
+            on,
+            domClass,
+            MapEJIndexMoile_v4,
+            reportPanel,
+            CalciteMaps,
+            CalciteMapsArcGIS
+        ) {
+
+            // App
+            app = {
+                zoom: 4,
+                center: [-80, 42],
+                basemap: "gray",
+                viewPadding: {
+                    top: 2,
+                    bottom: 0
+                },
+                uiPadding: {
+                    top: 15,
+                    bottom: 15
+                },
+                map: null,
+                mapView: null,
+                sceneView: null,
+                activeView: null,
+                searchWidgetNav: null,
+                containerMap: "mapViewDiv",
+                containerScene: "sceneViewDiv"
+            };
+            var ejscreenfields = ["T_LOWINCPCT", "T_PEOPCOLORPCT", "ID", "ST_ABBREV", "ACSTOTPOP", "CNTY_NAME"];
+            var ejscreenSuppfields = ["T_LOWINCPCT", "T_LIFEEXPPCT", "T_UNEMPPCT", "T_LESSHSPCT", "T_LINGISOPCT", "ID", "ST_ABBREV", "ACSTOTPOP", "CNTY_NAME"];
+            var ejscreenSuppfields = ["T_LOWINCPCT", "T_LIFEEXPPCT", "T_UNEMPPCT", "T_LESSHSPCT", "T_LINGISOPCT", "ID", "ST_ABBREV", "ACSTOTPOP", "CNTY_NAME"];
+            var ejscreenPollfields = ["T_LOWINCPCT", "T_PEOPCOLORPCT", "ID", "ST_ABBREV", "ACSTOTPOP", "CNTY_NAME"];
+            var ejscreenSocioEcofields = ["ID", "ST_ABBREV", "ACSTOTPOP", "CNTY_NAME"];
+
+            //for EJ and EJSupp
+
+            var pointsym = {
+                type: "picture-marker", // autocasts as new PictureMarkerSymbol()
+                url: path_location + "/images/googlepin.png",
+                width: "22px",
+                height: "40px"
+            };
+            var polysym = {
+                type: "simple-fill", // autocasts as new SimpleMarkerSymbol()
+                color: "rgba(0,255,255, 0)",
+                style: "solid",
+                outline: {
+                    color: "rgba(0,255,255, 1)",
+                    width: 1
+                }
+            };
+
+            // Map
+            app.map = new Map({
+                basemap: app.basemap
+            });
+            var bufferlayer = new GraphicsLayer({
+                id: "bufferLayer",
+                title: "Buffer"
+            });
+            app.map.add(bufferlayer);
+            var highlightlayer = new GraphicsLayer({
+                id: "graphicLayer_highlight",
+                title: "Location"
+            });
+            app.map.add(highlightlayer);
+            highlightlayer.on("click", function (e) {
+                console.log("click on graphic");
+                var g = e.graphic;
+                showInfoWin(g);
+            });
+
+            // 2D View
+            app.mapView = new MapView({
+                container: app.containerMap, // activate
+                map: app.map,
+                zoom: app.zoom,
+                center: app.center,
+                padding: app.viewPadding,
+                ui: {
+                    components: ["zoom", "attribution"],
+                    padding: app.uiPadding
+                }
+            });
+            app.mapView.ui.move("zoom", "top-right");
+
+            // 3D View
+            app.sceneView = new SceneView({
+                container: null, // deactivate
+                map: app.map,
+                zoom: app.zoom,
+                center: app.center,
+                padding: app.viewPadding,
+                ui: {
+                    padding: app.uiPadding
+                }
+            });
+
+            // Active view is scene
+            setActiveView(app.mapView);
+            app.activeView.when(function () {
+                app.activeView.on("click", function (event) {
+                    app.activeView.hitTest(event)
+                        .then(function (response) {
+                            // do something with the result graphic
+                            if (response.results.length > 0) {
+                                var g = response.results[0].graphic;
+                                if (g.layer.id == "graphicLayer_highlight") {
+                                    showInfoWin(g);
+                                } else {
+                                    clickAction(event);
+                                }
+                            } else {
+                                clickAction(event);
+                            }
+                        });
+                });
+                getLocation();
+
+            }, function (error) {
+                console.log("load view failed.")
+            });
+            // Create search widget
+            app.searchWidgetNav = new Search({
+                container: "searchNavDiv",
+                view: app.activeView,
+                popupEnabled: false,
+                resultGraphicEnabled: false
+            });
+            app.searchWidgetNav.on("search-complete", function (response) {
+                //console.log("in search result")
+                highlightlayer.graphics.removeAll();
+                var eachresult = response.results;
+                if (eachresult.length > 0) {
+                    var robj = eachresult[0].results[0];
+                    var geom = robj.feature.geometry;
+
+                    var graphic = new Graphic({
+                        geometry: geom,
+                        attributes: robj.feature.attributes,
+                        symbol: pointsym
+                    });
+
+                    highlightlayer.graphics.add(graphic);
+                    showInfoWin(graphic);
+
+                }
+
+            });
+
+            // Legend
+            var legendWidget = new Legend({
+                container: "legendDiv",
+                view: app.activeView
+            });
+
+            // LayerList
+            var layerWidget = new LayerList({
+                container: "layersDiv",
+                view: app.activeView
+            });
+            // Wire-up expand events
+            CalciteMapsArcGIS.setSearchExpandEvents(app.searchWidgetNav);
+            CalciteMapsArcGIS.setPopupPanelSync(app.mapView);
+            CalciteMapsArcGIS.setPopupPanelSync(app.sceneView);
+
+            // Menu UI - change Basemaps
+            query("#selectBasemapPanel").on("change", function (e) {
+                app.mapView.map.basemap = e.target.options[e.target.selectedIndex].dataset.vector;
+                app.sceneView.map.basemap = e.target.value;
+            });
+
+            // Tab UI - switch views
+            query(".calcite-navbar li a[data-toggle='tab']").on("click", function (e) {
+                if (e.target.text.indexOf("Map") > -1) {
+                    syncViews(app.sceneView, app.mapView);
+                    setActiveView(app.mapView);
+                } else {
+                    syncViews(app.mapView, app.sceneView);
+                    setActiveView(app.sceneView);
+                }
+                syncSearch(app.activeView);
+            });
+            query("#myonoffswitch").on("click", function (e) {
+                if (e.target.checked) {
+                    if (app.map.findLayerById("ejindex_map")) app.map.findLayerById("ejindex_map").visible = true;
+                } else {
+                    if (app.map.findLayerById("ejindex_map")) app.map.findLayerById("ejindex_map").visible = false;
+                }
+            });
+            var ejwidget = new MapEJIndexMoile_v4({
+                map: app.map,
+                //indextype: ejtype,
+                id: 'ejmapwg'
+            }, 'ejdiv');
+            ejwidget.startup();
+            // Views
+            function syncViews(fromView, toView) {
+                var viewPt = fromView.viewpoint.clone();
+                fromView.container = null;
+                if (fromView.type === "3d") {
+                    toView.container = app.containerMap;
+                } else {
+                    toView.container = app.containerScene;
+                }
+                toView.viewpoint = viewPt;
+                toView.padding = app.viewPadding;
+            }
+
+            // Search Widget
+            function syncSearch(view) {
+                app.searchWidgetNav.view = view;
+                if (app.searchWidgetNav.selectedResult) {
+                    watchUtils.whenTrueOnce(view, "ready", function () {
+                        app.searchWidgetNav.autoSelect = false;
+                        app.searchWidgetNav.search(app.searchWidgetNav.selectedResult.name);
+                        app.searchWidgetNav.autoSelect = true;
+                    });
+                }
+            }
+
+            // Active view
+            function setActiveView(view) {
+                app.activeView = view;
+            }
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    document.getElementById("locdiv").innerHTML = "Geolocation is not supported by this browser.";
+
+                }
+            }
+
+            function showPosition(position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+
+                var location = {
+                    type: "point", // autocasts as new Point()
+                    longitude: Number(lon),
+                    latitude: Number(lat),
+                    spatialReference: {
+                        wkid: 4326
+                    }
+                };
+                var viewpoint = new Viewpoint({
+                    targetGeometry: location,
+                    scale: 10000
+                });
+                /* app.activeView.goTo({
+                  center: [Number(lon),Number(lat)],
+                  zoom: 12
+                }); */
+                //app.activeView.goTo(viewpoint);
+
+                var graphic = new Graphic({
+                    geometry: location,
+                    symbol: pointsym
+                });
+
+                highlightlayer.graphics.add(graphic);
+
+
+                graphic.attributes = {
+                    "Match_addr": lat.toFixed(5) + ", " + lon.toFixed(5)
+                }
+                showInfoWin(graphic);
+
+            }
+
+            function showError(error) {
+                var errstr = "";
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        errstr = "User denied the request for Geolocation."
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errstr = "Location information is unavailable."
+                        break;
+                    case error.TIMEOUT:
+                        errstr = "The request to get user location timed out."
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        errstr = "An unknown error occurred."
+                        break;
+                }
+                console.log(errstr);
+
+            }
+
+            function showInfoWin(g) {
+                if (dijit.registry.byId("infowg")) {
+
+                    if (dijit.byId("infowg").inGraphic == g) {
+                        var panel1 = query("#panelReport");
+                        if (!(domClass.contains(panel1[0], "in"))) showpanel("#panelReport");
+                        return false;
+                    } else {
+                        dijit.byId("infowg").destroy();
+                        dijit.registry.remove("infowg");
+                    }
+
+
+                }
+                dojo.create("div", {
+                    id: 'tempej'
+                }, "reportDiv");
+                var infowidget = new reportPanel({
+                    map: app.map,
+                    inGraphic: g,
+                    id: 'infowg'
+                }, "tempej");
+                infowidget.startup();
+
+                var panel1 = query("#panelReport");
+                if (!(domClass.contains(panel1[0], "in"))) showpanel("#panelReport");
+
+
+            }
+
+            function showpanel(panid) {
+                var panel = query(panid);
+                var panelBody = query(panel).query(".panel-collapse");
+
+                if (!domClass.contains(panel[0], "in")) {
+                    // Close panels
+                    panels = query(panel).parent().query(".panel.in");
+                    panels.collapse("hide");
+                    // Close bodies
+                    query(panels).query(".panel-collapse").collapse("hide");
+                    // Show panel
+                    panel.collapse("show");
+                    // Show body
+                    query(panelBody[0]).collapse("show");
+                } else { // Re-show
+                    panel.removeClass("in");
+                    query(panelBody[0]).removeClass("in");
+                    panel.collapse("show");
+                    query(panelBody[0]).collapse("show");
+                }
+            }
+
+            function isLocationPanel() {
+                var isloc = false;
+                var panel = query("#panelLocation");
+
+                var panel1 = query("#panelReport");
+
+
+                if ((domClass.contains(panel[0], "in")) || (domClass.contains(panel1[0], "in"))) {
+                    isloc = true;
+                }
+                return isloc;
+            }
+
+            function clickAction(e) {
+                var yesorno = isLocationPanel();
+
+                if (yesorno) {
+                    addLocation(e);
+                } else {
+                    executeIdentifyTask(e);
+                }
+            }
+
+            function addLocation(evt) {
+
+                var pnt = evt.mapPoint;
+                highlightlayer.graphics.removeAll();
+                var graphic = new Graphic({
+                    geometry: pnt,
+                    symbol: pointsym
+                });
+
+                highlightlayer.graphics.add(graphic);
+                geometry = webMercatorUtils.webMercatorToGeographic(pnt);
+                graphic.attributes = {
+                    "Match_addr": geometry.y.toFixed(5) + ", " + geometry.x.toFixed(5)
+                }
+                showInfoWin(graphic);
+            }
+
+            function executeIdentifyTask(evt) {
+                var feat;
+		        var template;
+		        var pctpattern = /^pct_/i;
+                var formatObj= {};
+                var countyName = "";
+                var stateName = "";
+                if (app.activeView.map.findLayerById("ejindex_map")) {
+                    var lyr = app.activeView.map.findLayerById("ejindex_map");
+
+                    if (lyr.visible) {
+                        var j = lyr.renderIndex;
+                        var qurl = lyr.url + "/" + j;
+                        var renderfield = lyr.renderField;
+                        var ltype = lyr.layerType;
+                        var outfields = [];
+
+                        for (var afld in dynamicJSON[ltype].headerfields) {
+                            outfields.push(afld);
+                        }
+                        /* var idfldfield = catJson[lyr.cat][renderfield].idfldname;
+                 
+                         // var idfldfield = ejIdentifyJSON[renderfield].idfldname;
+                         var ejcat = catJson[lyr.cat][renderfield].catdesc;
+                 
+                         //var ejcat = ejIdentifyJSON[renderfield].catdesc;
+                         var idflds = idfldfield.split(",");
+                 
+                         for (var m = 0; m < idflds.length; m++) {
+                             var textfield = idflds[m];
+                             if (!(checkArray(textfield, outfields))) {
+                                 if (lyr.cat == "P_EJ2" || lyr.cat == "P_EJ2SUPP") {
+                                     if (textfield.includes("_D2")) {
+                                         var pctileField = textfield.replace("_D2", "");
+                                         outfields.push(pctileField);
+                                     }
+                                 }
+                                 //pushes the fields at the beginning to show the requried order
+                                 outfields.unshift(textfield);
+                             }
+                         }*/
+
+                        //var queryTask = new QueryTask(qurl);
+                        var idfieldsave = "";
+                        //idTaskAry.push(queryTask);
+                        if (ltype == "ejscreen" || ltype == "ejscreen_supp" || ltype == "ejscreen_multi") {
+
+                            var idfldfield = identifyJSON[renderfield].idfldname;
+                            var idflds = idfldfield.split(",");
+                            //8/4/21 now want to show main stat at top of popus vs bottom. Currently stored in lookup table in reverse order.
+                            //if ejscreen, reverse the array for now, if this is fixed in table remove this line.
+                            //ejscreen_multi is coming from config so that's not affected
+                            if (ltype == "ejscreen" || ltype == "ejscreen_supp") {
+                                idflds.reverse();
+                            }
+                            //end reverse fix
+                            //save id field for next step, capture first in list
+                            idfieldsave = idflds[0];
+                            for (var m = 0; m < idflds.length; m++) {
+                                var textfield = idflds[m];
+                                if (!checkArray(textfield, outfields)) {
+                                    outfields.push(textfield);
+                                }
+                            }
+                        } else {
+                            if (!checkArray(renderfield, outfields)) {
+                                outfields.push(renderfield);
+                            }
+                        }
+
+                        //don't add footer fields to socio layers since they come from lookup table and cause duplicates
+                        //RW 2/6/24 added T_DEMOGIDX_5 to list to remove duplicates. 4/24/24, moved to config and added new disability
+                        var footerSkipAry = footerSkipAryConfig;
+                        for (var afld in dynamicJSON[ltype].footerfields) {
+                            if (!(footerSkipAry.includes(idfieldsave))) {
+                                outfields.push(afld);
+                            }
+                        }
+
+                        //push fields that will be used in title header
+                        for (var afld in dynamicJSON[ltype].titlefields) {
+                            outfields.push(afld);
+                        }
+
+                        if (ltype == "ejscreen") {
+                            if (idfieldsave.includes("_D2")) {
+                                var pctileField = idfieldsave.replace("_D2", "");
+                                outfields.push(pctileField);
+                            }
+
+                        } else if (ltype == "ejscreen_supp") {
+                            if (idfieldsave.includes("_D5")) {
+                                var pctileField = idfieldsave.replace("_D5", "");
+                                outfields.push(pctileField);
+                            }
+                        }
+                        //if EJ type pass config obj for current render to handler
+                        if (ltype == "ejscreen"||ltype == "ejscreen_supp") {
+                            formatObj = identifyJSON[renderfield];
+                        }
+
+                        var firstElment = outfields[0];
+                        if (lyr.cat == "P_DEM") {
+                            firstElment = idflds[idflds.length - 1];
+                        }
+
+                        var queryTask = new QueryTask({
+                            url: qurl
+                        });
+                        var query = new QueryParameters();
+
+                        query.returnGeometry = true;
+                        query.geometry = evt.mapPoint;
+                        query.outFields = outfields;
+                        var pctlevel = lyr.pctlevel;
+                        queryTask.execute(query).then(function (response) {
+                            var results = response;
+                            var fetcount = results.features.length;
+                            for (var m = 0; m < fetcount; m++) {
+                                feat = results.features[m];
+
+                                var topstr = "";
+                                var templatestr = "<table border='1'>";
+                                for (var k = 0; k < results.fields.length; k++) {
+                                    var fldobj = results.fields[k];
+                                    var prop = fldobj.name;
+                                    var falias = fldobj.alias
+                                
+                                if (dynamicJSON[ltype].footerfields[prop] && dynamicJSON[ltype].usefooteralias == true) {
+                                    falias = dynamicJSON[ltype].footerfields[prop];
+                                }
+
+                                var fldvalue = feat.attributes[prop];
+                                if (fldvalue == null) fldvalue = "N/A";
+                                if (
+                                    (pctpattern.test(prop) || prop == "POP_DEN") &&
+                                    typeof fldvalue == "number"
+                                ) {
+                                    fldvalue = fldvalue.toFixed(2);
+                                }
+
+                                var fldvalue = feat.attributes[prop];
+                                      if (fldvalue == null) fldvalue = "N/A";
+                                      var excludeFromDisplay = ['ID', 'ST_ABBREV', 'ACSTOTPOP', 'CNTY_NAME','STATE_NAME'];
+                  
+                                      if (falias == 'CNTY_NAME') {
+                                          countyName = fldvalue + ",";
+                                      }
+                                      if (falias == 'ST_ABBREV') {
+                                          stateName = fldvalue;
+                                      }
+                                      if (falias == 'ACSTOTPOP') {
+                                          if (typeof fldvalue === 'number') {
+                                           fldvalue = fldvalue.toLocaleString("en-US");
+                                         }
+                                          dojo.byId("populationDisplay").innerHTML = "Population: " + fldvalue;
+                                      }
+                                      
+                                      if (countyName.length == 0) {
+                                            dojo.byId("locationDisplay").innerHTML = "State: " + stateName;
+                                      } else if (countyName.length > 0) {
+                                            dojo.byId("locationDisplay").innerHTML = countyName + " " + stateName;
+                                      }
+                                     
+                                      if (pctlevel == "state") {
+                                        dojo.byId("percentileDisplay").innerHTML = "State Percentile";
+                                      } else {
+                                        dojo.byId("percentileDisplay").innerHTML = "US Percentile";
+                                     }
+                  
+                                    //   if (!excludeFromDisplay.includes(falias)) {
+                                    //       var sty = "font-weight: normal";
+                                    //       if (prop == firstElment) {
+                                    //           sty = "font-weight: bold";
+                                    //       }
+                                    //       templatestr += "<tr><td style='" + sty + ";border: 1px solid #999;' valign='top'>" + falias + ":</td><td valign='top' style='border: 1px solid #999;'>" + fldvalue + "</td></tr>";
+                                    //   }
+
+                                if ((ltype == "ejscreen" || ltype == "ejscreen_supp" || ltype == "ejscreen_multi" || ltype === "health") && !excludeFromDisplay.includes(falias)) {
+
+                                    //override default alias if set in formatter
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.aliasnew && formatObj.formatter.aliasnew[prop]) {
+                                        falias = formatObj.formatter.aliasnew[prop];
+                                    }
+                                    //append optional values to alias
+                                    //prefix text
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.prefixtext && formatObj.formatter.prefixtext[prop]) {
+                                        falias = formatObj.formatter.prefixtext[prop] + " " + falias;
+                                    }
+                                    //suffix text
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.suffixtext && formatObj.formatter.suffixtext[prop]) {
+                                        falias += " " + formatObj.formatter.suffixtext[prop];
+                                    }
+                                    //adjust pct values by multiple if needed
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.multiplier && formatObj.formatter.multiplier[prop]) {
+                                        if (typeof fldvalue === 'number') {//skip if N/A or non-numeric					
+                                            fldvalue = fldvalue * formatObj.formatter.multiplier[prop];
+                                        }
+                                    }
+                                    //format p_env using significant digit rounding to match SOE
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.signifdigits) {
+                                        if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
+                                            fldvalue = getEnvText(fldvalue, formatObj.formatter.signifdigits[prop])
+                                        }
+                                    }
+                                    //format values to round to match return from SOE
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.roundplaces) {
+                                        if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
+                                            fldvalue = fldvalue.toFixed(formatObj.formatter.roundplaces[prop]);
+                                        }
+                                    }
+                                    //format decimal places or round p_env using significant digit rounding to match SOE
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.ispercent) {
+                                        if (typeof fldvalue === 'number') {//skip if N/A or non-numeric		
+                                            fldvalue = Math.round(fldvalue);
+                                        }
+                                    }
+                                    //NOTE: do any string operations to fldvalue after above, all above assumes number, after this all are string operations.
+
+                                    //for all number values, format to show comma if > 1000
+                                    if (typeof fldvalue === 'number') {
+                                        fldvalue = fldvalue.toLocaleString("en-US");
+                                    }
+
+
+                                    //append optional units to value
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.units && formatObj.formatter.units[prop]) {
+                                        fldvalue += " " + formatObj.formatter.units[prop];
+                                    }
+
+                                    //append optional % to value
+                                    if (formatObj && formatObj.formatter && formatObj.formatter.pctsign && formatObj.formatter.pctsign[prop]) {
+                                        fldvalue += " " + formatObj.formatter.pctsign[prop];
+                                    }
+                                    //skip title fields
+                                    if (!(dynamicJSON[ltype].titlefields[prop])) {
+                                        if (k == 0) {
+                                            templatestr +=
+                                                "<tr><td style='font-weight: bold;' valign='top'>" +
+                                                falias +
+                                                ":</td><td style='font-weight: bold;white-space: nowrap;' valign='top' >" +
+                                                fldvalue +
+                                                "</td></tr>";
+                                        } else {
+                                            templatestr +=
+                                                "<tr><td style='font-weight: normal;' valign='top'>" +
+                                                falias +
+                                                ":</td><td style='font-weight: normal;white-space: nowrap;' valign='top'>" +
+                                                fldvalue +
+                                                "</td></tr>";
+
+                                        }
+                                    } else {
+                                        templatestr +=
+                                            "<tr><td style='font-weight: normal;' valign='top'>" +
+                                            falias +
+                                            ":</td><td valign='top'>" +
+                                            fldvalue +
+                                            "</td></tr>";
+                                    }
+                                   /* if (ltype == "ejscreen" || ltype == "ejscreen_supp" || ltype == "ejscreen_multi") {
+                                        if (topstr == "") {
+
+
+                                            topstr = "<div class='grid-container-popup-header'>";
+                                            if (feat.attributes["CNTY_NAME"]) {
+                                                topstr += "<div class='grid-child noWrap'>" + feat.attributes["CNTY_NAME"] + ", " + feat.attributes["ST_ABBREV"] + "</div>";
+                                            } else {
+                                                topstr += "<div class='grid-child noWrap'>" + feat.attributes["STATE_NAME"] + "</div>";
+                                            }
+
+                                            if (pctlevel == "nation") {
+                                                topstr += "<div class='grid-child noWrap'>US Percentile</div>";
+                                            } else {
+                                                topstr += "<div class='grid-child noWrap'>State Percentile</div>";
+                                            }
+
+                                            if (feat.attributes["ACSTOTPOP"]) {
+                                                topstr += "<div class='grid-child noWrap'>" + "Population: " + feat.attributes["ACSTOTPOP"] + "</div>";
+                                            }
+                                            topstr += "</div>";
+                                        }
+                                    }
+
+                                    if (!(ltype == "ejscreen" || ltype == "ejscreen_supp" || ltype == "ejscreen_multi" || ltype == "threshold" || lyType === "health")) {
+                                        topstr = falias;
+                                    }*/
+
+                                }
+                            }
+                                templatestr += "</table>";
+                               // template = new PopupTemplate();
+                               // template.title = topstr;
+
+                            }
+                            dojo.byId("querydiv").innerHTML = templatestr;
+                  
+                            var polygonGraphic = new Graphic({
+                                geometry: feat.geometry,
+                                symbol: polysym
+                            });
+            
+                            app.activeView.graphics.add(polygonGraphic);
+                            //var gextent = feat.geometry.getExtent().expand(4);
+                            //app.map.setExtent(gextent);
+                           var qpanel = dojo.query("#panelQuery");
+                           if (!(domClass.contains(qpanel[0], "in"))) showpanel("#panelQuery");
+                            app.activeView.graphics.removeAll();
+                        })
+                        /*  queryTask.execute(query).then(function (results) {
+                  
+                              var fieldAliases = {};
+                              for (var k = 0; k < results.fields.length; k++) {
+                                  var nm = results.fields[k].name;
+                                  var al = results.fields[k].alias;
+                                  fieldAliases[nm] = al;
+                              }
+                              app.activeView.graphics.removeAll();
+                              var feat;
+                              var template;
+                              var fetcount = results.features.length;
+                              var countyName = "";
+                              var stateName = "";
+                              for (var m = 0; m < fetcount; m++) {
+                  
+                                  feat = results.features[m];
+                                  var templatestr = "<table style='border: 1px solid #999; width: 100%;'>";
+                                  for (var prop in feat.attributes) {
+                                      var falias = fieldAliases[prop];
+                                      var fldvalue = feat.attributes[prop];
+                                      if (fldvalue == null) fldvalue = "N/A";
+                                      var excludeFromDisplay = ['ID', 'ST_ABBREV', 'ACSTOTPOP', 'CNTY_NAME'];
+                  
+                                      if (falias == 'CNTY_NAME') {
+                                          countyName = fldvalue + ",";
+                                      }
+                                      if (falias == 'ST_ABBREV') {
+                                          stateName = fldvalue;
+                                      }
+                                      if (falias == 'ACSTOTPOP') {
+                                          dojo.byId("populationDisplay").innerHTML = "Population: " + fldvalue;
+                                      }
+                                      if (!excludeFromDisplay.includes(falias)) {
+                                          var sty = "font-weight: normal";
+                                          if (prop == firstElment) {
+                                              sty = "font-weight: bold";
+                                          }
+                                          templatestr += "<tr><td style='" + sty + ";border: 1px solid #999;' valign='top'>" + falias + ":</td><td valign='top' style='border: 1px solid #999;'>" + fldvalue + "</td></tr>";
+                                      }
+                                  }
+                                  if (countyName.length == 0) {
+                                      dojo.byId("locationDisplay").innerHTML = "State: " + stateName;
+                                  } else if (countyName.length > 0) {
+                                      dojo.byId("locationDisplay").innerHTML = countyName + " " + stateName;
+                                  }
+                  
+                                  templatestr += "</table>";
+                                  if (pctlevel == "state") {
+                                      dojo.byId("percentileDisplay").innerHTML = "State Percentile";
+                                  } else {
+                                      dojo.byId("percentileDisplay").innerHTML = "US Percentile";
+                                  }
+                  
+                                  dojo.byId("querydiv").innerHTML = templatestr;
+                  
+                                  var polygonGraphic = new Graphic({
+                                      geometry: feat.geometry,
+                                      symbol: polysym
+                                  });
+                  
+                                  app.activeView.graphics.add(polygonGraphic);
+                                  //var gextent = feat.geometry.getExtent().expand(4);
+                                  //app.map.setExtent(gextent);
+                                  var qpanel = dojo.query("#panelQuery");
+                                  if (!(domClass.contains(qpanel[0], "in"))) showpanel("#panelQuery");
+                              }
+                  
+                          }), function (error) {
+                              console.log("error occurred when querying layer: " + error);
+                          }*/
+                    }
+                }
+            }
+  
+            function checkArray(el, ar) {
+                var ret = false;
+                for (var k = 0; k < ar.length; k++) {
+                    if (ar[k] == el) {
+                        ret = true;
+                    }
+                }
+                return ret;
+            }
+
+            function roundNumber(num, dec) {
+                   var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
+                   return result;
+               }
+
+            function getEnvText(invalue,digsig) {
+            invalue = parseFloat(invalue);
+            digsig = parseInt(digsig);
+            var invaluestr = roundNumber(invalue,0) + "";
+            var dint = invaluestr.length;
+
+            var v = 0;
+            if (invalue > 0) {
+                if (dint <= 2) {
+                    var dig = digsig - 1 - Math.floor(Math.log(Math.abs(invalue)) / Math.log(10));
+                    //v = invalue.toFixed(dig);
+                    v = roundNumber(invalue,dig);
+                    //alert(invalue + ": " + dig);
+                    //v = Math.round(invalue,digsig - 1 - (parseInt(Math.log(Math.abs(invalue))) / Math.log(10)));
+                } else {
+                var m = dint - 2;
+                    v = Math.round(invalue / Math.pow(10, m)) * Math.pow(10, m);
+                }
+            }
+            return v;
+            }
+            // document.getElementById('rptmenu').addEventListener('click', function(event) {
+            // event.preventDefault(); // Prevent default link behavior
+
+            // // Refresh the Legend widget
+            // if (legendWidget) {
+			// 	legendWidget.refresh();
+			// 	console.log('Legend refreshed successfully.'); // Add console log
+			// } else {
+			// 	console.log('Legend widget is not initialized or accessible.'); // Add console log for error handling
+			// }
+            // });
+
+        });
+    </script>
+
+</body>
+
+</html>

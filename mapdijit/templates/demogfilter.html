@@ -1,0 +1,58 @@
+<div>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr bgcolor="#235087">
+            <td align="center" style="color: White">
+                <b>Set Data Range</b>
+            </td>
+            <td align="right" onmouseover="this.style.cursor = 'pointer';">
+                <img src="images/close.gif" data-dojo-attach-event="onclick: _closeDialog">&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr><td colspan="2">
+        <a href="help/filterhelp.html" target="_blank">Click here for help</a>
+        </td></tr>
+        <tr>
+        <td colspan="2">
+        
+           <button data-dojo-attach-event="onclick: _getStatFull" value="Dataset Stats" title="Statistics based on the entire dataset" style="padding:0; font-size: 8pt;">Dataset Stats</button>
+           <button data-dojo-attach-event="onclick: _getStatBox" value="Window Stats" title="Statistics based on the current map window" style="padding:0; font-size: 8pt;">Window Stats</button>
+         </td></tr>
+       <tr>
+        <td colspan="2"><div data-dojo-attach-point="statdiv" style="background-color: #dddddd; border: 1px solid gray;"></div></td>
+        </tr>
+        <tr><td colspan="2" height="10px">
+        
+        </td></tr>
+        <tr>
+        <td align="left">From:</td>
+        <td align="right">To:</td>
+        </tr>
+       <tr>
+        <td align="left"><input type="text" value="" size="5" data-dojo-attach-point="mintextbox" data-dojo-attach-event="onchange: _movetick" /></td>
+        <td align="right"><input type="text" value="" size="5" data-dojo-attach-point="maxtextbox" data-dojo-attach-event="onchange: _movetick"/></td>
+        </tr>
+        
+        <tr>
+            <td colspan="2">
+                <div data-dojo-attach-point="pixelSlider" data-dojo-type="dojox.form.HorizontalRangeSlider" data-dojo-attach-event="onChange: _FilterByValue" data-dojo-props="showButtons:'false', intermediateChanges:'false', slideDuration:'0'" style="width: 100%;">
+                <div data-dojo-type="dijit.form.HorizontalRule"></div>
+                <div data-dojo-attach-point="pixelLabels"></div>
+              </div>
+            </td>
+        </tr>
+        <tr><td colspan="2" height="10px">
+        
+        </td></tr>
+        <tr>
+        <td colspan="2">
+        
+        <span data-dojo-attach-event="onclick: _clearFilter" title="Clear the filter" alt="Clear the filter" style="color: blue; cursor: pointer;">Reset</span>
+        </td>
+        </tr>
+        <tr><td colspan="2">
+        <span data-dojo-attach-point="filternote"></span>
+        </td></tr>
+ </table>
+ 
+</div>

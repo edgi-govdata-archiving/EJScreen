@@ -1,0 +1,251 @@
+/*.claro .dijitTabListContainer-bottom .tabStripButtonDisabled, .claro .dijitTabListContainer-top .tabStripButton  
+{
+    display: none!important;
+}*/
+.metainfo 
+{
+    position: absolute;
+    font-size: 8pt;
+    width: 200px;
+    background-color: rgb(240, 248, 254);
+	border: 1px solid rgb(167, 218, 245);
+    padding: 2px 2px 2px 4px;
+    
+}
+.infoContent 
+{
+    background-color: #E1EBF4; 
+    margin-top: 4px; 
+    padding: 4px 4px 4px 4px; 
+    border: 1px solid #999; 
+    font-family: Verdana;
+    font-size: 8pt;
+}
+.infoContent a
+{
+    text-decoration: none;
+}
+.indent 
+{
+    padding-left: 20px;
+}
+.toggle {background:  url(../images/plus.gif) no-repeat 0px 2px;text-decoration: none!important;}
+.toggleOff {background: url(../images/minus.gif) no-repeat 0px 2px;text-decoration: none!important;}
+
+/* #selectMultipleBtn_label{
+    padding-right: 3.6px;
+} */
+
+/* .dijitReset.dijitInline.dijitButtonNode{
+    /* padding-right: 3.6em; 
+    padding-left: 0px;
+} */
+
+.pointImage:not([src]) {        
+    /* background: url(/mapdijit/images/vecss_new.png) no-repeat 0px -499px;         */
+    background: url(../images/vecss_new.png) no-repeat 0px -499px;    
+    height: 28px;
+    width: 28px; 
+    
+}
+
+
+.pointImg{
+   
+    content: url(/mapdijit/images/pushpin.png) ;
+    height: 28px;
+          width: 28px;
+}
+.pointTool
+{
+	  WIDTH: 240px;
+      height: 21px;
+}
+/* .pointTool:hover 
+{
+	 /* BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -499px;  */
+     /* BACKGROUND: url(../images/pushpin.PNG) no-repeat; */
+   
+	 /*  WIDTH: 28px;
+
+	HEIGHT: 28px 
+
+} */
+/* .pointTool_click
+{ */
+	 /* BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -303px;  */
+     /* BACKGROUND: url(../images/pushpin.PNG) no-repeat; */
+     /* WIDTH: 100px; */
+
+	/* HEIGHT: 28px; 
+}  */
+
+.polyToolImage:not([src]) {        
+    /* background: url(/mapdijit/images/vecss_new.png) no-repeat 0px -583px;;   */
+    background: url(../images/vecss_new.png) no-repeat 0px -583px;;  
+    height: 28px;
+    width: 28px;   
+ }
+/* .pointTool
+{
+	BACKGROUND: url(../images/pushpin.PNG) no-repeat;
+    WIDTH: 35px;
+
+	HEIGHT: 30px
+
+}
+.pointTool:hover 
+{
+	
+    BACKGROUND: url(../images/pushpin.PNG) no-repeat;
+    WIDTH: 35px;
+
+	HEIGHT: 30px
+
+
+}
+.pointTool_click
+{
+	
+    BACKGROUND: url(../images/pushpin.PNG) no-repeat;
+    WIDTH: 35px;
+
+	HEIGHT: 30px
+
+} */
+
+
+
+.lineToolImg{  
+    content: url(/mapdijit/images/line.png) ;
+    height: 28px;
+    width: 28px;
+}
+.lineToolImage:not([src]) {        
+    /* background: url(/mapdijit/images/vecss_new.png) no-repeat 0px -555px;;   */
+    background: url(../images/vecss_new.png) no-repeat 0px -555px;;  
+    height: 28px;
+    width: 28px;   
+ } 
+.lineTool
+{
+	/* BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -555px; */
+
+	 WIDTH: 240px; 
+      height: 21px;
+ 
+	/* HEIGHT: 28px ; */
+}
+/* .lineTool:hover
+{
+	BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -695px;
+
+	WIDTH: 28px;
+
+	HEIGHT: 28px
+} */
+
+/* .lineTool_click
+{ */
+	/* BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -387px; */
+
+	/* WIDTH: 100px; */
+
+	/* HEIGHT: 28px
+} */
+
+.polyToolImg{
+
+    content: url(/mapdijit/images/area.PNG) ;
+    WIDTH: 28px;
+	HEIGHT: 28px
+}
+
+.polyTool
+{
+	/* BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -583px; */
+	 WIDTH: 240px; 
+     height: 21px;
+ 
+	/* HEIGHT: 28px */
+} 
+/* .polyTool:hover
+{
+	BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -863px;
+
+	WIDTH: 28px;
+
+	HEIGHT: 28px
+} */
+/* .polyTool_click
+{ */
+	/* BACKGROUND: url(../images/vecss_new.png) no-repeat 0px -135px; */
+
+	/* WIDTH: 120px; */
+
+	/* HEIGHT: 28px */
+/* } */
+.boxTool
+{
+	BACKGROUND: url(../images/rectangle.png) no-repeat;
+
+	WIDTH: 28px;
+
+	HEIGHT: 28px
+}
+.boxTool:hover
+{
+	BACKGROUND: url(../images/rectangleOver.png) no-repeat;
+
+	WIDTH: 28px;
+
+	HEIGHT: 28px
+}
+.boxTool_click
+{
+	BACKGROUND: url(../images/rectangleClick.png) no-repeat;
+
+	WIDTH: 28px;
+
+	HEIGHT: 28px
+}
+.toggle {
+    background : url(../images/plus.gif) no-repeat;
+    text-decoration: none!important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border: 1px none #999999;
+    font-style: normal;
+    color: #003366;
+    font-weight: normal;
+}
+.toggleOff {
+    background : url(../images/minus.gif) no-repeat;
+    text-decoration: none!important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    border: 1px none #999999;
+    font-style: normal;
+    color: #003366;
+    font-weight: normal;
+}
+
+.arcgisSearch .searchGroup .searchInput 
+{
+    width: 180px;
+    height: 20px;
+    padding: 2px 12px 2px 12px;
+}
+.arcgisSearch .searchBtn,.arcgisSearch .searchIcon 
+{
+    padding: 2px 6px;
+}
+.arcgisSearch .searchClear 
+{
+    height: 20px;
+}
+.arcgisSearch .searchClose, .arcgisSearch .searchSpinner {
+    line-height: 20px;
+    height: 20px;
+}
+

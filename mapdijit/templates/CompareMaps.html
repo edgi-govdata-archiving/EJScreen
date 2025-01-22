@@ -1,0 +1,97 @@
+<div style="width: 520px;">
+
+    Choose a theme to map: <a id="closespan" alt="Close" title="Close" href="javascript:void(0);"
+        data-dojo-attach-event="onclick: _closePane"
+        style="float: right; color: navy; text-decoration:none; padding: 0px 4px 2px 4px; font-family: Verdana; cursor: pointer; background-color: #ccc">x</a>
+    <table>
+        <tr>
+            <td>
+                <input name="themetype" type="radio" value="ejindex" checked
+                    data-dojo-attach-event="onclick: switchtype">EJScreen Maps
+            </td>
+            <td>
+                <input name="themetype" type="radio" value="demog"
+                    data-dojo-attach-event="onclick: switchtype">Demographics
+            </td>
+            <td>
+                <input name="themetype" type="radio" value="threshold"
+                    data-dojo-attach-event="onclick: switchtype">Threshold Map
+            </td>
+            <td>
+                <input name="themetype" type="radio" value="other" data-dojo-attach-event="onclick: switchtype">Add Map
+                Service
+            </td>
+            <td>
+                <input name="themetype" type="radio" value="more" data-dojo-attach-event="onclick: switchtype">More
+            </td>
+        </tr>
+    </table>
+    <div id="themecontent" style="font-size: 10pt; padding: 5px; border: solid 1px #ccc;">
+        <div id="ejdiv" style="display:block;">
+            <form id="ejform" data-dojo-attach-point="ejformNode">
+                <input name="panid" type="hidden" value="" />
+                <input name="ejcat" value="" type="hidden" />
+                <input name="ejvar" value="" type="hidden" />
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            <table width="100%" style="font-weight: bold; font-size: 10pt;">
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="pcttype" value="nation" checked>Compare to US
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="pcttype" value="state">Compare to State
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="top" style="font-weight: bold;">
+                            Category:
+                        </td>
+                        <td>
+                            <div data-dojo-attach-point="ejTypeNode"
+                                style="width: 230px; border: 1px solid #999999; padding: 4px;"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" valign="top" style="font-weight: bold;">Variable:</td>
+                        <td>
+                            <div data-dojo-attach-point="ejListNode"
+                                style="width: 230px; border: 1px solid #999999; padding: 4px;"></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" value="Update Map" data-dojo-attach-event="onclick: _updateMap" />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td align="left" data-dojo-attach-point="metaNode"
+                            style="width: 230px; background-color: #DDDDDD;">
+
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="demogdiv" style="display:none">
+            <div id="demogwidget"></div>
+        </div>
+        <div class="thresholdOverwrite">
+            <div id="thresholdDiv" style="display:none;font-size: 9pt;">
+            </div>
+        </div>
+        <div id="otherdiv" style="display:none; width: 400px; font-size: 9pt;">
+            <div id="otherwg"></div>
+        </div>
+        <div id="morediv" style="display:none; width: 400px; font-size: 9pt;">
+            <div id="morewg"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+<div style="margin: 10px">
+	<form>
+		<div style="height: inherit">
+			<div>
+				<label style="margin: 5px">Step 1. Select type of Index:</label>
+				<div class="grid-container thresholdBottom">
+					<div class="grid-child" id="ejIndexes${widgetId}"></div>
+					<div class="grid-child" id="ejSuppIndexes${widgetId}"></div>
+				</div>
+			</div>
+			<div class="thresholdAltColor">
+				<label style="margin: 5px">Step 2. Select location:</label>
+				<div class="grid-container thresholdBottom">
+					<div class="grid-child" id="usRadio${widgetId}"></div>
+					<div class="grid-child" id="usStateRadio${widgetId}"></div>
+				</div>
+			</div>
+		</div>
+		<div>
+			<label style="margin: 5px">Step 3. Select Index percentile range:</label>
+			<div class="grid-container thresholdBottom">
+				<div class="grid-child" id="lowerBound${widgetId}">
+					<span id="lowerBoundLabel${widgetId}"></span>
+				</div>
+				<div class="grid-child" id="upperBound${widgetId}">
+					<span id="upperBoundLabel${widgetId}"></span>
+				</div>
+			</div>
+		</div>
+		<div class="thresholdAltColor">
+			<div class="thresholdBottom">
+				<label
+					>Step 4. Select number of indexes or individual Indexes (maximum 13)
+					within percentile range:
+				</label>
+				<div id="ejIndexSliderSide${widgetId}" style="margin-top: 5px"></div>
+				<div
+					id="ejIndexSliderExplaination${widgetId}"
+					style="margin-top: 20px; text-align: center"
+				></div>
+			</div>
+			<!-- <div style="margin:5px;">&nbsp;</div> -->
+			<div
+				style="font-weight: 600; text-align: center"
+				class="thresholdBottom thresholdAltColor"
+			>
+				Or
+			</div>
+			<div class="thresholdBottom">
+				
+				<div class="grid-container" id="ejCheckBoxes${widgetId}">
+					<div class="grid-child" id="leftChk${widgetId}">
+				      <div><span style="font-style:italic" id="selectAllChk${widgetId}"></span></div>
+
+					</div>
+					<div class="grid-child" id="rightChk${widgetId}"></div>
+				</div>
+			</div>
+		</div>
+		<!--<input
+			type="hidden"
+			id="userAction${widgetId}"
+			data-dojo-attach-point="userAction"
+		/> -->
+		<div
+			class="grid-container thresholdBottom"
+			id="thresholdButtons${widgetId}"
+		>
+			<input
+				class="grid-child"
+				type="button"
+				value="Add To Map"
+				id="add_${widgetId}"
+				data-dojo-attach-event="onClick:_validateInput"
+			/>
+			<input
+				class="grid-child"
+				type="button"
+				value="Reset"
+				id="reset_${widgetId}"
+				data-dojo-attach-event="onClick:_clearAll"
+			/>
+		</div>
+		
+		<div id="loadData${widgetId}" style="display:none"> Loading Data ...</div>
+		<div id="loadDataError${widgetId}" style="display:none;color:red"> Errors encountered while downloading data</div>
+		<!-- <div style="display:none" id="divCntRecords${widgetId}">
+		<a style="color: #337ab7"id="myDoc${widgetId}" href="">Download selected <span id="cntRecords${widgetId}" > </span> records.</a>
+		<a style="color: #337ab7"id="help${widgetId}" href="" target="_blank">(Field Descriptions).</a>
+		</div> -->
+	    
+		
+	</form>
+
+	<!-- <form action="https://api.edap-cluster.com/dmapservice/query/CSV?is_attachment=true" id="export-query-format" method="POST"> -->
+		<form action="${widgetCSVUrl}" id="export-query-format" method="POST">
+		<!-- <input type="hidden" name="query" value="query ejQuery {ejscreen__national_exceedances_2023(where: { p_d2_pm25: {between: {lower: 80, upper: 100}}}) { __all_columns__ }}"> -->
+		<input type="hidden" id="query${widgetId}" name="query" value="">
+		<div style="display:none" id="divCntRecords${widgetId}">
+			<a style="color: #337ab7" id="myDoc${widgetId}" href="" onclick="document.getElementById('export-query-format').submit(); return false;">Download selected <span id="cntRecords${widgetId}" > </span> records.</a>
+			<a style="color: #337ab7"id="help${widgetId}" href="" target="_blank">(Field Descriptions).</a>
+	   </div>
+		<!-- <a href="#" onclick="document.getElementById('export-query-format').submit(); return false;">Export as CSV</a> -->
+	</form> 
+</div>

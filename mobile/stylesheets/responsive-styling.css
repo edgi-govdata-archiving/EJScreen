@@ -1,0 +1,1059 @@
+/* Extra small devices 
+(smartphones, 600px wide or less) */
+@media (max-width: 350px) {
+  h1 {
+    font-size: 25px
+  }
+
+  .word-break::after {
+    content: '\a';
+    white-space: pre;
+  }
+
+  .county-state-display {
+    font-size: 24px;
+  }
+
+  #area-details {
+    font-size: 17px;
+  }
+
+  .page-1-header {
+    font-size: 15px;
+  }
+
+  .gauge-value-label {
+    font-size: 11px;
+    font-weight: normal;
+    word-wrap: word;
+  }
+
+  .enlarged-figure {
+    font-size: 19px;
+    line-height: 65px;
+  }
+
+  #household-icon {
+    height: 50px;
+    width: 50px;
+    margin: 15px 0;
+  }
+
+  #age-radial-bar-chart {
+    padding: 0;
+  }
+
+  #lingiso-table td:nth-of-type(2) {
+    min-width: 180px;
+  }
+
+  #lingiso-table td:nth-of-type(2),
+  #lingiso-table td:nth-of-type(3) {
+    font-size: 11px;
+    line-height: 21px;
+  }
+
+  h2 {
+    font-size: 19px;
+  }
+
+  .page-2-header-caption {
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .page-2-subheader-caption {
+    font-size: 15px;
+    padding-top: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  /* alt color table styling begin */
+  /* whole table */
+  .color-alt-table {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .color-alt-table-title {
+    font-size: 15px;
+  }
+
+  /* header cells */
+  .color-alt-table-header th {
+    font-weight: bolder;
+    font-size: 12px;
+    line-height: 19px;
+    padding: 2px;
+  }
+
+  /* subheader cells */
+  .color-alt-table-subheader th {
+    font-weight: bolder;
+    font-size: 10px;
+    padding: 2px;
+  }
+
+  /* every data cell */
+  .color-alt-table td {
+    font-size: 11px;
+    padding: 2px;
+  }
+
+  /* even rows */
+  .color-alt-table tr:nth-child(2n) {
+    background-color: #dfeed4;
+  }
+
+  /* 1st column */
+  .color-alt-table tr td:first-of-type {
+    text-align: left;
+
+  }
+
+  /* 2nd through last columns */
+  .color-alt-table tr td:not(:first-of-type) {
+    text-align: center;
+  }
+
+  /* alt color table styling end */
+
+  #page-3-left {
+    padding: 0 5%;
+    border-right: 2px solid black;
+  }
+
+  .h3-accent {
+    height: 4px;
+    background-color: #b1db98;
+    margin-top: -8px;
+  }
+
+  .leader-lines-table-header {
+    padding-left: 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    font-size: 15px;
+  }
+
+  .leader-lines-table {
+    margin-left: 5px;
+    width: 92%;
+    line-height: 18px;
+    font-size: 12px;
+  }
+
+  #leader-lines-table-divider-1 {
+    display: block;
+  }
+
+  #disadvantaged-info-section {
+    font-size: 14px;
+    margin: 0 3%;
+  }
+
+  .footer-text-segment {
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 25px;
+    top: 30px;
+    padding: 10px 2px 5px 2px;
+  }
+
+  .footer-accent {
+    height: 30px;
+  }
+
+  #report-summary {
+    display: none;
+  }
+
+  #navbar {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  #close-report-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  #cannot-report-msg {
+    font-size: 19px;
+  }
+}
+
+/* Extra Extra small devices 
+(small smartphones, 350px wide or less) */
+@media (min-width: 350px) {
+  h1 {
+    font-size: 25px
+  }
+
+  .word-break::after {
+    content: '\a';
+    white-space: pre;
+  }
+
+  .county-state-display {
+    font-size: 24px;
+  }
+
+  #area-details {
+    font-size: 17px;
+  }
+
+  .page-1-header {
+    font-size: 17px;
+  }
+
+  .gauge-value-label {
+    font-size: 12px;
+    font-weight: normal;
+    word-wrap: word;
+  }
+
+  .enlarged-figure {
+    font-size: 19px;
+    line-height: 60px;
+  }
+
+  #household-icon {
+    height: 50px;
+    width: 50px;
+    margin: 13px 0;
+  }
+
+  #age-radial-bar-chart {
+    padding: 0 4%;
+  }
+
+  #lingiso-table td:nth-of-type(2) {
+    min-width: 160px;
+  }
+
+  #lingiso-table td:nth-of-type(2),
+  #lingiso-table td:nth-of-type(3) {
+    font-size: 12px;
+    line-height: 21px;
+  }
+
+  h2 {
+    font-size: 21px;
+  }
+
+  .page-2-header-caption {
+    font-size: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .page-2-subheader-caption {
+    font-size: 16px;
+    padding-top: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  /* alt color table styling begin */
+  /* whole table */
+  .color-alt-table {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .color-alt-table-title {
+    font-size: 17px;
+  }
+
+  /* header cells */
+  .color-alt-table-header th {
+    font-weight: bolder;
+    font-size: 12px;
+    line-height: 19px;
+    padding: 2px;
+  }
+
+  /* subheader cells */
+  .color-alt-table-subheader th {
+    font-weight: bolder;
+    font-size: 12px;
+    padding: 2px;
+  }
+
+  /* every data cell */
+  .color-alt-table td {
+    font-size: 11px;
+    padding: 2px;
+  }
+
+  /* even rows */
+  .color-alt-table tr:nth-child(2n) {
+    background-color: #dfeed4;
+  }
+
+  /* 1st column */
+  .color-alt-table tr td:first-of-type {
+    text-align: left;
+
+  }
+
+  /* 2nd through last columns */
+  .color-alt-table tr td:not(:first-of-type) {
+    text-align: center;
+  }
+
+  /* alt color table styling end */
+
+  #page-3-left {
+    padding: 0 5%;
+  }
+
+  .h3-accent {
+    height: 4px;
+    background-color: #b1db98;
+    margin-top: -8px;
+  }
+
+  .leader-lines-table-header {
+    font-size: 15px;
+    padding-left: 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+  .leader-lines-table {
+    margin-left: 5px;
+    width: 92%;
+    line-height: 18px;
+    font-size: 14px;
+  }
+
+  #leader-lines-table-divider-1 {
+    display: block;
+  }
+
+  #disadvantaged-info-section {
+    font-size: 12px;
+    margin: 0 3%;
+  }
+
+  .footer-text-segment {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    top: 24px;
+    padding: 10px 5px 5px 5px;
+  }
+
+  .footer-accent {
+    height: 24px;
+  }
+
+  #report-summary {
+    display: none;
+  }
+
+  #navbar {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  #close-report-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  #cannot-report-msg {
+    font-size: 19px;
+  }
+}
+
+/* At 600 pixels of width or less, the 2 first page columns stack vertically */
+
+/* Small devices 
+(portrait tablets and large phones, between 601px and 767px wide) */
+@media print,
+(min-width: 601px) {
+  h1 {
+    font-size: 38px
+  }
+
+  .county-state-display {
+    font-size: 23px;
+  }
+
+  #area-details {
+    font-size: 17px;
+  }
+
+  .page-1-header {
+    font-size: 17px;
+  }
+
+  .gauge-value-label {
+    font-size: 11px;
+    font-weight: normal;
+    word-wrap: word;
+  }
+
+  .enlarged-figure {
+    font-size: 14px;
+    line-height: 60px;
+  }
+
+  #household-icon {
+    height: 34px;
+    width: 34px;
+    margin: 13px 0;
+  }
+
+  #age-radial-bar-chart {
+    padding: 0;
+  }
+
+  #lingiso-table td:nth-of-type(2) {
+    min-width: 160px;
+  }
+
+  #lingiso-table td:nth-of-type(2),
+  #lingiso-table td:nth-of-type(3) {
+    font-size: 11px;
+    line-height: 21px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  .page-2-header-caption {
+    font-size: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h3 {
+    font-size: 21px;
+  }
+
+  .page-2-subheader-caption {
+    font-size: 17px;
+    padding-top: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* alt color table styling begin */
+  /* whole table */
+  .color-alt-table {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .color-alt-table-title {
+    font-size: 18px;
+  }
+
+  /* header cells */
+  .color-alt-table-header th {
+    font-weight: bolder;
+    font-size: 13px;
+    line-height: 19px;
+    padding: 5px 5px 5px 10px;
+  }
+
+  /* subheader cells */
+  .color-alt-table-subheader th {
+    font-weight: bolder;
+    font-size: 12px;
+    padding-left: 2px;
+  }
+
+  /* every data cell */
+  .color-alt-table td {
+    font-size: 12px;
+  }
+
+  /* even rows */
+  .color-alt-table tr:nth-child(2n) {
+    background-color: #dfeed4;
+  }
+
+  /* 1st column */
+  .color-alt-table tr td:first-of-type {
+    text-align: left;
+  }
+
+  /* 2nd through last columns */
+  .color-alt-table tr td:not(:first-of-type) {
+    text-align: center;
+  }
+
+  /* alt color table styling end */
+
+  #page-3-left {
+    padding: 0 5%;
+    border-right: 2px solid black;
+  }
+
+  .h3-accent {
+    height: 4px;
+    background-color: #b1db98;
+    margin-top: -8px;
+  }
+
+  .leader-lines-table-header {
+    font-size: 15px;
+    line-height: 17px;
+    padding-left: 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+  .leader-lines-table {
+    margin-left: 5px;
+    width: 92%;
+    line-height: 18px;
+    font-size: 13px;
+  }
+
+  #leader-lines-table-divider-1 {
+    display: none;
+  }
+
+  #disadvantaged-info-section {
+    width: 75%;
+    font-size: 14px;
+    margin-left: 5%;
+  }
+
+  .footer-text-segment {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: inherit;
+  }
+
+  #navbar {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  #close-report-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  #cannot-report-msg {
+    font-size: 19px;
+  }
+}
+
+/* Medium devices 
+(landscape tablets, between 768px and 991px wide) */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 42px
+  }
+
+  #header-caption {
+    font-size: 17px;
+  }
+
+  .county-state-display {
+    font-size: 28px;
+  }
+
+  #area-details {
+    font-size: 19px;
+  }
+
+  .page-1-header {
+    font-size: 19px;
+  }
+
+  .gauge-value-label {
+    font-size: 12px;
+  }
+
+  .enlarged-figure {
+    font-size: 19px;
+    line-height: 69px;
+  }
+
+  #household-icon {
+    height: 40px;
+    width: 40px;
+    margin: 13px 0;
+  }
+
+  #age-radial-bar-chart {
+    padding: 0 10%;
+  }
+
+  #lingiso-table td:first-of-type {
+    max-width: 50px;
+  }
+
+  #lingiso-table td:nth-of-type(2),
+  #lingiso-table td:nth-of-type(3) {
+    font-size: 12px;
+    line-height: 21px;
+  }
+
+  h2 {
+    font-size: 27px;
+  }
+
+  .page-2-header-caption {
+    font-size: 17px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  .page-2-subheader-caption {
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  /* alt color table styling begin */
+  /* whole table */
+  .color-alt-table {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .color-alt-table-title {
+    font-size: 20px;
+  }
+
+  /* header cells */
+  .color-alt-table-header th {
+    font-weight: bolder;
+    font-size: 14px;
+    line-height: 19px;
+    padding: 5px 5px 5px 10px;
+  }
+
+  /* subheader cells */
+  .color-alt-table-subheader th {
+    font-weight: bolder;
+    font-size: 12px;
+    padding-left: 4px;
+  }
+
+  /* every data cell */
+  .color-alt-table td {
+    font-size: 14px;
+  }
+
+  /* even rows */
+  .color-alt-table tr:nth-child(2n) {
+    background-color: #dfeed4;
+  }
+
+  /* 1st column */
+  .color-alt-table tr td:first-of-type {
+    text-align: left;
+  }
+
+  /* 2nd through last columns */
+  .color-alt-table tr td:not(:first-of-type) {
+    text-align: center;
+  }
+
+  /* alt color table styling end */
+
+  #page-3-left {
+    padding: 0 5%;
+    border-right: 2px solid black;
+  }
+
+  .h3-accent {
+    height: 4px;
+    background-color: #b1db98;
+    margin-top: -8px;
+  }
+
+  .leader-lines-table-header {
+    font-size: 17px;
+    line-height: 19px;
+    padding-left: 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+  .leader-lines-table {
+    margin-left: 5px;
+    width: 92%;
+    line-height: 18px;
+  }
+
+  #leader-lines-table-divider-1 {
+    display: none;
+  }
+
+  #disadvantaged-info-section {
+    font-size: 14px;
+    margin-left: 5%
+  }
+
+  .footer-text-segment {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  #cannot-report-msg {
+    font-size: 19px;
+  }
+
+  #cannot-report-msg {
+    font-size: 25px;
+  }
+}
+
+/* Large devices 
+(laptops/desktops, between 992px and 1199px wide) */
+@media (min-width: 992px) {
+  h1 {
+    font-size: 48px
+  }
+
+  #header-caption {
+    font-size: 18px;
+  }
+
+  .county-state-display {
+    font-size: 34px;
+  }
+
+  #area-details {
+    font-size: 21px;
+  }
+
+  .page-1-header {
+    font-size: 21px;
+  }
+
+  .gauge-value-label {
+    font-size: 15px;
+  }
+
+  .enlarged-figure {
+    font-size: 21px;
+    line-height: 69px;
+  }
+
+  #household-icon {
+    height: 50px;
+    width: 50px;
+    margin: 13px 0;
+  }
+
+  #lingiso-table td:nth-of-type(2),
+  #lingiso-table td:nth-of-type(3) {
+    font-size: 15px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  .page-2-header-caption {
+    font-size: 17px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  h3 {
+    font-size: 23px;
+  }
+
+  .page-2-subheader-caption {
+    font-size: 18px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  /* alt color table styling begin */
+  /* whole table */
+  .color-alt-table {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .color-alt-table-title {
+    font-size: 22px;
+  }
+
+  /* header cells */
+  .color-alt-table-header th {
+    font-weight: bolder;
+    font-size: 16px;
+    line-height: 19px;
+    padding: 5px 5px 5px 10px;
+  }
+
+  /* subheader cells */
+  .color-alt-table-subheader th {
+    font-weight: bolder;
+    font-size: 13px;
+    padding-left: 10px;
+  }
+
+  /* every data cell */
+  .color-alt-table td {
+    font-size: 15px;
+  }
+
+  /* even rows */
+  .color-alt-table tr:nth-child(2n) {
+    background-color: #dfeed4;
+  }
+
+  /* 1st column */
+  .color-alt-table tr td:first-of-type {
+    text-align: left;
+    padding-left: 10px;
+  }
+
+  /* 2nd through last columns */
+  .color-alt-table tr td:not(:first-of-type) {
+    text-align: center;
+  }
+
+  /* alt color table styling end */
+
+  #page-3-left {
+    padding: 0 5%;
+    border-right: 2px solid black;
+  }
+
+  .h3-accent {
+    height: 4px;
+    background-color: #b1db98;
+    margin-top: -8px;
+  }
+
+  .leader-lines-table-header {
+    font-size: 18px;
+    padding-left: 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+  .leader-lines-table {
+    margin-left: 5px;
+    width: 92%;
+    line-height: 18px;
+  }
+
+  #leader-lines-table-divider-1 {
+    display: none;
+  }
+
+  #disadvantaged-info-section {
+    width: 50%;
+    font-size: 14px;
+    margin-left: 5%;
+  }
+
+  .footer-text-segment {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+/* Extra large devices 
+(large laptops and desktops, +1200px wide) */
+@media (min-width: 1200px) {
+  .word-break::after {
+    content: '';
+    white-space: pre;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  #header-caption {
+    font-size: 19px;
+    padding: 0 10% 30px 10%;
+  }
+
+  .county-state-display {
+    font-size: 45px;
+  }
+
+  #area-details {
+    font-size: 25px;
+  }
+
+  .page-1-header {
+    font-size: 23px;
+  }
+
+  .gauge-value-label {
+    font-size: 16px;
+  }
+
+  .enlarged-figure {
+    font-size: 23px;
+    line-height: 90px;
+  }
+
+  #household-icon {
+    height: 62px;
+    width: 62px;
+    margin: 13px 0;
+  }
+
+  #lingiso-table td:nth-of-type(2),
+  #lingiso-table td:nth-of-type(3) {
+    font-size: 17px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  .page-2-header-caption {
+    font-size: 18px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  h3 {
+    font-size: 23px;
+  }
+
+  .page-2-subheader-caption {
+    font-size: 18px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  /* alt color table styling begin */
+  /* whole table */
+  .color-alt-table {
+    width: 90%;
+    margin: 30px auto;
+  }
+
+  .color-alt-table-title {
+    font-size: 25px;
+  }
+
+  /* header cells */
+  .color-alt-table-header th {
+    font-weight: bolder;
+    font-size: 17px;
+    line-height: 19px;
+    padding: 5px 5px 5px 10px;
+  }
+
+  /* subheader cells */
+  .color-alt-table-subheader th {
+    font-weight: bolder;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+
+  /* every data cell */
+  .color-alt-table td {
+    font-size: 16px;
+  }
+
+  /* even rows */
+  .color-alt-table tr:nth-child(2n) {
+    background-color: #dfeed4;
+  }
+
+  /* 1st column */
+  .color-alt-table tr td:first-of-type {
+    padding-left: 10px;
+    text-align: left;
+  }
+
+  /* 2nd through last columns */
+  .color-alt-table tr td:not(:first-of-type) {
+    text-align: center;
+  }
+
+  /* alt color table styling end */
+
+  #page-3-left {
+    padding: 0 5%;
+    border-right: 2px solid black;
+  }
+
+  .h3-accent {
+    height: 4px;
+    background-color: #b1db98;
+    margin-top: -8px;
+  }
+
+  .leader-lines-table-header {
+    padding-left: 5px;
+    font-family: Oswald, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+
+  .leader-lines-table {
+    margin-left: 5px;
+    width: 92%;
+    line-height: 18px;
+    font-size: 15px;
+  }
+
+  .leader-lines-table-header {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 23px;
+  }
+
+  #leader-lines-table-divider-1 {
+    display: none;
+  }
+
+  #disadvantaged-info-section {
+    width: 40%;
+    font-size: 15px;
+    margin-left: 5%;
+  }
+
+  .footer-text-segment {
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  #cannot-report-msg {
+    font-size: 32px;
+  }
+}

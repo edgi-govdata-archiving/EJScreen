@@ -1,0 +1,14 @@
+<div style="margin: 4px 4px 4px 4px;">
+  Select a geography type, then click on the map to select a feature to add to the text box. When all desired features (maximum is 5 features) 
+   are added to the text box, 
+  click 'Submit' to generate report links. For city, only one city can be selected for generating reports.<br />
+  <select size="1" data-dojo-attach-event="onchange: selectgeo" data-dojo-attach-point="selgeoNode">
+
+  </select>
+  <div data-dojo-attach-point="snoteNode"></div>
+  
+  <textarea data-dojo-attach-point="fipsNode" cols="30" rows="5" disabled></textarea>
+  <br />
+  <button value="submit" name="btn"  data-dojo-attach-event="onclick: submitFIPs">Submit</button>
+  <div data-dojo-attach-point="hiddenfipsNode"  style="display:none;"></div>
+</div>

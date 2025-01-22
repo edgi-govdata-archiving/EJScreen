@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>EJScreen: Filtering Demographics</title>
+
+</head>
+
+<body style="font-family: helvetica">
+
+<h2>Mapping the census data with a user-specified data range</h2>
+<ol>
+  <p><li>Demographics layers can be filtered for a threshold that you specify. After a Census layer is added to the map, its legend will show up under Map Contents. Click on <img src="../images/filter.png" alt="Filter" title="Filter" />  to specify a data range.   <br />
+  <img src="filterlegend.png" alt="filter symbol on the legend" title="filter symbol on the legend" /></li><br/>
+  <li>
+  Two sets of the statistics are available to assist with specifying cutoffs. Click on  <img title="National Statistics" src="natstat.png" /> to obtain the statistics; including minimum, maximum, mean, and standard deviation, for the entire layer. Click on  <img title="Window Statistics" src="winstat.png" /> to obtain the statistics for the current map window. The corresponding statistics of minimum, maximum, mean, and standard deviation are computed for those features shown in the current map window. If zooming in or out, click the button to obtain the updated stats.<br />
+  <img src="filterpane.png" alt="show statistics for the layer" title="show statistics for the layer" />
+  </li><br/>
+
+  <li>The default range for the slider is set with the minimum and maximum values from the dataset statistics. To change the default values, move the slider or enter a new value in either the From or To text box. For example, to map those features that have a value greater than the mean value of 5322, move the left slider-knob to 5322 or enter the mean value in From text box. The map will refresh immediately after a new value is set, and the updated data range is shown in the legend as highlighted in red.  <br />
+  <img src="filtermap.png" alt="filter map" title="filter map" width="643"/>
+  </li><br/>
+  <li>
+  	Demographics layers are scale dependent. When the map is zoomed in/out, the mapping layer will switch between block group, tract, and county. If a cutoff is set at block group level and the map is zoomed out to tract level the cutoff will not be applied for the tract level. A cutoff will need to be set for the tract level if needed.
+  </li>
+    <br/>
+  <li>
+  To clear the data range, simply click on <b>Reset</b>. Then the map will refresh.
+  </li>
+  </ol></p>
+
+</body>
+</html>
+

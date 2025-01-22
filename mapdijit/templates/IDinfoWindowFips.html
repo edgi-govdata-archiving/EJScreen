@@ -1,0 +1,99 @@
+<div style="margin: 10px">
+    <style>
+        label{
+          margin-bottom:0px
+        }
+       .padded-td  {
+            padding: 2px; /* Add padding around the content of each table cell */
+        }
+        .fips-table{
+            margin: 0 2px;
+        }
+       
+        /* #popupSubmitBtn {
+            display: block; 
+            margin: 0 auto; 
+            padding: 5px 10px; 
+        } */
+        
+        #errSpan {
+            display: block; /* Ensure the error span takes up the full width */
+            text-align: center; /* Center the error message text */
+            margin-top: 5px; /* Add some space above the error message */
+        }
+        .radio-container {
+            margin: 10px 0;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center; /* Center items vertically */
+            cursor: pointer;
+            /*margin-bottom: 8px;*/ /* Space between each radio button */
+        }
+
+        .radio-label input[type="radio"] {
+            margin-top: 0; /* Removes default margin */
+            margin-right: 3px; /* Space between the radio button and its label text */
+            vertical-align: middle; /* Helps with fine-tuning alignment in some browsers */
+        }
+    </style>
+    <!-- <table>
+        <tr>
+            <td class="padded-td">
+                <input type="radio" id="bgradio" name="optiontype" data-dojo-attach-event="onClick: onfipschange" value="blockgroup" checked >
+                <label for="bgradio">Blockgroup</label><br>
+            </td >
+            <td class="padded-td">
+                <input type="radio" id="tractradio" name="optiontype" data-dojo-attach-event="onClick: onfipschange" value="tract" >
+                <label for="tractradio">Tract</label>
+            </td>
+        </tr>
+    </table> -->
+        <!-- <label class="radio-inline">
+            <input type="radio" id="bgradio" name="optiontype" value="blockgroup" data-dojo-attach-event="onClick: onfipschange" checked  />Blockgroup
+        </label>
+        <label class="radio-inline">
+            <input type="radio" id="tractradio" name="optiontype" value="tract" data-dojo-attach-event="onClick: onfipschange" />Tract
+        </label> -->
+        <div class="radio-container">
+            <table>
+             <tr><td><label class="radio-label">
+                 <input type="radio" id="bgradio" name="optiontype"  data-dojo-attach-event="onClick: onfipschange" value="blockgroup" checked>
+                 Blockgroup
+             </label></td><td class="padded-td"></td>
+             <td class="padded-td">
+             <label class="radio-label">
+                <input type="radio" id="tractradio" name="optiontype" data-dojo-attach-event="onClick: onfipschange" value="tract" >
+            
+                Tract
+             </label>
+           </td>
+           </tr></table>
+         </div>
+    <table class="fips-table">
+        <tr>
+            <td >
+                <label for="fipsValue"><span id="fipsId" class="radio-label">Blockgroup ID:</span></label>
+            </td>
+        </tr> 
+        <tr>
+            <td >
+                <input type="text" id="fipsValue" name="textBox">
+                <button id="popupSubmitBtn" >Search</button>
+            </td>
+        </tr>
+        <!-- <tr>
+            <td class="padded-td">
+              
+                 
+                  <button id="popupSubmitBtn" >Submit</button>
+            </td>
+        </tr> -->
+        <tr>
+            <td class="padded-td">
+                <span id="errSpan" style="color:red"></span>
+            </td>
+        </tr>
+    </table>
+</div>

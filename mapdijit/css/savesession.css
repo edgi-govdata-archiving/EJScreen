@@ -1,0 +1,35 @@
+.sessionLabel {
+    color: black;
+    cursor: pointer;
+    float: left;
+    font-family: Verdana,Helvetica,sans-serif;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin-left: 5px;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 136px;
+}
+
+.sessionEditImage {
+    background: transparent url("../images/edit.png") no-repeat scroll center center;
+    cursor: pointer;
+    float: right;
+    width: 30px;
+}
+.sessionSaveImage {
+    background: transparent url("../images/edit.png") no-repeat scroll center center;
+    cursor: pointer;
+    float: right;
+    width: 30px;
+}
+.sessionRemoveImage {
+    background: transparent url("../images/close.gif") no-repeat scroll center center;
+    cursor: pointer;
+    float: right;
+    width: 30px;
+}

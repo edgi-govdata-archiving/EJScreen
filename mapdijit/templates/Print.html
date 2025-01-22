@@ -1,0 +1,57 @@
+<div style="font-family: Tahoma,verdana; font-size: 9pt;">
+      <table>
+        <tr>
+        <td>
+        <b>Format:</b>
+                        
+        <select name="print_format" data-dojo-attach-point="pformatNode" data-dojo-attach-event="onchange:_switchFormat">
+        <option value="png32">Image</option>
+        <option value="PDF">PDF</option>
+        <option value="HTML">HTML</option>
+        </select>
+        </td>
+        </tr>
+        <tr id="printlayoutdiv" style="display: block;">
+        <td>
+        <b>Layout:</b>
+                        
+        <select name="print_layout" data-dojo-attach-point="playoutNode" data-dojo-attach-event="onchange:_switchLayout">
+        <option value="MAP_ONLY">Map only</option>
+        <option value="Letter ANSI A Landscape">Landscape (map,legend,etc.)</option>
+        <option value="Letter ANSI A Portrait" selected="true">Portrait (map,legend,etc.)</option>
+        
+        </select>
+        </td>
+        </tr>
+        <tr id="printtitlediv" data-dojo-attach-point="ptitleNode" style="display: none;">
+        <td>
+        <b>Print Title:</b>
+        <input type="text" name="print_title" data-dojo-attach-point="titleNode" value="" size="26" maxlength="100" />
+        </td>
+        </tr>
+        <tr id="printsizediv" data-dojo-attach-point="psizeNode" style="display: block;">
+        <td>
+        <b>Map Size:</b>
+                        
+        <select name="psize" data-dojo-attach-point="mapsizeNode" data-dojo-attach-event="onchange:_switchSize">
+        <option value="current">Current Map Size</option>
+        <option value="customize">User Defined Map Size </option>
+        </select>
+        <div id="sizeDiv" style="display: none; margin-left: 80px;">
+        Width: <input type="text" name="printwidth" data-dojo-attach-point="mwidthNode" value="600" size="10" /><br />
+        Height: <input type="text" name="printheight" data-dojo-attach-point="mheightNode" value="450" size="10" />
+        </div>
+        </td>
+        </tr>
+                        
+        <tr><td align="center">
+        <input type="button" value="Print Map" data-dojo-attach-event="onclick: _printMap" />
+        </td></tr>
+        
+      </table>
+               
+</div>
+
+ 
+
+

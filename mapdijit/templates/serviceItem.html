@@ -1,0 +1,44 @@
+ <div>
+ <table>
+ <tr>
+ <td align="center" valign="top">
+ <img src="${thumburl}" alt="Thumbnail" style="width: 120px; height: 75px;" /><br />
+ <span data-dojo-attach-event="onClick:_addMapService" style="color: blue; cursor: pointer;">Add</span>
+ </td>
+ <td align="left" valign="top">
+ <a class="webmaptitle" title="View item details" alt="View item details" href="http://www.arcgis.com/home/item.html?id=${webmapid}" target="_blank">
+${webmaptitle}
+</a>
+<br />
+<span class="esriItemSnippet">
+${webmapsnippet}
+</span>
+<span>
+<br />
+<span>
+<img src="${typeimage}" alt="${webmaptype}" style="vertical-align:middle;">
+&nbsp;</span>
+<span class="dim">${webmaptype} by </span>
+<span class="esriItemAuthor">
+${Author}
+</span>
+<br />
+<span class="dim">
+<span>Last Modified: </span>
+<span>${moddate}</span>
+</span>
+<br />
+<span>
+ (${rate} ratings, ${comment} comments, ${viewnum} views)
+</span>
+</span>
+ </td>
+ </tr>
+ </table>
+ <hr />
+</div>
+
+
+
+
+

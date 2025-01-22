@@ -1,0 +1,273 @@
+﻿<!-- 
+  ***************************************************************************************************
+  * Title: EJScreen Report Digest
+  * Description: The EJScreen report digest presents a detailed analysis of Environmental Justice (EJ) 
+  * Index or Supplemental Index percentiles, showing their calculations at both the state and national levels 
+  * for specific block group.
+  * 
+  * Author: SAIC, EPA OMS Contractor
+  * Creation Date: 01/22/2024
+  * Last Updated: 01/22/2024
+ 
+  ****************************************************************************************************
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>EJScreen Report API</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/css/main.css">
+    <link rel="SHORTCUT ICON" href="images/ej.ico" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <script language="javascript" type="text/javascript" src="mapdijit/javascript/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="mapdijit/javascript/jquery.colorPicker.js"></script>
+    <style>
+        body {
+            margin: 8px;
+            font-family: Verdana;
+        }
+
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 20px;
+            left: 74px;
+        }
+
+        #loadingDiv {
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            display: none;
+            z-index: 500;
+            position: absolute;
+            left: 40%;
+            top: 50%;
+        }
+
+        .formTable {
+            background-color: #d9edf7;
+            width: 100%;
+            font-family: Verdana;
+            font-size: 11pt;
+            padding-top: 4px;
+        }
+
+        .blackfont {
+            color: Black !important;
+        }
+
+        .custompanel {
+            margin: 4px 15px 4px 15px;
+            word-wrap: break-word;
+        }
+
+        td,
+        th {
+            padding: 3px;
+        }
+    </style>
+
+    <script src="https://js.arcgis.com/4.11/"></script>
+    <script type="text/javascript" src="javascript/config.js"></script>
+    <script type="text/javascript" src="javascript/ejscreen-report-digest.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("ready!");
+
+            $("#submitEJ").click(function () {
+
+                $("#ejIndexIndText").html($("#ejIndexSelect option:selected").text());
+                var radioValue = $("input[name='ejIndRadio']:checked").val();
+                $("#ejSelectedRadio").val(radioValue); 
+               // var supplemental = radioValue === "suppl";
+              //  alert(radioValue);
+                if (!$('#blockgroupId').val()) {
+                    alert('Enter Blockgroup ID!');
+                    return;
+                } else {
+                    $('#resultPanel').show();
+                    $("#stateSelected").html(getStateAbbr($('#blockgroupId').val()));
+                    $("#regionSelected").html(getRegion($('#blockgroupId').val()));
+                }
+            });
+
+            $("#ejIndexSelect").change(function () {
+                // alert("changed");
+                $(".digestSpan").html("");
+                //$("#ejIndexIndText").html($( "#ejIndexSelect option:selected" ).text());
+
+            });
+
+        });
+    </script>
+
+    <script type="text/javascript">
+
+    </script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row padding">
+            <div class="custompanel">
+                <h4>EJScreen Report API
+                    <a href="EJAPIinstructions.pdf" class="btn btn-link btn-sm" role="button" target="_blank"
+                        title="Instruction">Help</a>
+                </h4>
+
+
+            </div>
+        </div>
+
+        <div class="row padding">
+            <div class="custompanel">
+                <form id="ejform" onsubmit="return false;">
+                    <input type="hidden" name="namestr" value="" />
+
+
+
+                    <table id="censusdiv" class="formTable">
+
+                        <tr>
+                            <td width="120px" nowrap>Blockgroup ID:</td>
+                            <td align="left">
+                                <!-- <input type="text" id="blockgroupId" value="391650316002" /> -->
+                                <input type="text" id="blockgroupId" value="191731801001" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="formTable">
+                     
+                        <tr>
+                           <td> <input type="radio" id="ejIndRadioBtn" name="ejIndRadio" value="ej" checked>
+                              <label for="ejIndRadioBtn">EJ Index</label></td>
+                              <td><input type="radio" id="ejSupplRadioBtn" name="ejIndRadio" value="suppl">
+                               <label for="ejSupplRadioBtn">Supplemental Index</label></td>
+                               <input type="hidden" name="ejSelectedRadio" value="" />
+                        </tr>
+                        <tr>
+                            <td width="120px">EJ/Suppl Index:</td>
+                            <td align="left">
+                                <select name="ejIndexSelect" id="ejIndexSelect">
+                                    <option value="PM25" selected> Particulate Matter 2.5</option>
+                                    <option value="OZONE">Ozone</option>
+                                    <option value="DSLPM">Diesel Particulate Matter</option>
+                                    <option value="CANCER">Air Toxics Cancer Risk</option>
+                                    <option value="RESP">Air Toxics Respiratory HI</option>
+                                    <option value="RSEI_AIR">Toxics Releases to Air</option>
+                                    <option value="PTRAF">Traffic Proximity</option>
+                                    <option value="PRE1960PCT">Lead Paint</option>
+                                    <option value="PNPL">Superfund Proximity</option>
+                                    <option value="PRMP">RMP Facility Proximity</option>
+                                    <option value="PTSDF">Hazardous Waste Proximity</option>
+                                    <option value="UST">Underground Storage Tanks</option>
+                                    <option value="PWDIS">Wastewater Discharge</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <button id="submitEJ" title="Get EJ Index">Submit</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="row padding" id="resultPanel" style="display: none;">
+            <div class="custompanel">
+                <div class="panel panel-info" id="reportdiv">
+                    <div class="panel-heading blackfont">Results</div>
+                    <div>
+                        <span>State: </span><span id="stateSelected" class="digestSpan"></span>
+                        <br />
+                        <span>Region: </span><span id="regionSelected" class="digestSpan"></span>
+                        <br />
+                        <span>Blockgroup (BG): </span><span id="bgInput" class="digestSpan"></span>
+                        <br />
+                        <span>% people of color for BG=</span><span id="minorpct" class="digestSpan"></span>
+                        <br />
+                        <span>% low income for BG=</span><span id="lowincpct" class="digestSpan"></span>
+                        <br />
+                        <span>% disability for BG=</span><span id="disabilitypct" class="digestSpan"></span>
+                        <br />
+                        <span>% limited english speaking population for BG=</span><span id="lingpct" class="digestSpan"></span>
+                        <br />
+                        <span>% less than HS for BG=</span><span id="lesshspct" class="digestSpan"></span>
+                        <br />
+                        <span>% life expectancy for BG=</span><span id="lifexppct" class="digestSpan"></span>
+                        <br />
+                        <span>BG population=</span><span id="acstotpop" class="digestSpan"></span>
+                        <br />
+                        <div id="nationalPercentileId"></div>
+                        <div id="statePercentileId"></div>
+                        <br />
+                        <span>Demographic Index for BG for USA = </span><span id="demoIndexTextUSA"></span>
+                        <br />
+                        <span id="demoFormulaValuesUSA"></span>
+                        </br>
+                        <span>Demographic Index for BG for USA= </span> <span id="demoIndex2USA" class="digestSpan"> </span>
+                        <br />
+                        <br />
+                        <span>Demographic Index for BG for State = </span><span id="demoIndexText"> </span>
+                        <br />
+                        <span id="demoFormulaValues"></span>
+                        </br>
+                        <span>Demographic Index for BG for State= </span> <span id="demoIndex2" class="digestSpan"> </span>
+                        
+                        <br />
+                        <br/>
+                        
+                        National <span class="indexClass">EJ Index</span>:<br />
+                       <span class="ejIndexInd digestSpan"></span> <span class="indexClass">EJ Index  </span><span> =
+                        </span>
+                        <span>National Percentile for Environmental Indicator *
+                           Nation Demographic Index for BG </span>
+                        <br />
+                        <span id="demoCalsId"></span>  
+                        <br />
+                        <span id="demoIndexFinalVal"></span> 
+                        <br />
+                        <br />
+                        State <span class="indexClass">EJ Index</span>:<br />
+                        <span class="ejIndexInd digestSpan"></span> <span class="indexClass">EJ Index </span><span> = </span>
+                        <span>State Percentile for Environmental Indicator * State Demographic Index for BG</span>
+                        <br />
+                        <span id="stateFormulaWithVal"></span> 
+                        <br />
+                        <span id="stateFinalCalVal"></span> 
+                        <br />
+                        <br />
+                       
+                        <span class="indexClass">EJ Index</span><span> Percentile in USA = </span></span><span class="digestSpan"
+                            id="ejIndexUSAPercentage"> </span>
+                            <br />
+                        <span class="indexClass">EJ Index</span><span> Percentile in State =</span></span><span class="digestSpan"
+                            id="ejIndexStatePercentage"> </span>
+                       
+                        <br/>
+                        <br/>
+                        <span>Environmental Indicators Percentile in USA </span> <span>= </span></span><span class="digestSpan" id="envIndUSAPercentage"> </span>
+                        <br />
+                        <span>Environmental Indicators Percentile in State </span> <span>= </span></span><span class="digestSpan" id="envIndStatePercentage"> </span>
+
+                       
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

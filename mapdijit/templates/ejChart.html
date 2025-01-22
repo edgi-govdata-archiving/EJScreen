@@ -1,0 +1,223 @@
+
+<div style="margin: 2px 2px 2px 2px;">
+  <form id="siteform">
+  <!-- <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="draw" checked/>&nbsp;Draw a Site -->
+  <div>
+  
+    <table>
+     <!-- <tr>
+         <td>
+            <div id="pointTool" data-dojo-attach-point="pointNode"  data-dojo-attach-event="onclick: startpoint" title=" Add a pushpin " class="pointTool" />
+        </td> -->
+        <!-- <td>
+            <div id="lineTool" data-dojo-attach-point="lineNode"  data-dojo-attach-event="onclick: startline"  title="Add a path or a trail on the map" class="lineTool" />
+         </td> 
+        <td>
+                <div id="polyTool" data-dojo-attach-point="polyNode"  data-dojo-attach-event="onclick: startpoly"  title=" Mark an area on the map " class="polyTool" />
+            </td>    -->  
+        <!-- <td>
+		    <div id="boxTool" data-dojo-attach-point="rectNode"  data-dojo-attach-event="onclick: startrect"  title="Draw a rectangle on the map " class="boxTool" />		  
+        </td> 
+      </tr>-->
+      <tr>
+       <td>
+        <div id="clearLocations" class="" title="Clear selected locations" > 
+          </div>
+       </td>
+      </tr>
+      <tr>
+                               
+        <td> 
+            <div id="dropPin" class="divBtn" > 
+             <table>
+              <tr>
+               
+                <td> 
+                  <div id="pointTool" data-dojo-attach-point="pointNode"   title=" Select a location on the map" data-dojo-attach-event="onclick: startpoint" class="pointTool" >
+                    <!-- <img src="/mapdijit/images/pushpin.PNG"/>    Drop a Pin</div> 
+                            -->
+                    <!-- <img class="pointImage" alt=""  />        
+                      Drop a Pin -->
+                      <img class="imageClass" src="mapdijit/templates/images/map-pin_16x16.png"  /> Drop a Pin
+                    
+                    </div>  
+               </td>
+               <td>
+                <!-- <span>Drop a Pin -yyyyyy</span> -->
+               </td>
+              
+              </tr>
+            </table>
+           </div> 
+        </td>
+    </tr>
+
+    <tr>
+                               
+      <td> 
+          <div id="addArea" class="divBtn" > 
+           <table>
+            <tr>
+             
+              <td> 
+                <div id="polyTool" data-dojo-attach-point="polyNode"  data-dojo-attach-event="onclick: startpoly"  title="Identify the boundaries of an area" class="polyTool" >
+
+                  <img class="imageClass" src="mapdijit/templates/images/polygon_16x16.png"  />      
+                    Draw an Area</div>  
+             </td>
+            
+            
+            </tr>
+          </table>
+         </div> 
+      </td>
+  </tr>
+
+  <tr>
+                               
+    <td> 
+        <div id="addPath" class="divBtn" > 
+         <table>
+          <tr>
+           
+            <td> 
+              <div id="lineTool" data-dojo-attach-point="lineNode"  data-dojo-attach-event="onclick: startline"  title="Draw a route" class="lineTool" >
+                <img class="lineToolImage" src="mapdijit/templates/images/polyline_16x16.png"  />         
+                  Add a Path</div>  
+           </td>
+          
+          
+          </tr>
+        </table>
+       </div> 
+    </td>
+</tr>
+
+<td> 
+ 
+   <table>
+    <tr>
+     
+      <td> 
+         <div id="selectArea" title="Select an Area"  class="divBtn divBtnTools">
+          <img class="lineToolImage" src="mapdijit/templates/images/city-buildings_16x16.png"  />         
+            Select an Area
+         </div>  
+          <div id="addAreasSubCategories" style="display: none;" class="divBtnSub">
+              <ul>
+                  <li>
+                      <div id="blockgroupDiv" class="divSubBtn" style="padding:5px;width: 219px;height: 28px;" data-dojo-attach-event="onClick: switchtype"  title="Select a block group">              
+                        Select Blockgroup      
+                    </div>
+                  </li>
+                  <li>
+                    <div id="tractDiv" class="divSubBtn" data-dojo-attach-event="onClick: switchtype" title="Select a tract"  style="padding:5px;width: 219px;height: 28px;display: flex;align-items: center;">             
+                      Select Tract
+                    </div>
+                 </li>
+                 <li>
+                    <div id="fipsDiv" class="divSubBtn" data-dojo-attach-event="onClick: switchtype" title="Select a Blockgroup or Tract" style="padding:5px;width: 219px;height: 28px;display: flex;align-items: center;">
+                      
+                      Search by Blockgroup or Tract
+                    </div>
+                  </li>
+                  <li>
+                      <div id="cityDiv" class="divSubBtn" data-dojo-attach-event="onClick: switchtype" title="Select a city" style="padding:5px;width: 219px;height: 28px;display: flex;align-items: center;">                    
+                        Select City               
+                      </div>
+                  </li>
+                  <li>
+              <div id="countyDiv" class="divSubBtn" data-dojo-attach-event="onClick: switchtype" title="Select a county"  style="padding:5px;width: 219px;height: 28px;">
+               
+                
+                Select County
+              
+              </div>
+            </li>
+          <li>
+              <div id="selectMultipleDiv" class="divSubBtn"  data-dojo-attach-event="onClick: switchtype" style="padding:0px;width: 219px;height: 28px;"></div>
+           </li>
+            </ul>
+          </div>
+     </td>
+    
+    
+    </tr>
+  </table>
+  
+</td>
+</tr>
+
+    
+    
+   
+    <!-- <tr> 
+   
+      <td> 
+        <div id="blockgroupDiv" class="divBtn"  data-dojo-attach-event="onClick: switchtype"  title="Select a block group">
+          <img class="imageClass" src="mapdijit/templates/images/BG_16x16.png">
+          Select Block Group      
+       </div>
+      </td> 
+    </tr>
+    <tr> 
+     
+      <td> <div id="tractDiv" class="divBtn" data-dojo-attach-event="onClick: switchtype" title="Select a tract">
+        <img class="imageClass" src="mapdijit/templates/images/TR_16x16.png">
+        Select Tract</div></td> 
+    </tr>
+    <tr>
+     
+      <td> <div id="fipsDiv" class="divBtn" data-dojo-attach-event="onClick: openpopup" title="Select a Blockgroup or Tract">
+        <img class="imageClass" src="mapdijit/templates/images/TR_16x16.png">
+        Search by Blockgroup or Tract</div></td> 
+    </tr>-->
+    <!-- <tr>
+     
+      <td> <div id="cityDiv" class="divBtn" data-dojo-attach-event="onClick: switchtype" title="Select a city">
+        <img class="imageClass" src="mapdijit/templates/images/city-buildings_16x16.png">
+        Select City
+
+      </div>
+    </td> 
+    </tr> -->
+
+    <!-- <tr>
+     
+      <td> <div id="countyDiv" class="divBtn" data-dojo-attach-event="onClick: switchtype" title="Select a county">
+       
+        
+        Select County</div></td> 
+    </tr> -->
+<!--  
+    <tr>
+     
+      <td> <div id="selectMultipleDiv" class="divBtn" style="padding: 0px;">
+      </div></td> 
+    </tr> -->
+     
+    </table>   
+        <!-- <span style="font-style: italic;">(Select one of the buttons to start drawing)</span> -->
+  </div>
+  <!-- <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="find" />&nbsp;Enter a location or a latitude/longitude<br />
+  <div class="indent">
+  <input type="text" name="loctext" value="" data-dojo-attach-event="onfocus: changeRadio,onkeypress:_pressbox">
+  <input type="button" value="Go" data-dojo-attach-event="onclick: searchbgbyloc" /><br />
+  <span style="font-style: italic;">(example, Fairfax,VA or 37.751204, -122.431539)</span>
+  </div>
+  <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="bg" />&nbsp;Click on map to select a census block group<br />
+ <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="tract" />&nbsp;Click on map to select a tract<br />
+  <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="county" />&nbsp;Click on map to select a county<br />
+  <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="city" />&nbsp;Click on map to select a city<br />
+  <input data-dojo-attach-event="onClick: switchtype" type="radio" name="charttype" value="enterbg" />&nbsp;Enter a census block group id<br />
+  <div class="indent">
+  <input type="text" name="bgidtext" value="" data-dojo-attach-event="onfocus: changeRadio,onkeypress:_pressbox" />
+  <input type="button" value="Go" data-dojo-attach-event="onclick: searchbgbyid" /><br />
+  <span style="font-style: italic;">(example, 060750229021)</span>
+  </div> -->
+
+  
+  
+  </form>
+  
+</div>

@@ -1,0 +1,705 @@
+﻿<!-- 
+  ***************************************************************************************************
+  * Title: EJScreen Home
+  * Description: The HTML page provides interactive tools for geographical and environmental data analysis, 
+  *              including map viewing with EJScreen and additional data,public space identification,
+  *              and customizable reports for selected locations. Users can measure distances, save session data,
+  *              and clear the seleted locations and also print map 
+  * 
+  * Author: SAIC, EPA OMS Contractor
+  * Creation Date: 01/22/2024
+  * Last Updated: 01/22/2024
+ 
+  ****************************************************************************************************
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+     <style>
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Prevents scrolling while splash screen is visible */
+  }
+
+
+#showPopupBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2; /* Ensure the button is above the map */
+}
+
+
+/* .pointImg{
+
+    content: url(/mapdijit/images/pushpin.png) ;
+    height: 28px;
+          width: 28px;
+} */
+     </style> 
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8;" />
+    <title>EJScreen</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/css/main.css">
+    <link rel="stylesheet" href="//js.arcgis.com/4.20/dojox/layout/resources/FloatingPane.css">
+    <link rel="stylesheet" href="//js.arcgis.com/4.20/dojox/layout/resources/ResizeHandle.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">  -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="SHORTCUT ICON" href="images/ej.ico" />
+    <link rel="stylesheet" type="text/css" href="css/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="css/claro/claroGrid.css">
+    <link rel="stylesheet" type="text/css" href="css/blue.css">
+    <link rel="stylesheet" type="text/css" href="css/tabs.css">
+    <link rel="stylesheet" type="text/css" href="css/layout_new.css">
+    <link rel="stylesheet" type="text/css" href="css/modal_dialog.css">
+
+
+
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-L8ZB" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe>
+
+    </noscript>
+
+
+
+    <!-- End Google Tag Manager -->
+
+    <script>
+        var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        var dojoConfig = {
+            has: {
+                "esri-native-promise": true
+            },
+            parseOnLoad: true,
+            packages: [{
+                name: "mapdijit",
+                location: path_location + '/mapdijit'
+            }]
+        };
+
+        function isMobileDevice() {
+            if ((typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('Mobile') !== -1)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //EJ2020 - add toggleDiv function
+        function toggleDiv(aid, divid) {
+
+
+            if (document.getElementById(divid).style.display == 'none') {
+                document.getElementById(divid).style.display = 'block';
+                aid.className = "toggleOff";
+            } else {
+                document.getElementById(divid).style.display = 'none';
+                aid.className = "toggle";
+            }
+        }
+        // end EJ2020 - add toggleDiv function
+
+        function checkdevice() {
+            var query = window.location.search.substring(1);
+            var appreg = /app=desktop/i;
+            var isDesktop = appreg.test(query);
+            if (query.length > 0) {
+                query = "?" + query;
+            }
+            if (!isDesktop) {
+                if (isMobileDevice()) {
+                    if (confirm("Launch EJScreen Mobile?") == true) {
+                        window.location.href = "mobile/index.html" + query;
+                    }
+
+                }
+            }
+        }
+
+        //$('#addremotemaps_label').append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+//$('#moreDemographics_label').append('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+    </script>
+    <script src="https://js.arcgis.com/4.20/"></script>
+    <script type="text/javascript" src="javascript/config.js"></script>
+    <script type="text/javascript" src="javascript/defaults.js"></script>
+    <script type="text/javascript" src="javascript/layout_new.js"></script>
+    <script type="text/javascript" src="javascript/tagmanager.js"></script>
+
+    <!-- <script language="javascript" type="text/javascript" src="mapdijit/javascript/jquery.min.js"></script> -->
+    <script language="javascript" type="text/javascript" src="mapdijit/javascript/jquery.colorPicker.js"></script>
+
+    <!-- hardcode json objects -->
+    <script type="text/javascript" src="javascript/config_ejtoc_title.js"></script>
+	<script type="text/javascript" src="javascript/config_ejtoc_draw.js"></script>
+	<script type="text/javascript" src="javascript/config_ejtoc_identify.js"></script>
+	
+	
+
+	
+	
+
+    <!--  <script type="text/javascript" src="javascript/ej-maps.js"></script> -->
+    <!-- <script type="text/javascript" src="javascript/ej-places.js"></script> -->
+    <!-- <script type="text/javascript" src="mapdijit/ejChart.js"></script>  -->
+    <style type="text/css">
+        .modal-backdrop {
+            display: none;
+        }
+
+        #myModal {
+            float: left;
+            width: 300px;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .divBtn {
+            border-style: ridge;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: black;
+            width: 260px;
+        }
+
+        .clrBtn {
+            border-radius: 5px;
+            cursor: pointer;
+            color: black;
+            width: 50px;
+            margin-left: 210px;
+            padding: 0px;
+        }
+
+
+        .imgClass {
+            padding: 4px;
+        }
+
+        #pcttype {
+            font-family: Verdana;
+            font-size: 11px;
+            color: black;
+        }
+
+        .divSubBtn,
+        .divSubBtnCategory {
+            border-style: ridge;
+            padding: 2px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .highlight {
+            /* background:#86bdf2;  */
+            /* background:grey; */
+            background: #005EA2;
+            color: white;
+        }
+
+
+
+        ul {
+            margin-bottom: 0;
+        }
+
+        .modal-open[style] {
+            padding-right: 0px !important;
+        }
+
+        #themeVisiblityBar {
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            height: 100%;
+            min-height: 20px;
+            min-width: 10px;
+        }
+
+        .tab-content>.active {
+            display: block;
+            background: white;
+            border: 0px !important;
+            border-radius: 0px;
+            padding: 5px;
+        }
+
+        .tab-content {
+            /* overflow-y: scroll; */
+             /*overflow: auto;*/
+            /* height: 270px; */
+        }
+
+        #expandDiv {
+            position: absolute;
+            top: 18px;
+            right: 268px;
+        }
+
+        /*
+a[title]:hover:after {
+  content: attr(title);
+  position: absolute;
+  top:40px;
+  /* top: -100%;
+  left: 0;
+ } */
+
+
+        .tabLink {
+            display: inline;
+            position: relative;
+        }
+
+        .tabLink:hover:after {
+
+            content: attr(titl);
+            left: 30%;
+            top: -2px;
+
+            /* padding: 5px 15px; */
+            position: absolute;
+            border: none;
+            font-weight: normal;
+            font-size: 11px;
+            color: black;
+        }
+         #clearLocations {
+        display: flex; /* Use flexbox to align items inline */
+        align-items: center; /* Center-align items vertically */
+        gap: 31px; /* Optional: add space between elements */
+       }
+
+        #clearLocations > span,
+        #clearLocations > .dijitButton {
+            margin: 0; /* Reset margin to remove any unwanted space */
+            padding: 0; /* Reset padding to remove any unwanted space */
+            line-height: 1; /* Adjust line height to ensure elements align nicely */
+        }
+
+/* If there's still misalignment, you can adjust individual elements */
+#clearLocations > .dijitButton {
+    /* Make adjustments as needed, for example: */
+    margin-top: -3px; /* Adjust value as necessary */
+}
+
+#reportInstruction {
+    font-weight: normal;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Helvetica;
+    font-size: 12px;
+}
+
+    </style>
+    <script type="text/javascript">
+        //$('#myModal').appendTo("body").modal('show');
+        // $(window).on('load', function() {
+        //        $('#myModal').modal('show');
+        //    });
+
+
+        $(document).ready(function () {
+          //  $('a[rel="external"]').attr('target', '_blank');
+            $("#detailsId").click(function () {
+                $('#detailsImg').attr('src', 'images/index-page/icons8-stack-of-paper-25_blue.png');
+                $('#locationsImg').attr('src', 'images/index-page/icons8-marker-25.png');
+                $('#menuImg').attr('src', 'images/index-page/icons8-matt-paper-25.png');
+                $('#toolsImg').attr('src', 'images/index-page/icons8-tools-25.png');
+            });
+
+            $("#locationsId").click(function () {
+                $('#locationsImg').attr('src', 'images/index-page/icons8-marker-25_blue.png');
+                $('#detailsImg').attr('src', 'images/index-page/icons8-stack-of-paper-25.png');
+                $('#menuImg').attr('src', 'images/index-page/icons8-matt-paper-25.png');
+                $('#toolsImg').attr('src', 'images/index-page/icons8-tools-25.png');
+            });
+
+            $("#menuId").click(function () {
+                $('#locationsImg').attr('src', 'images/index-page/icons8-marker-25.png');
+                $('#detailsImg').attr('src', 'images/index-page/icons8-stack-of-paper-25.png');
+                $('#menuImg').attr('src', 'images/index-page/icons8-matt-paper-25_blue.png');
+                $('#toolsImg').attr('src', 'images/index-page/icons8-tools-25.png');
+            });
+
+            $("#toolsId").click(function () {
+                $('#toolsImg').attr('src', 'images/index-page/icons8-tools-25_blue.png');
+                $('#locationsImg').attr('src', 'images/index-page/icons8-marker-25.png');
+                $('#detailsImg').attr('src', 'images/index-page/icons8-stack-of-paper-25.png');
+                $('#menuImg').attr('src', 'images/index-page/icons8-matt-paper-25.png');
+
+            });
+			 $(document).on('click', '#infoIcon1', function(){
+                //alert("Span clicked!");
+                                const ejtext = `
+                <div id='scrollableDiv'>
+                    <span id="removeInfo"><img src="images/close.gif" title="remove information" alt="remove information"></span>
+                    <p><b>Why is particulate matter 2.5 an EJ index in EJScreen?</b></p>
+                    <ul>
+                        <li>Studies have linked PM exposure to a range of impacts, including asthma attacks, heart attacks, stroke, other cardiovascular impacts, lung cancer, premature birth, low-birth weight in babies, and premature death. People with heart or lung diseases, children, and older adults are the most likely to be affected by PM exposure. For more information about PM, please visit EPA’s website on PM.</li>
+                        <li>The PM 2.5 indicator in EJScreen is a measure of potential exposure but not a measure of risk. The raw PM 2.5 data is compiled by census tract, which is supplied for use in the tool by EPA’s Office of Air Quality and Pollution Safety (OAQPS).</li>
+                        <li>For air toxics risk measures (as opposed to exposure) users can turn to EJScreen’s other three indicators: cancer risk, respiratory hazard index, and diesel PM.</li>
+                        <li>Additionally, overall air quality is impacted in real time by a composite of many pollutants. For real-time and forecasted information about all standard EPA air quality criteria, please visit EPA’s AirNow website.</li>
+                        <li>The EJ index provides a means to assess how one area compares to the state, region, and nation for a particular environmental indicator (in this case, PM 2.5) in combination with vulnerable communities data based on the demographic index. Analysts can use the EJ indices to find areas with both relatively large vulnerable populations and high levels of the environmental stressor.</li>
+                        <li>EJScreen only presents each EJ index individually and does not combine all indexes into a cumulative score.</li>
+                    </ul>
+                </div>`;
+               
+                $('#informationDiv').html(ejtext);
+                $("#informationDiv").show();
+             });
+             $(document).on('click', '#removeInfo', function(){
+                $("#informationDiv").hide();
+             });
+             
+        });
+
+        function openPage(pageUrl) {
+            window.open(pageUrl);
+        }
+
+
+    </script>
+    <!-- <style>
+
+
+#expandDiv{
+     position: absolute;
+      top:10%;
+      left:60%;
+}
+</style> -->
+
+</head>
+
+<body class="claro" onload="checkdevice();">
+   <div id="splash-screen" style="display:none">
+        
+          <!-- <button class="close-button" onclick="this.parentElement.style.display='none';">&#10006;</button> -->
+		   <button class="close-button" onclick="hideSplashScreen(false)">&#10006;</button>
+        <div>
+          <h4 style="text-align: center;font-weight:bold">Welcome!</h4>
+          <p>
+            EJScreen is the EPA's environmental justice screening and mapping tool that
+            utilizes standard and nationally consistent data to highlight places that may
+            have higher environmental burdens and vulnerable populations.
+          </p>
+          <p>
+            Check out the newly added EJScreen 2.3 features and data <a rel="external" title="This link opens a new webpage." target="_blank" href="https://www.epa.gov/ejscreen/ejscreen-change-log">here</a>!
+          </p>
+          <p>
+            First-time users may find the 5-minute  <a rel="external" title="This link opens a new webpage." target="_blank" href="https://www.youtube.com/watch?v=HZp3AWDJt5A">EJScreen in 5: A Quick Overview of EJScreen</a> video helpful as an 
+            introduction to the tool.
+            
+          </p>
+          <p>Other helpful resources include:</p>
+          <ul class="ul-spash">
+            <li>
+              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf">EJScreen User Guide</a> for navigating the various features of the tool,
+            </li>
+            <li>
+              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://www.epa.gov/ejscreen/ejscreen-map-descriptions">EJScreen Glossary</a> for better understanding the map layers and
+              indicators being displayed in the tool, and
+            </li>
+            <li>
+              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen">Frequent Questions about EJScreen</a>
+            </li>
+          </ul>		 
+		  <p>Please note that the EJScreen downloadable data was edited and updated on August 9, 2024. If you downloaded the EJScreen 2.3 data prior to this date, it is advisable to switch to the newest data. </p>
+		  </div>																																																			   		  
+          <div style="text-align: center;">
+          <button class="btn-splash" onclick="hideSplashScreen(true)">OK</button>
+          <!-- <button>Don't Show This Again</button> -->
+          <button class="btn-splash" onclick="hideSplashScreen(false)">Don't Show This Again</button>
+        </div>
+        </div>
+        
+      </div>
+    <div class="container-fluid">
+        <div id="webmapTitle" class="row">
+        </div> 
+            
+        <!-- <div class="row" id="toolbarRow">
+
+            <div data-dojo-type="dijit/Toolbar">
+                <div id="webmap-toolbar-left"> -->
+        <!--Toolbar buttons (Legend, Details, Edit) created dynamically-->
+        <!-- </div>
+                <div id="webmap-toolbar-right"> -->
+        <!--create the search tool-->
+        <!-- </div>
+                <div id="webmap-toolbar-center"> -->
+        <!--Basemap,measure,share,time and layer list tools added if enabled-->
+        <!-- </div>
+            </div> -->
+
+    </div>
+    <div id="webmapSubTitle" style="display: none;padding:2px";>
+           <div style="padding-left: 5px;height:20px"><i>Please note: Territory data (except Puerto Rico) is not available as comparable to the US. It is only comparable to the territory itself by using the 'Compare to State' functionality. Likewise, some of the indicators may not be available for territories.</i><div style="float:right;padding-right: 5px"><a title="Close message." href="#" style="text-decoration: none;color:black" onclick="hideTerritoryMessage('webmapSubTitle','viewDiv'); return false;">X</a></div>
+           </div>
+           
+        </div>  
+    <div id="viewDiv">
+        <div id="loadingDiv"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div>
+        <!-- <div id="epalogo" class="epalogo"><img src="images/em_logo.gif" alt="epa logo" /></div>
+            <div id="scalediv" class="scalebar"></div> -->
+        <div id="expandDiv"></div>
+		 <div id="informationDiv" style="width: 700px;background-color: white; position:absolute; top:50px; right: 260px; display:none; z-index:100; margin: 0 0 0 0;  overflow-x: auto;">
+            <div id='scrollableDiv'>
+                
+            </div>
+        </div>
+        <div id="legendPan"
+            style="width: 260px;background-color: white; position:absolute; top:16px; right: 2px; display:none; z-index:100; margin: 0 0 0 0;  overflow-x: auto;">
+            <table class="legendMain" cellpadding="0" cellspacing="0">
+                <tr
+                    style="background: url(images/blue/toolbar_bg.png) repeat-x #6788a2;opacity:0.9!important;filter:alpha(opacity='90')!important;-moz-opacity: 0.9!important;">
+                    <td align="center" style="color: White">
+                        <span class="dialogTitle">Map Contents</span>
+                    </td>
+                    <td align="right" onmouseover="this.style.cursor = 'pointer';">
+                        <img src="images/collapse_glyph.gif" onclick="toggleContent(this,'twotoc')"
+                            title="Hide map contents">&nbsp;&nbsp;
+                    </td>
+                </tr>
+            </table>
+            <div id="twotoc">
+                <div id="envDiv"></div>
+                <div id="tocDiv"></div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <div id="mapimageurl" style="display: none;"></div>
+
+    <div id="viewDiv1">
+        <!-- <div id="loadingDiv1"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div> -->
+        <div id="epalogo1" class="epalogo"><img src="images/em_logo.gif" alt="epa logo" /></div>
+        <div id="scalediv1" class="scalebar"></div>
+
+        <div id="legendPan1"
+            style="width: 285px;background-color: white; position:absolute; top:53px; left: 0px; display:block; z-index:100; margin: 0 0 0 0;">
+            <table>
+                <tr>
+                    <td>
+                        <div id="twotoc1" style="width: 270px">
+                            <!-- <div id="envDiv"></div> -->
+                            <ul class="nav nav-tabs" id="tabContent">
+                                <li class="active"><a id="detailsId" href="#details" data-toggle="tab" titl="Maps"
+                                        class="tabLink"><img id="detailsImg"
+                                            src="images/index-page/icons8-stack-of-paper-25_blue.png"
+                                            alt="Environmental Justice Indicators"></a></li>
+                                <li><a id="locationsId" href="#locations" data-toggle="tab" class="tabLink"
+                                        titl="Places"><img id="locationsImg"
+                                            src="images/index-page/icons8-marker-25.png" alt="Locations"></a></li>
+                                <li><a id="menuId" href="#menu" data-toggle="tab" class="tabLink" titl="Reports"><img
+                                            id="menuImg" src="images/index-page/icons8-matt-paper-25.png"
+                                            alt="Menu"></a></li>
+                                <li><a id="toolsId" href="#tools" data-toggle="tab" class="tabLink" titl="Tools"><img
+                                            id="toolsImg" src="images/index-page/icons8-tools-25.png" alt="Tools"></a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="details">
+                                    <div id="ejmapDiv"></div>
+                                    <!--end firsttabl-->
+                                </div>
+
+                                <div class="tab-pane" id="locations">
+
+                                    <div id="locationData">
+
+
+                                    </div>
+
+                                </div>
+                                <!--end secondtabl-->
+                                <div class="tab-pane" id="menu">
+
+
+                                </div>
+                                <!--end third tab-->
+
+                                <div class="tab-pane" id="tools">
+
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                <div id="addMapsandData" title="Maps and Data" class="divBtn divBtnTools">
+                                                    <img class="imgClass" src="mapdijit/templates/images/usa-map_16x16.png">Add Maps & Data
+                                                </div>
+                                                    <div id="addMapsandDataSubCategories" style="display: none;" class="divBtnSub">
+                                                        <ul>
+                                                        <li><div id="addRemoteMaps" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
+                                                       <li> <div id="addShapeFile" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
+                                                       <li> <div id="searchGeoPlatform" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
+                                                      </ul>
+                                                </div></td>
+
+                                            </tr>
+                                            <!-- <tr>
+
+                                                <td>
+                                                    <div id="addRemoteMaps" class="divBtn" style="padding:0px"></div>
+                                                </td>
+                                            </tr> -->
+
+                                            <!-- <tr>
+
+                                                <td>
+                                                    <div id="addShapeFile" class="divBtn" style="padding:0px"></div>
+                                                </td>
+                                            </tr> -->
+
+                                            <!-- <tr>
+
+                                                <td>
+                                                    <div id="searchGeoPlatform" class="divBtn" style="padding:0px">
+                                                    </div>
+                                                </td>
+                                            </tr> -->
+                                            <tr>
+                                                <td>
+                                                    <div id="moreDemographicMaps" class="divBtn" style="padding: 0px"></div>
+                                                </td>
+                                            </tr> 
+                                            <tr>
+
+                                                <td>
+                                                    <div id="ejbnd" class="divBtn" title="Overlay boundaries">
+                                                        <img class="imageClass"
+                                                            src="mapdijit/templates/images/usa-map_16x16.png">
+
+
+                                                        Boundaries
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td>
+
+                                                    <div id="measure" class="divBtn" style="padding:0px"></div>
+
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td>
+                                                    <div id="printButtonDiv" class="divBtn" style="padding: 0px;">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+
+                                                <td>
+                                                    <div id="saveSessions" class="divBtn" style="padding:0px"></div>
+                                                </td>
+                                            </tr>
+                                        
+
+                                            <tr>
+
+                                                <td>
+                                                    <div id="sidebysideComparisons" class="divBtn"
+                                                        onclick="openPage('comparemapper.html')" title="Side by side maps that allow for comparison">
+                                                        <img class="imageClass"
+                                                            src="mapdijit/templates/images/compare_16x16.png">
+
+
+                                                        Side by Side Map Comparisons
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                           
+
+                                            
+
+                                         
+
+                                           
+                                            <tr>
+                                                <td>
+                                                    <div id="thresholdMaps" class="divBtn" style="padding: 0px"></div>
+                                                </td>
+                                            </tr>
+
+                                             <!-- <tr>
+
+                                                <td>
+                                                    <div id="thresholdMaps" class="divBtn" title="Overlay boundaries">
+                                                        <img class="imageClass"
+                                                            src="/mapdijit/templates/images/thresholds_16x16.png">
+
+
+                                                        Threshold Map
+                                                    </div>
+                                                </td>
+                                            </tr>  -->
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div><!-- end fourth tab-->
+                            </div>
+                            <!--end tab content-->
+                        </div>
+                        <!--end twotoc1 content-->
+                    </td>
+                    <td>
+                        <table class="legendMain" cellpadding="0" cellspacing="0"
+                            style="height: 150px;background-color: white;">
+
+                            <tr>
+                                <td align="right" onmouseover="this.style.cursor = 'pointer';"
+                                    style="cursor: pointer;width: 15px;padding: 2px;">
+                                    <!-- onclick="toggleContent(this,'twotoc1')" -->
+                                    <!-- <img id="closePanelImg" src="images/icons8-back-10.png"  title="Hide map contents">&nbsp;&nbsp; -->
+                                    <span id="closePanel" title="Close Panel">
+                                        < </span>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+        </div>
+    </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+
+.esriGeocoderContainer 
+{
+width: 225px; 
+font-size: 12px; 
+line-height: 16px; 
+font-family: verdana,helvetica;
+}
+.esriGeocoderContainer ul 
+{
+margin: 0; 
+padding: 0; 
+list-style: none; 
+display: block;
+}
+.esriGeocoderIcon 
+{
+float: left; 
+outline: 0; 
+width: 16px; 
+height: 16px; 
+display: block; 
+overflow: hidden; 
+margin: 6px 0 6px 6px;
+}
+.myGeocoderSearch 
+{
+    cursor: pointer; 
+    margin-left: 6px; 
+    background: url("../images/simpleGeocoder.png") no-repeat 0 0;
+}
+.esriGeocoderClearFloat 
+{
+clear: both;
+display: block; 
+overflow: hidden; 
+visibility: hidden;
+width: 0; 
+height: 0;
+}
+.esriGeocoder 
+{
+display: block; 
+width: 100%; 
+margin: 0; 
+border: 2px solid #666; 
+background: #fff; 
+-webkit-border-radius: 5px; 
+border-radius: 5px;
+}
+
+.esriGeocoder input 
+{
+outline: 0; 
+display: block;
+border: 0; 
+border-collapse: collapse; 
+vertical-align: middle; 
+font-size: 12px; 
+line-height: 16px; 
+margin: 0; 
+padding: 6px 0; 
+float: left; 
+color: #444; 
+background: none; 
+margin: 0 6px; 
+width: 168px;
+}
+.esriGeocoder input:focus {color: #333;}
+.esriGeocoder .myGeocoderSearch:hover, .esriGeocoder .myGeocoderSearch:focus {opacity: .75;}
+.esriGeocoder .myGeocoderReset {margin: 6px 6px 6px 0; float: right; display: none;}
+.esriGeocoderHasValue .myGeocoderReset {cursor: pointer; display: block; background: url("../images/simpleGeocoder.png") no-repeat -48px 0;}
+.esriGeocoderLoading .myGeocoderReset {background: url("../images/loading.gif") center center no-repeat;}
+.esriGeocoder .myGeocoderReset:hover,.esriGeocoder .myGeocoderReset:focus {opacity: .75;}

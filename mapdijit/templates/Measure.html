@@ -1,0 +1,36 @@
+<div style="padding: 2px 4px;">
+    <style>
+        .measurespan {
+            padding: 6px;
+            border-radius: 4px;
+            background-color: transparent;
+            border: 1px solid transparent;
+        }
+        
+        .measurespan:hover,
+        .measurespan:focus {
+            background: #ededed;
+        }
+        
+        .active {
+            /* background: #ededed;
+            border: 1px solid gray; */
+            border-radius: 4px;
+        }
+        
+        .measureheader {
+            font-weight: bold;
+        }
+    </style>
+    <div class="measureheader">Click one of the following buttons to start measuring:</div>
+    <button class="measurespan" data-dojo-attach-point="areaNode" data-dojo-attach-event="onclick: activearea" title="Calculate the area">
+            <img src="images/Measure_Area16.png">
+        </button>
+    <button class="measurespan" data-dojo-attach-point="lineNode" data-dojo-attach-event="onclick: activedist" title="Calculate the distance">
+            <img src="images/Measure_Distance16.png">
+        </button>
+    <button class="measurespan" data-dojo-attach-point="pntNode" data-dojo-attach-event="onclick: activepoint" title="Locate a point">
+            <img src="images/Measure_Point16.png">
+        </button>
+    <div data-dojo-attach-point="measureresult"></div>
+</div>

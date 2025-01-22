@@ -1,0 +1,55 @@
+<div style="margin: 4px;">
+    <form data-dojo-type="dijit.form.Form">
+        <table border="0">
+            <tr>
+                <td style="font-weight: bold; font-size: 10pt;">
+                    Choose one of the following options and enter a proper URL to add publicly available data from the web to the map.
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" data-dojo-attach-event="onClick:_doService" name="layerType" value="arcgis" checked/>ArcGIS Server Web Service (Whole service)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="layerType" value="wms" data-dojo-attach-event="onClick:_doService" />OGC Web Service (WMS)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="layerType" value="kml" data-dojo-attach-event="onClick:_doService" />KML/KMZ
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="layerType" value="georss" data-dojo-attach-event="onClick:_doService" />GeoRSS
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <font color="red">*</font>URL:
+                    <input type="text" name="nurl" data-dojo-attach-point="urlNode" size="50" maxlength="512" value="http://" />
+                    <br />
+                    <div id="notediv1" style="font-style: italic;word-wrap: break-word; width: 370px;"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Service title: &nbsp;<input type="text" name="ndesc" data-dojo-attach-point="titleNode" size="30" maxlength="200" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="btn btn-primary" type="button" value="Add to Map" label="Add to Map" data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_addRemoteLyr" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div id="samplediv" style="word-wrap: break-word; width: 370px;"></div>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>

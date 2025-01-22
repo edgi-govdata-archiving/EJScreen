@@ -1,0 +1,21 @@
+<div>
+    Location: <span data-dojo-attach-point="locNode"></span>
+    <form target='_blank' data-dojo-attach-point="infoformNode" onsubmit="return false;">
+        <input type='hidden' name='geometry' data-dojo-attach-point="coordNode" value='' />
+        <input type='hidden' name='unit' data-dojo-attach-point="gtypeNode" value='9035' />
+        <input type='hidden' name='areatype' data-dojo-attach-point="gtypeNode" value='' />
+        <input type='hidden' name='areaid' data-dojo-attach-point="gtypeNode" value='' />
+        <input type='hidden' name='basemap' value='' />
+        <input type='hidden' name='ptitle' value='' />
+        
+        <div class="form-inline">
+        <label for="distance">Distance:</label>
+        <input type="text" name='distance' data-dojo-attach-point="distNode" data-dojo-attach-event="onchange: _setValue" size='2' maxlength='10' value='1' class='input-xs'>&nbsp;mi
+        </div>
+        
+        <input class="btn btn-xs" data-dojo-attach-point="rptNode" data-dojo-attach-event="onclick: _getEJscreen" value="Show report" type="button" />
+        <input class="btn btn-xs"  data-dojo-attach-event="onclick: _deleteGraphic" value="Remove location" type="button" />
+        <div data-dojo-attach-point="noteNode" style="color: red; font-size: 8pt;"></div>
+    </form>
+        
+</div>

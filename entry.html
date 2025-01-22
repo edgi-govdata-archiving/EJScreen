@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+<style type="text/css">
+.widget {
+	height: 225px;
+	width: 180px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 13px;
+	line-height: 14px;
+	background-image: url(images/ef_bg2.png);
+	background-repeat: no-repeat;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	color: #000;
+	font-weight: normal;
+	position: relative;
+	border: 3px solid #0059B2;
+}
+.txt {
+	display: block;
+	clear: both;
+    margin: 10px 0 0;
+    padding: 3px;
+    position: relative;
+    width: 174px;
+	color: #999;
+}
+
+.btn {
+	background-color: #044b8d;
+	border: 1px solid #CCCCCC;
+	clear: both;
+	color: #fff;
+	display: block;
+	float: left;
+	font-size: 15px;
+	font-weight: bold;
+	margin: 8px 0 0;
+	padding: 5px;
+	position: relative;
+}
+
+form {
+	display: block;
+	margin-top: 8px;
+	margin-bottom: 10px;
+}
+.placeholder { color: #aaa;}	
+
+label {
+	font-size: 14px;
+	color: #093;
+	font-weight: bold;
+	margin: 10px 0px;
+	display: block;
+}
+
+.widget .title {
+	display: block;
+	height: auto;
+	text-align: center;
+	margin-bottom: 8px;
+}
+a img {
+	border: 0;
+}
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16484610-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+function verify(frm) {
+
+	if (frm.wherestr.value == frm.wherestr.defaultValue) {
+		alert("Please input a location.");
+		return false;
+	} else {
+		return true;
+	}
+}
+</script>
+
+</head>
+<body>
+<div class="widget">
+<div class="title"><img src="https://ejscreen.epa.gov/mapper/images/ejscreen.png" width="129" height="24" alt="EJSREEN" /></div>
+Check out EPA’s environmental justice screening and mapping tool today!
+    <form action="https://ejscreen.epa.gov/mapper/index.html" method="get" target="_blank" onsubmit="return verify(this);">
+    <label>Input a Location</label>
+    <input type="text" name="wherestr" value="e.g.: city, state, zip" onfocus="clearMe(this)" onblur="setdefault(this)" class="txt"/>
+    <input type="submit" value="Search" class="btn"/>
+    </form>
+    <div style="clear:both;margin:0;padding:0;"></div>
+	<div style="clear:both; margin:10px 0 0;width:100%;">   
+    			<div style="float:left;">
+                    <a target="_blank" href="https://www.epa.gov"><img style="border:0;margin:0;padding:0;float:left;" src="https://ejscreen.epa.gov/mapper/images/epa_logo.png"></a>
+                </div>
+                <div style="width:20px; float:right;">
+                    <a target="_blank" href="https://www.epa.gov/ejscreen"><img style="border:0;margin:0;padding:0;float:left;" src="https://ejscreen.epa.gov/mapper/images/info.png"></a>
+                </div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+ function clearMe(formfield){
+  if (formfield.defaultValue==formfield.value)
+   formfield.value = ""
+ }
+ function setdefault(formfield) {
+
+ 	if (formfield.value == "") {
+ 		formfield.value = formfield.defaultValue;
+ 	}
+ }
+</script>
+
+
+
+
+</body>
+</html>

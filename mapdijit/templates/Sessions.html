@@ -1,0 +1,16 @@
+﻿
+<div>
+
+        
+        <div  data-dojo-attach-point="sesNode">
+            
+        </div>
+        
+    	<input data-dojo-type="dijit/form/TextBox"  data-dojo-attach-point="sestext" value="" placeholder="Enter Session Name" data-dojo-attach-event="onkeypress: _sespress" />
+        <button data-dojo-type="dijit/form/Button" value="Add" data-dojo-attach-event="onmousedown: _addSession">Add</button>
+        <br/>
+        Or load session from a file.
+        <input type="file" id="file" name="file" data-dojo-attach-event="onchange: _addfile"/>
+        
+
+</div>

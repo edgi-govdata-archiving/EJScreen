@@ -1,0 +1,56 @@
+
+ <div style="margin: 4px;background-color: #fff; text-align: left;">
+ 
+    <div  style="margin-bottom: 10px; background-color: #dddddd; width: 100%;">
+    
+        <table>
+        <tr>
+        <td>
+        <b>Enter keyword to search:</b>
+        <input data-dojo-attach-point="valueNode" type="text" value="${searchvalue}" id="Text1" name="stext" size="40" maxlength="200" data-dojo-attach-event="onkeypress:_tboxpress"/>
+        <input class="btn btn-primary" type="button" data-dojo-attach-point="bntNode" data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onClick" value="Search" label="Search" />
+        </td>
+        </tr>
+        <tr><td>
+        <span id="orSpan" style="font-weight:bold;">OR</span> <span id="signinBtn" data-dojo-attach-event="onclick:_Signin" style="cursor: pointer; color: Blue; font-weight: bold; text-decoration: underline;">Sign In</span><span id="inst" style="display: inline-block;">&nbsp;to search for maps in your ArcGIS account (EPA employees can use single sign on)</span>
+        </td></tr>
+        </table>
+
+    </div>
+
+    <table  style="width: 100%;">
+    <tr>
+    <td valign="top"  style="width: 32%;">
+        <table>
+        <tr>
+        <td>
+        <input data-dojo-attach-point="gboxNode" type="checkbox" name="gboxchk" data-dojo-attach-event="onclick:_toggleonly" />&nbsp;Only search within map view
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <div id="gOnlyDiv" style="display:none;">
+        <input data-dojo-attach-point="gOnlyNode" type="checkbox" name="gonlychk" data-dojo-attach-event="onclick:_toggleonly"/>&nbsp;Only search within organization
+        </div>
+        </td>
+        </tr>
+        
+        </table>
+    </td>
+    <td valign="top" style="width: 68%;">
+        <div data-dojo-attach-point="countNode" style="font-weight: bold;"></div>
+        <div data-dojo-attach-point="contentNode">
+        </div>
+        <div data-dojo-attach-point="navNode" style="width: 100%; text-align: center;">
+        <span data-dojo-attach-point="preNode" style="display:none;cursor:pointer; color: Navy;"data-dojo-attach-event="ondijitclick: _preClick">Previous</span>
+        &nbsp;<span data-dojo-attach-point="recNode" style="text-decoration: underline;display: inline;"></span>
+        &nbsp;<span data-dojo-attach-point="nxNode" style="display:none; cursor:pointer; color: Navy;" data-dojo-attach-event="ondijitclick: _nextClick">Next</span>
+        </div>
+    </td>
+    </tr>
+    </table>
+    
+
+
+</div>
+

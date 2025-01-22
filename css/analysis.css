@@ -1,0 +1,169 @@
+body 
+{
+    font-family: "Lucida Sans Unicode","Lucida Grande","Lucida Sans",Arial,sans-serif;
+    background: #369;
+}
+#webmapTitle{
+  font-family:"gill sans",helvetica,arial,sans-serif;
+  color: White;
+  font-size:32px;
+  width: 100%;
+  max-width:100%;
+  float:left;
+  white-space: nowrap;  
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  -o-text-overflow:ellipsis;
+  padding-top:0px;
+  margin-top:0px;
+}
+    	.questionText {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-style: normal;
+          color: #003366;
+          font-weight: normal;
+          text-align: left;
+          padding-left: 2em;
+          padding-right: 1em;
+          padding-top: 3pt;
+          padding-bottom: 3pt;
+          }
+          .noCell,.no0,.no1 {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 10px;
+          font-style: normal;
+          color: #666666;
+          font-weight: normal;
+          vertical-align: middle;
+          background-color: #EFEFEF;
+          }
+          
+          .no1 
+          {
+			background-color: #DDDDDD;
+          }
+              
+          .yesCell,.yes0,.yes1{
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 10px;
+          font-style: normal;
+          color: #000000;
+          font-weight: bold;
+          vertical-align: middle;
+          background-color: #EFEFA0;
+          }
+          
+         
+          
+          .yes1 
+          {
+			background-color: #E7E773;
+          }
+          
+           .wetCell,.wet0,.wet1 {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 10px;
+          font-style: normal;
+          color: #000000;
+          font-weight: bold;
+          vertical-align: middle;
+          background-color: #CCFFCC;
+          }
+          
+           .wet1 
+          {
+			background-color: #99FFCC;
+          }
+          
+            .errorCell,.error0,.error1{
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 10px;
+          font-style: normal;
+          color: #000000;
+          font-weight: normal;
+          vertical-align: middle;
+          background-color: #E6CCFF;
+          }
+          
+          .error1 
+          {
+			background-color: #DAB3FF;
+          }
+                   
+          
+          .featText {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 9px;
+          border: 1px none #999999;
+          font-style: italic;
+          color: #333333;
+          font-weight: normal;
+          }
+                  
+
+          A:link {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          border: 1px none #999999;
+          font-style: normal;
+          color: #003366;
+          font-weight: normal;
+          text-decoration: none;
+          }
+          A:visited {
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          border: 1px none #999999;
+          font-style: normal;
+          color: #003366;
+          font-weight: normal;
+          }
+          /* toggle CSS */
+          .toggle {
+          background : url(mapdijit/images/plus.gif) no-repeat;
+          text-decoration: none!important;
+           font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          border: 1px none #999999;
+          font-style: normal;
+          color: #003366;
+          font-weight: normal;
+         }
+          .toggleOff {
+          background : url(mapdijit/images/minus.gif) no-repeat;
+          text-decoration: none!important;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          border: 1px none #999999;
+          font-style: normal;
+          color: #003366;
+          font-weight: normal;
+          }
+          .headCell1  
+          {
+          text-align: left;
+          padding-left: 2em;
+          padding-right: 1em;
+          padding-top: 3pt;
+          padding-bottom: 3pt;
+          }
+          .headRow 
+          {
+           background-color:rgb(79, 129, 189);  
+           color: #ffffff;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-style: normal;
+          }
+          
+   .custompanel 
+   {
+       margin: 4px 15px 4px 15px;
+       word-wrap: break-word;
+   }
+   .info 
+   {
+       font-family: Verdana;
+       font-size: 9pt;
+   }

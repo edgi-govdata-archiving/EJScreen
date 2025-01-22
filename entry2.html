@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="iem7 no-js" lang="en" dir="ltr"><![endif]-->
+<!--[if lt IE 7]><html class="lt-ie9 lt-ie8 lt-ie7 no-js" lang="en" dir="ltr"><![endif]-->
+<!--[if (IE 7)&(!IEMobile)]><html class="lt-ie9 lt-ie8 no-js" lang="en" dir="ltr"><![endif]-->
+<!--[if IE 8]><html class="lt-ie9 no-js" lang="en" dir="ltr"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)]><!--> <html class="no-js not-oldie" lang="en" dir="ltr"> <!--<![endif]-->
+<head>
+	  <meta charset="utf-8" />
+	  <meta name="HandheldFriendly" content="true" />
+	  <link rel="shortcut icon" href="//www2.epa.gov/sites/all/themes/epa/favicon.ico" type="image/vnd.microsoft.icon" />
+	  <meta name="MobileOptimized" content="width" />
+	  <meta http-equiv="cleartype" content="on" />
+	  <meta http-equiv="ImageToolbar" content="false" />
+	  <meta name="viewport" content="width=device-width" />
+	<!--googleon: all-->
+	  <meta name="DC.title" content="EJScreen Widget" />
+	  <meta name="DC.description" content="This widget allows you to check out EPA's environmental justice screening and mapping tool." />
+	  <title>EJScreen Widget | US EPA</title>
+	<!--googleoff: snippet-->
+	  <meta name="DC.date.created" content="2015-06-03" />
+	  <meta name="DC.date.modified" content="2015-06-03" />
+	  <meta name="keywords" content="Environmental Justice, EJ, Mapping" />
+          <meta name="DC.type" content="Data and Tools" />
+	  <meta name="DC.Subject.epachannel" content="Learn the Issues" />
+	  <meta name="DC.creator" content="US EPA, OECA />
+	  <meta name="DC.language" content="en" />
+	<!--googleoff: all-->
+
+<style type="text/css">
+
+.widget {
+	height: 140px;
+	width: 270px;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 13px;
+	line-height: 14px;
+	background-image: url(images/ej_bg2.png);
+	background-repeat: no-repeat;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	color: #000;
+	font-weight: normal;
+	position: relative;	
+}
+.txt {
+	display: block;
+	clear: both;
+	padding: 2px;
+	position: relative;
+	width: 180px;
+	color: #999;
+	float: left;
+	margin-top: 2px;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+}
+
+.btn {
+	background-color: #044b8d;
+	border: 1px solid #CCCCCC;
+	color: #fff;
+	display: block;
+	float: right;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 2px 0 0;
+	padding: 2px;
+	position: relative;
+}
+
+form {
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+.placeholder { color: #aaa;}	
+
+label {
+	font-size: 14px;
+	color: #093;
+	font-weight: bold;
+	margin: 5px 0px;
+	display: block;
+}
+
+.widget .title {
+	display: block;
+	height: auto;
+	text-align: center;
+	margin-bottom: 5px;
+}
+</style>
+
+
+</head>
+	<body class="blank" style="padding:0px;margin:0px" >
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-L8ZB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63934770-1', 'auto');
+  ga('send', 'pageview');
+
+</script> -->
+    <!-- End Google Tag Manager -->
+<div class="widget">
+<div class="title"><img src="https://ejscreen.epa.gov/mapper/images/ejscreen.png" width="129" height="24" alt="EJScreen" border="0"/></div>
+Check out EPA’s environmental justice screening and mapping tool today!
+    <form action="https://ejscreen.epa.gov/mapper/index.html" method="get" target="_blank" onsubmit="return verify(this);">
+    <label>Input a Location</label>
+    <input type="text" name="wherestr" value="e.g.: city, state, zip" onfocus="clearMe(this)" onblur="setdefault(this)" class="txt"/>
+    <input type="submit" value="Search" class="btn"/>
+    </form>
+    <div style="clear:both;margin:0;padding:0;"></div>
+	<div style="clear:both; margin:8px 0 0;width:100%;">   
+    			<div style="float:left;">
+                    <a target="_blank" href="//www.epa.gov"><img style="border:0;margin:0;padding:0;float:left;" src="https://ejscreen.epa.gov/mapper/images/epa_logo.png"></a>
+                </div>
+                
+	</div>
+	
+</div>
+<footer role="contentinfo">
+	  </footer>
+<script type="text/javascript">
+
+function verify(frm) {
+
+	if (frm.wherestr.value == frm.wherestr.defaultValue) {
+		alert("Please input a location.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function clearMe(formfield){
+  if (formfield.defaultValue==formfield.value)
+   formfield.value = ""
+ }
+ function setdefault(formfield) {
+
+ 	if (formfield.value == "") {
+ 		formfield.value = formfield.defaultValue;
+ 	}
+ }
+
+</script>
+	</body>
+</html>

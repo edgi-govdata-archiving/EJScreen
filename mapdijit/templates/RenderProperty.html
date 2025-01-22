@@ -1,0 +1,113 @@
+<div>   
+    <div class="tabArea" id="tabDiv">
+
+    </div>
+    <div class="tabMain">
+        <form data-dojo-attach-point="renderform">
+            <input type="hidden" name="startcolor" value="" />
+            <input type="hidden" name="endcolor" value="" />
+            <table>
+                
+                <tr>
+                    <td style="height: 2px;"></td>
+                </tr>
+                <tr>
+                    <tr>
+                        <td align="right">
+                            Category:
+                        </td>
+                        <td>
+                            <select name="demogtype" data-dojo-attach-point="demogTypeNode" data-dojo-attach-event="onchange:_changeDemog">
+               
+                </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">Variable:</td>
+                        <td>
+                            <select name="demogvar" data-dojo-attach-point="demogListNode" style="width: 300px;">
+                
+                </select>
+                        </td>
+                    </tr>
+                <tr>
+
+                    <td colspan="2" align="center">
+                        <input type="radio" name="rendertype" value="polygon" checked data-dojo-attach-event="onchange:_changeRendertype">&nbsp;Blockgroup Map&nbsp;&nbsp;
+                        <input type="radio" name="rendertype" value="point" data-dojo-attach-event="onchange:_changeRendertype">&nbsp;Proportional Symbol
+                    </td>
+                </tr>
+                    <!-- <tr>
+                        <td align="right">
+                            Method:
+                        </td>
+                        <td>
+                            <select name="classification" data-dojo-attach-point="classTypeNode">
+                 <option value="quantile">Quantile</option>
+                <option value="natural-breaks">Natural Breaks</option>
+                <option value="equal-interval">Equal Interval</option> 
+                </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Breaks:
+                        </td>
+                        <td>
+                            <select name="classes" data-dojo-attach-point="classNumNode" data-dojo-attach-event="onchange:_changeCat">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option> 
+                <option value="5" selected>5</option>
+                 <option value="6">6</option>
+                <option value="7">7</option>
+                </select>
+                        </td>
+                    </tr> -->
+                    
+                    <!-- <tr>
+                        <td valign="top" align="right">
+                            Transparency:
+                        </td>
+                        <td id="transbar">
+                            <div dojoType="dijit.form.HorizontalSlider" data-dojo-attach-point="sliderNode" value="0.5" maximum="1" minimum="0" pageIncrement="100" showButtons="false" intermediateChanges="true" slideDuration="500" style="width:140px; height: 12px; margin: 4px 2px 2px 0px;">
+                                <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div>
+                                <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:0.7em;font-size:7pt;color:#0000A0">
+                                    <li>0.0</li>
+                                    <li>0.5</li>
+                                    <li>1.0</li>
+                                </ol>
+                            </div>
+                        </td>
+                    </tr> -->
+                    <!-- <tr>
+                        <td align="right" valign="top">
+                            Border:
+                        </td>
+                        <td>
+                            <div style="display: inline; float: left;">
+                                <select name="bwidth" data-dojo-attach-point="bWidthNode">
+                <option value="0">0</option>
+                <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option> 
+                <option value="5">5</option>
+                </select>
+                            </div>
+                            <div class="controlset"><input id="color1" data-dojo-attach-point="bColorNode" type="text" name="color1" size="2" value="#000000" /></div>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" value="Add to Map" data-dojo-attach-point="mapNode" data-dojo-attach-event="onclick:_mapDemog" disabled />
+
+
+                        </td>
+                    </tr>
+            </table>
+        </form>
+       <!--  <div id="descdiv" style="position: absolute; top: 110px; right: 4px; width: 140px; background-color: rgb(240, 248, 254); border: 1px solid #cccccc; font-family: Verdana; font-size: 90%; font-weight: normal;">
+        </div> -->
+    </div>
+</div>

@@ -1,0 +1,68 @@
+.claro .dijitAccordionArrow {
+    background: url("../images/ui-icons_888888_256x240.png") no-repeat -32px -16px;
+    width: 16px;
+    height: 16px;
+    margin-top: -1px;
+}
+
+.claro .dijitAccordionTitleSelected .dijitAccordionArrow {
+    background: url("../images/ui-icons_888888_256x240.png") no-repeat -64px -16px;
+    margin-top: -1px;
+}
+
+.indexContent {
+    font-family: Verdana;
+    font-size: 9pt;
+    font-weight: normal;
+}
+
+.pdf {
+    list-style-image: url('../images/pdf_16.png');
+}
+
+.chart {
+    list-style-image: url('../images/chart_24.png');
+}
+
+.esri-popup__content a {
+    color: #336699;
+    text-decoration: underline;
+    font-family: Calibri, Tahoma, Arial, Helvetica;
+    font-size: 10pt;
+}
+
+.esri-popup__content input,
+.esri-popup__content select {
+    height: 24px;
+    padding: 0;
+}
+
+
+/*button 
+{
+    background-color: #A1CBE2;
+    cursor: pointer;
+    
+    text-align: center;
+}*/
+
+.exit-disclaimer,
+.exit-disclaimer:hover,
+.exit-disclaimer:active {
+    background: #fff;
+    border: 1px solid #aaa;
+    color: #666 !important;
+    display: inline-block;
+    font-size: 62.5%;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 0.3em;
+    position: relative;
+    text-decoration: none;
+    top: -0.3em;
+}
+
+/* add spacing to right of legend text on Explore Report chart */
+#ejlegendNode td {
+	padding-right: 10px;
+}

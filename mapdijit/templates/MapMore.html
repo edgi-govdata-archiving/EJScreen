@@ -1,0 +1,56 @@
+<div>
+<form>
+    <div >
+<table border="0">
+    <tr>
+        <td style="font-size: 10pt;" colspan="2">
+        Select one of the services and then select a layer to add to the map. 
+        </td>
+    </tr>
+    
+    <tr>
+        <td style="width: 20%;">
+        Service: 
+        </td>
+        <td>
+        <select size="1" data-dojo-attach-event="onchange:_getLayers" data-dojo-attach-point="svcNode" style="max-width:325px;width:325px;text-overflow: ellipsis;" >
+        </select>
+        </td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td style="width: 20%;">
+        Layer: 
+        </td>
+        <td>
+        <select size="1" data-dojo-attach-point="lyrNode" data-dojo-attach-event="onchange:_getSubLayers" style="max-width:325px;width:325px;text-overflow: ellipsis;">
+        </select>
+        </td>
+    </tr>
+    <tr></tr>
+    <tr>
+        
+        <td style="width: 20%;"> 
+        <span id="subLyrSpan" data-dojo-attach-point="lyrSubNodeSpan" style='display:none'>Sub Layer: </span>
+        </td>
+        <td>
+        <select id="subLyr" size="1" data-dojo-attach-point="lyrSubNode"  style="display:none;max-width:325px;width:325px;text-overflow: ellipsis;" >
+        </select>
+        </td>
+    </tr>
+   </table>
+</div>
+   <div>
+
+   
+<table>
+    <tr>
+        <td colspan="2">
+        <input type="button" value="Update Map" label="Update Map" data-dojo-attach-event="onClick:_addLyr" />
+        </td>
+    </tr>
+    
+</div>
+</table>
+</form>
+</div>

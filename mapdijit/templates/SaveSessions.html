@@ -1,0 +1,41 @@
+<div>
+    <div class="help-text">
+        Enter a unique name below to save your current map settings. Your available saved sessions will appear below for you to upload, download and further edit. Consider saving your available sessions to your computer using the “Save to file” setting to avoid
+        losing your current saved sessions.
+    </div>
+
+    <div id="save-panel" style="margin: 10px 0; border: 1px solid #cccccc;" data-dojo-attach-point="savePanel">
+        <div class="form-control">
+            <label for="session-name-input">Name: </label>
+            <input type="text" id="session-name-input" data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="sessionNameTextBox" data-dojo-props='trim:true' class="textbox" />
+        </div>
+
+        <input value="Save" type="button" data-dojo-attach-point="saveButton" data-dojo-attach-event="onclick:onSaveButtonClicked" />
+        <div class="input-text" data-dojo-attach-point="inputText">Enter the name for the session</div>
+    </div>
+
+
+    <span style="font-size: 10pt; color: gray; font-weight: bold;">Saved Sessions</span>
+    <div id="saved-sessions-panel" data-dojo-attach-point="savedSessionContainer">
+    </div>
+    <div id="load-file-panel">
+        <a href="javascript: void(0);" class="link-btn" data-dojo-attach-point="loadFromFileButton" data-dojo-attach-event="onclick:onLoadFromFileButtonClicked">Load from file</a>
+        <a href="javascript: void(0);" class="link-btn" data-dojo-attach-point="saveToFileButton" data-dojo-attach-event="onclick:onSaveToFileButtonClicked">Save to file</a>
+        <a href="javascript: void(0);" class="link-btn" data-dojo-attach-point="saveSingleSession" style="display: none" target="_blank">Save single session to file</a>
+    </div>
+
+    <!-- hidden form to return file to save -->
+    <!-- clientside download is not supported in all browsers http://caniuse.com/#search=download -->
+    <form action="" method="post" style="display:none" data-dojo-attach-point="saveToFileForm">
+        <input type="hidden" name="filename" value="" data-dojo-attach-point="saveToFileName">
+        <input type="hidden" name="content" value="" data-dojo-attach-point="saveToFileContent">
+    </form>
+    <form style="display: none;" enctype="multipart/form-data" method="post" data-dojo-attach-point="uploadForm" data-dojo-attach-event="onChange: _submitFile">
+
+        <input type="file" name="file" data-dojo-attach-point="filebtn" />
+    </form>
+    <i>Note: (1) The number of sessions that can be saved depends on the browser cache size. 
+        (2) Session files, if saved, are available from the default Downloads folder on your computer.
+        (3) Users should exercise caution when saving sessions that may contain sensitive or confidential data. 
+    </i>
+</div>

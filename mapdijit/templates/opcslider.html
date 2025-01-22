@@ -1,0 +1,20 @@
+<div>
+<table cellspacing="0" cellpadding="0">
+<tr><td colspan="2" align="right">
+<img src="images/closepanel.png" data-dojo-attach-event="onclick:_closeDialog"  title="Close" alt="Close">
+</td></tr> 
+<tr><td align="center" colspan="2"><b>Set Transparency</b></td></tr> 
+<tr><td align="left">Opaque</td><td align="right">Transparent</td></tr> 
+<tr><td colspan="2">
+<div dojoType="dijit.form.HorizontalSlider" data-dojo-attach-point="sliderNode" class="tundra" data-dojo-attach-event="onChange:_setOpacity" value="${opcvalue}" maximum="1" minimum="0" pageIncrement="100" showButtons="true" intermediateChanges="false" slideDuration="500" style="width:160px; height: 20px; margin: 4px 10px 2px 10px;"> 
+<div dojoType="dijit.form.HorizontalRule" container="bottomDecoration" count=5 style="height:5px;"></div> 
+<ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration" style="height:1em;font-size:8pt;color:#0000A0"> 
+<li>0.0</li> 
+<li>0.5</li> 
+<li>1.0</li> 
+</ol> 
+</div> 
+</td>
+</tr>
+</table> 
+</div>

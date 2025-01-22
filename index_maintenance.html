@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8;">
+    <title>EJScreen</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/css/main.css">
+    <link rel="stylesheet" href="//js.arcgis.com/4.16/dojox/layout/resources/FloatingPane.css">
+    <link rel="stylesheet" href="//js.arcgis.com/4.16/dojox/layout/resources/ResizeHandle.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+   <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">  -->
+ 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <!-- <style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none;}ng\:form{display:block;}</style> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="SHORTCUT ICON" href="images/ej.ico">
+    <link rel="stylesheet" type="text/css" href="css/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="css/claro/claroGrid.css">
+    <link rel="stylesheet" type="text/css" href="css/blue.css">
+    <link rel="stylesheet" type="text/css" href="css/tabs.css">
+    <link rel="stylesheet" type="text/css" href="css/layout_new.css">
+    <link rel="stylesheet" type="text/css" href="css/modal_dialog.css">
+    <!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+ 
+
+ 
+
+    <script>
+        var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        var dojoConfig = {
+            has: {
+                "esri-native-promise": true
+            },
+            parseOnLoad: true,
+            packages: [{
+                name: "mapdijit",
+                location: path_location + '/mapdijit'
+            }]
+        };
+
+        function isMobileDevice() {
+            if ((typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('Mobile') !== -1)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //EJ2020 - add toggleDiv function
+        function toggleDiv(aid, divid) {
+
+
+            if (document.getElementById(divid).style.display == 'none') {
+                document.getElementById(divid).style.display = 'block';
+                aid.className = "toggleOff";
+            } else {
+                document.getElementById(divid).style.display = 'none';
+                aid.className = "toggle";
+            }
+        }
+        // end EJ2020 - add toggleDiv function
+
+        function checkdevice() {
+            var query = window.location.search.substring(1);
+            var appreg = /app=desktop/i;
+            var isDesktop = appreg.test(query);
+            if (query.length > 0) {
+                query = "?" + query;
+            }
+            if (!isDesktop) {
+                if (isMobileDevice()) {
+                    if (confirm("Launch EJScreen Mobile?") == true) {
+                        window.location.href = "mobile/index.html" + query;
+                    }
+
+                }
+            }
+        }
+
+   
+    </script>
+    <script src="https://js.arcgis.com/4.16/"></script>
+    <script type="text/javascript" src="javascript/config.js"></script>
+    <script type="text/javascript" src="javascript/defaults.js"></script>
+    <script type="text/javascript" src="javascript/layout_new.js"></script>
+    <!-- <script language="javascript" type="text/javascript" src="mapdijit/javascript/jquery.min.js"></script> -->
+    <script language="javascript" type="text/javascript" src="mapdijit/javascript/jquery.colorPicker.js"></script>
+
+    <!-- hardcode json objects for testing -->
+    <script type="text/javascript" src="javascript/config_obj_temp.js"></script>
+
+
+    <style type="text/css">
+    .headerClass {
+    font-family: 'Segoe UI',Tahoma,Geneva,Verdana,sans-serif,Helvetica;
+    font-size: 32px;
+    font-weight: bold;
+   }
+
+   .maintenanceTitle{
+  font-family:"gill sans",helvetica,arial,sans-serif;
+  color: White;
+  font-size:40px;
+  width: 100%;
+  max-width:100%;
+  float:left;
+  white-space: nowrap;  
+  overflow: hidden;  
+  text-overflow: ellipsis;
+  -o-text-overflow:ellipsis;
+  padding-top:0px;
+  margin-top:0px;
+}
+</style>
+    <script type="text/javascript">
+  
+        function openPage(pageUrl){
+       window.open(pageUrl);
+     }
+	 //hardcode instead of reading from current config since want to increment the version
+     //$(document).ready( function() {
+     // $("#versionNum").text(versionNumber);
+     //});
+    </script>
+
+
+<link type="text/css" rel="stylesheet" href="mapdijit/css/ejreport.css"><link type="text/css" rel="stylesheet" href="mapdijit/css/colorPicker.css"><link type="text/css" rel="stylesheet" href="mapdijit/css/TOC.css"><link type="text/css" rel="stylesheet" href="mapdijit/css/draw.css"><link type="text/css" rel="stylesheet" href="mapdijit/css/ejreport.css"><script type="text/javascript" src="mapdijit/javascript/ejindex.js"></script><link type="text/css" rel="stylesheet" href="mapdijit/css/service.css"><link type="text/css" rel="stylesheet" href="mapdijit/css/savesession.css"><link type="text/css" rel="stylesheet" href="mapdijit/css/simpletable.css"></head>
+
+<body class="claro">
+
+    <div class="container-fluid">
+        <!-- <div id="webmapTitle" class="row">
+        </div> -->
+<div id="maintenanceTitle" class="row">   
+ <table width="100%">
+	<tbody>
+		<tr>
+			<td width="72px" valign="top"><img id="titleLogo" src="images/epa_logo_horizBlue.png" alt="EPA" title="EPA"></td>
+            <td valign="bottom">EJScreen<span style="font-size: 10pt;">&nbsp;&nbsp;EPA's Environmental Justice Screening and Mapping Tool (Version 2.3)</span></td>
+		</tr>
+	</tbody>
+</table> 
+</div>
+<h2 align="center" class="headerClass">EJScreen </span> will be under maintenance from August 5 - August 6 </h2>
+
+
+        </div>
+
+</body>
+</html>

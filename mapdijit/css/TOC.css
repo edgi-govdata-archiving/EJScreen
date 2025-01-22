@@ -1,0 +1,121 @@
+.agsTOCNode {
+    padding-top: 0;
+    /*padding-bottom: 1px;*/
+/*    background: #D7DEE5 url(../images/accordion.jpg) repeat-x scroll 0 0;*/
+  /*  background: #ebebeb url(../images/accordion.jpg) repeat-x scroll 0 0;*/
+    width: 100%;
+
+}
+
+.agsTOCNode table {
+    font-family: Verdana, Arial;
+    font-size: 8pt;
+}
+
+
+/*.agsTOCContent {
+    white-space: nowrap;
+   overflow: hidden;
+   width: 120px;
+   text-overflow: ellipsis;
+   -o-text-overflow:ellipsis;
+}*/
+ .agsTOCContent {
+        display: flex;
+        align-items: center;
+  }
+
+.agsTOCOutOfScale {
+    color: grey;
+    opacity: .5;
+}
+
+.agsTOCServiceLabel {
+    font-family: Verdana, Arial;
+    font-size: 8pt;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 180px;  
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+		background-color: rgb(235, 235, 235);
+}
+
+.agsjsTOCIcon {
+    vertical-align: bottom;
+}
+
+.agsTOCSlider {
+    padding: 5px 20px 5px 30px;
+}
+
+.agsTOCGroupLabel,
+.agsTOCLayerLabel {
+    font-size: 8pt;
+    white-space: pre-wrap;
+    /* CSS3 */
+    white-space: -moz-pre-wrap;
+    /* Firefox */
+    white-space: -pre-wrap;
+    /* Opera <7 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* IE */
+    word-break: hyphenate;
+
+}
+
+.agsTOCLegendLabel {
+    font-size: 8pt;
+    white-space: pre-wrap;
+}
+
+.agsTOCCountLabel {
+    font-size: 8pt;
+    white-space: pre-wrap;
+}
+
+.esriLegendServiceLabel {
+    white-space: pre-wrap;
+}
+
+#storetDetails {
+    width: 200px;
+    white-space: normal;
+}
+
+.dijitTreeExpando {
+    background-image: url("../images/treeExpandImages.png");
+    width: 16px;
+    height: 16px;
+    background-position: -35px 0;
+    /* margin-top: -10px; */
+}
+
+.dijitTreeExpandoClosed {
+    background-position: 1px 0;
+}
+
+.infoNode{
+display: block;
+background-color: white;
+color: black;
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif, Helvetica;
+padding: 5px;
+font-size: 12px;
+cursor: pointer;
+text-decoration: underline;
+padding-top:0px;
+}
+.checkContainerNode{
+	padding-left: 3px;
+}
+
+.esri-legend__layer-caption{
+	font-size: 12px;
+}
+
