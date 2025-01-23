@@ -1,5 +1,7 @@
 # EJScreen
 
+A Repository for the EJScreen application, version 2.3.
+
 The repository contains the EJScreen application, its mobile module, and EJScreen API. The EJScreen application consists of a number of mapdijit modules, and their supporting HTML, JavaScript, ASP.NET, stylesheets, and PDF templates. EJScreen mobile is a module for the EJScreen application targeted mobile devices and written in Calcite and ASP.NET. The EJScreen API is an APS.NET application.
 
 More information can be found at the <a href="https://www.epa.gov/ejscreen" rel="nofollow">EJScreen</a> website or by viewing the EJScreen <a href="https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf" rel="nofollow">Online Help</a>.
