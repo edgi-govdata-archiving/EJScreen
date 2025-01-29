@@ -1,4 +1,4 @@
-define("mapdijit/ejKnownGeo", ['dojo/_base/declare',
+define(['dojo/_base/declare',
     "dojo/has",
     "dojo/aspect",
     "dojo/_base/lang",
@@ -24,7 +24,7 @@ define("mapdijit/ejKnownGeo", ['dojo/_base/declare',
     "esri/Graphic",
     "esri/geometry/Polygon",
     "esri/PopupTemplate",
-    'mapdijit/EJinfoWindow'
+    'https://edgi-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js'
 ], function(
     declare,
     has,

@@ -24,7 +24,7 @@ define(
         "esri/PopupTemplate",
         "esri/Basemap",
         "esri/renderers/support/jsonUtils",
-        'mapdijit/EJinfoWindow'
+        'https://edgi-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js'
     ],
     function(
         declare,

@@ -25,7 +25,7 @@ define([
 	"esri/layers/FeatureLayer",
 	"esri/layers/ImageryLayer",
 	"esri/layers/TileLayer",
-	"mapdijit/IDinfoWindow",
+	"https://edgi-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js",
 	"esri/core/urlUtils",
 	"dijit/form/Button",
 	"dojo/domReady!",
