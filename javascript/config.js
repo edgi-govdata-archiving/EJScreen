@@ -105,13 +105,13 @@ var ejscreenenvindexnationalurl = localRESTurl+"ejscreen/ejscreen_v2024_with_as_
 var ejscreenenvindexstateurl = localRESTurl+"ejscreen/ejscreen_v2024_with_as_cnmi_gu_vi/MapServer/34";
 
 
-var helpfileurl = "help/ejscreen_help.pdf";
-var glossaryurlEJIndexes = "https://www.epa.gov/ejscreen/ej-index-descriptions";
-var glossaryurlSuppIndexes = "https://www.epa.gov/ejscreen/supplemental-index-descriptions";
+var helpfileurl = "https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf";
+var glossaryurlEJIndexes = "https://web.archive.org/web/20250121194855/https://www.epa.gov/ejscreen/ej-index-descriptions";
+var glossaryurlSuppIndexes = "https://web.archive.org/web/20241202134502/https://www.epa.gov/ejscreen/supplemental-index-descriptions";
 //var glossaryurl = "https://www.epa.gov/ejscreen/glossary-ejscreen-terms";
 //var glossaryurl = "https://ejscreen.epa.gov/ejscreen23/ejscreen-map-descriptions3.html";
-var glossaryurl ="https://www.epa.gov/ejscreen/ejscreen-map-descriptions";
-var homeappurl = "https://www.epa.gov/ejscreen";
+var glossaryurl ="https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions";
+var homeappurl = "https://edgi-ejscreen.azurewebsites.net/";
 var v1appurl = "ejscreen_v1/index.html";
 var countybndurl =
 	"//geopub.epa.gov/arcgis/rest/services/EMEF/Boundaries/MapServer/5/query";
@@ -154,7 +154,7 @@ var basemapGallery;
 
 var slrMouseOverTxt =
 	"Land at risk of permanent flooding when sea level rises. Over the next 30 years, scientists estimate a 1-3 foot rise along most of the U.S. coastline";
-var metaroot = "https://www.epa.gov/ejscreen/ejscreen-map-descriptions";
+var metaroot = "https://web.archive.org/web/20250121194843/https://www.epa.gov/ejscreen/ejscreen-map-descriptions";
 var metanchors = {
 	//note: ej index anchors are in different section of config below, 
     //additional demog anchors are in TOC.js
@@ -252,13 +252,13 @@ var suggestservicesFieldDecimalPlacesALIASES = {
 var suggestservicesCLIMATE = {
 
 	floodrisk: {
-		title: "Flood Risk",
+		title: "Flood Risk (National Percentile)",
 		mouseover:"Model representing the risk of flooding",
-		url: localRESTurl + "ejscreen/climate/MapServer",
-		type: "agsdynamic",
+		url: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_EJScreen_Flood_Risk/FeatureServer/0",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 1, title: "State Percentile" ,visible:false},{ id: 0, title: "National Percentile",visible:true }],
+		layers: [{ id: 0, title: "National Percentile",visible:true }], //{ id: 1, title: "State Percentile" ,visible:false},
 	},
 
 	firerisk: {
@@ -576,15 +576,16 @@ var serviceJSON = {
 		layergroup: {
 			epafacs: {
 				description: "EPA Regulated Facilities",
+				mouseover:"Facilities subject to EPA's environmental regulations",
 				type: "agsdynamic",
-				visible: true,
+				visible: false,
 				dynamic: false,
-				layerurl: localRESTurl+"ejscreen/ejscreen_v2024_with_as_cnmi_gu_vi",
-				service: "",
+				layerurl: prodRESTurl,
+				service: "EMEF/efpoints",
 				transparency: "0.8",
 				identify: "yes",
 				removable: false,
-				listlayer: [0, 1 ,2, 3, 4],
+				listlayer: [0, 2, 3, 4, 5],
 				defaultlayer: [-1],
 				position: 1,
 				imageName: "regulated-facility_16x16.png",
@@ -702,7 +703,7 @@ var climateServices_SBS={
 		type: "agsdynamic",
 		visible: false,
 		dynamic: false,
-		layerurl: localRESTurl,
+		layerurl: "localRESTurl",
 		service: "ejscreen/climate",
 		transparency: "1",
 		
@@ -1553,7 +1554,7 @@ var otherEnvironmentalDataJSON = {
 		type: "featurelayer",
 		visible: true,
 		dynamic: true,			
-		layerurl: "https://services.arcgis.com/cJ9YHowT8TU7DUyn/ArcGIS/rest/services/Water_System_Boundaries/FeatureServer/0",
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Drinking_Water_Service_Areas/FeatureServer/0",
 		service: "",
 		transparency: "1",
 		identify: "yes",
@@ -1573,7 +1574,7 @@ var otherEnvironmentalDataJSON = {
 		visible: true,
 		dynamic: true,
 		layerurl: prodRESTurl,
-		service: "EMEF/EJ_GRANTS_POP",
+		service: "EMEF/EJgrants",
 		transparency: "1",
 		identify: "yes",
 		removable: false,
@@ -1595,7 +1596,7 @@ var communityLandmarksJSON = {
 		visible: true,
 		dynamic: true,
 		layerurl:
-			"https://ejscreen.epa.gov/arcgis/rest/services/ejscreen/nces_schools/MapServer/0",
+			"https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/US_Schools/FeatureServer/0",
 		service: "",
 		transparency: "0.8",
 		removable: false,

@@ -85,6 +85,7 @@ body, html {
 
     <script>
         var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        console.log(path_location)
         var dojoConfig = {
             has: {
                 "esri-native-promise": true
@@ -92,7 +93,7 @@ body, html {
             parseOnLoad: true,
             packages: [{
                 name: "mapdijit",
-                location: 'https://edgi-ejscreen.azurewebsites.net/mapdijit'
+                location: 'http://localhost:8000/mapdijit'
             }]
         };
 
@@ -401,12 +402,12 @@ a[title]:hover:after {
         <div>
           <h4 style="text-align: center;font-weight:bold">Welcome!</h4>
           <p>
-            EJScreen is the EPA's environmental justice screening and mapping tool that
+            THIS IS AN UNOFFICIAL COPY OF EJSCREEN. EJScreen is the environmental justice screening and mapping tool that
             utilizes standard and nationally consistent data to highlight places that may
             have higher environmental burdens and vulnerable populations.
           </p>
           <p>
-            Check out the newly added EJScreen 2.3 features and data <a rel="external" title="This link opens a new webpage." target="_blank" href="https://www.epa.gov/ejscreen/ejscreen-change-log">here</a>!
+            Check out the newly added EJScreen 2.3 features and data <a rel="external" title="This link opens a new webpage." target="_blank" href="https://web.archive.org/web/20250124231616/https://www.epa.gov/ejscreen/ejscreen-change-log">here</a>!
           </p>
           <p>
             First-time users may find the 5-minute  <a rel="external" title="This link opens a new webpage." target="_blank" href="https://www.youtube.com/watch?v=HZp3AWDJt5A">EJScreen in 5: A Quick Overview of EJScreen</a> video helpful as an 
@@ -416,14 +417,14 @@ a[title]:hover:after {
           <p>Other helpful resources include:</p>
           <ul class="ul-spash">
             <li>
-              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf">EJScreen User Guide</a> for navigating the various features of the tool,
+              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf">EJScreen User Guide</a> for navigating the various features of the tool,
             </li>
             <li>
-              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://www.epa.gov/ejscreen/ejscreen-map-descriptions">EJScreen Glossary</a> for better understanding the map layers and
+              <a target="_blank" rel="external" title="This link opens a new webpage." href=https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions">EJScreen Glossary</a> for better understanding the map layers and
               indicators being displayed in the tool, and
             </li>
             <li>
-              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen">Frequent Questions about EJScreen</a>
+              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://web.archive.org/web/20250123162243/https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen">Frequent Questions about EJScreen</a>
             </li>
           </ul>		 
 		  <p>Please note that the EJScreen downloadable data was edited and updated on August 9, 2024. If you downloaded the EJScreen 2.3 data prior to this date, it is advisable to switch to the newest data. </p>
@@ -496,7 +497,6 @@ a[title]:hover:after {
 
     <div id="viewDiv1">
         <!-- <div id="loadingDiv1"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div> -->
-        <div id="epalogo1" class="epalogo"><img src="images/em_logo.gif" alt="epa logo" /></div>
         <div id="scalediv1" class="scalebar"></div>
 
         <div id="legendPan1"

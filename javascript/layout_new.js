@@ -193,7 +193,7 @@ require([
 	});
 
 	var titlestr =
-		"<table width='100%'><tr><td width='72px' valign='top'><img id='titleLogo' src='images/epa_logo_horizBlue.png' alt='EPA' title='EPA' /></td><td valign='bottom'>" +
+		"<table width='100%'><tr><td valign='bottom'>" +
 		defaults.title +
 		"</td>";
 	titlestr =
@@ -218,9 +218,6 @@ require([
 		" | <a href='" +
 		helpfileurl +
 		"' alt='Go to help page' title='Go to help page' target='_blank'>Help</a>";
-	titlestr =
-		titlestr +
-		" | <a href='mailto:ejscreen@epa.gov?subject=EJScreen%20Version%202.3%20Question' id='emailLink' alt='Contact Us' title='Contact Us'>Contact Us</a></span>&nbsp;&nbsp;";
 	titlestr = titlestr + "</td></tr></table>";
 	
 
