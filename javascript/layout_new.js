@@ -196,7 +196,6 @@ require([
 		"<table width='100%'><tr><td valign='bottom'>" +
 		defaults.title +
 		"</td>";
-	titlestr = titlestr + "<td><h4>This is not a US government site</h4></td>"
 	titlestr =
 		titlestr + "<td valign='middle' align='right'><span id='homelinks'>";
 	// titlestr = titlestr + "<button type='button'  data-toggle='modal' data-target='#myModal'>Toggle Sidebar</button>";
