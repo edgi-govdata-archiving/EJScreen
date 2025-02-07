@@ -589,7 +589,7 @@ ejIdentifyJSON = {
 			}
 	},
 	B_DEMOGIDX_5: {
-		description: "Demographic Index",
+		description: "Supplemental Demographic Index",
 		legendtitle:
 			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Demographic Index",
 		txtname: "T_DEMOGIDX_5",

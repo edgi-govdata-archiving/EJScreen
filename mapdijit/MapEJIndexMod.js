@@ -1193,8 +1193,9 @@ define([
 					
 					// TEST POPUP HERE
 					var infoTemplate = new PopupTemplate();
-	
+					
 					infoTemplate.title = ejIdentifyJSON[fieldname].description; // want alias...
+					console.log(ejIdentifyJSON[fieldname].description)
 					//console.log(ejindexlayer)
 					//infoTemplate.content = `Decription: ${${fieldname}}`
 					//infoTemplate.content = this._idDesc;
@@ -1203,7 +1204,12 @@ define([
 					var val = ejIdentifyJSON[fieldname].idfldname.split(",")[1]
 					var txt = ejIdentifyJSON[fieldname].txtname
 					//infoTemplate.content = "Value: {"+val+"}<br>Percentile: {"+txt+"}";
-					infoTemplate.content = "Percentile: {"+txt+"}";
+					if (ejindexlayer.cat == "P_ENV") {
+						infoTemplate.content = "Value: {"+val+"}<br>Percentile: {"+txt+"}";
+					} else {
+						infoTemplate.content = "Percentile: {"+txt+"}";
+					}
+					//for x i nidfldname
 					//console.log(ejIdentifyJSON[fieldname].idfldname)
 					//console.log("ejindexlayer", ejindexlayer)
 	
