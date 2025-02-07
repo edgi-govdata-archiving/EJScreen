@@ -119,12 +119,13 @@ define(
 
                 query.outFields = ["*"];
                 var dirty = (new Date()).getTime();
-                query.where = "FOR_DATA='Y' AND " + dirty + "=" + dirty;
+                query.where = dirty + "=" + dirty; //"FOR_DATA='Y' AND " + 
+                
 
                 queryTask.execute(query).then(function(featset) {
 
                     if (featset.features.length > 0) {
-						
+						console.log(featset)
 						//remove ST for Explore	
 						//delete dataobj['DEMOGIDX_2ST'];
 						//delete dataobj['DEMOGIDX_5ST'];					
