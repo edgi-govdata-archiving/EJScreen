@@ -237,12 +237,10 @@ var metanchors = {
 //round fields to specified decimals places. Key must match layer name in one of the other config sections below
 //for featurelayer types, key is used and field name is used in NAMES object. For dynamiclayers, key is currently not used and fields are search in the ALIAS object
 var suggestservicesFieldDecimalPlacesNAMES = {
-	broadband: { PCT_BROADBAND: 1, PCT_LIMITEDBB: 1, P_PCT_LIMITEDBB: 1 },
+	broadband: { LIMITEDBBPCT: 1},
 };
 var suggestservicesFieldDecimalPlacesALIASES = {
-	"Percent with Broadband": 1,
 	"Percent with Limited Broadband": 1,
-	"Percentile Limited Broadband": 1,
 };
 
 //if layer index is added for sublayers, title must currently be added in config as well for TOC.
@@ -256,17 +254,17 @@ var suggestservicesCLIMATE = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 0, title: "National Percentile",visible:true }], //{ id: 1, title: "State Percentile" ,visible:false},
+		//layers: [{ id: 0, title: "National Percentile",visible:true }], //{ id: 1, title: "State Percentile" ,visible:false},
 	},
 
 	firerisk: {
-		title: "Wildfire Risk",
+		title: "Wildfire Risk (National Percentile)",
 		mouseover:"Model representing wildfire exposure",
-		url: localRESTurl + "ejscreen/climate/MapServer",
-		type: "agsdynamic",
+		url: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Wildfire_Risk/FeatureServer/0",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 3, title: "State Percentile",visible:false },{ id: 2, title: "National Percentile",visible:true }],
+		//layers: [{ id: 3, title: "State Percentile",visible:false }]//,{ id: 2, title: "National Percentile",visible:true }],
 	},
 
 	/*heatnational: {
@@ -458,47 +456,48 @@ var suggestservicesCRITSVCGAPS={
 	broadband: {
 		title: "Broadband Gaps",
 		mouseover:"Areas with households without a broadband internet subscription",
-		url: localRESTurl + "ejscreen/critical_service/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Broadband_Gaps/FeatureServer/0",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 0, title: "Households with Limited Broadband" }],
+		//layers: [{ id: 0, title: "Households with Limited Broadband" }],
+		
 	},
 	nohealthinsurance: {
 		title: "Lack of Health Insurance",
 		mouseover:"People with limited health insurance",
-		url: localRESTurl + "ejscreen/critical_service/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Lack_of_Health_Insurance/FeatureServer/1",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 1, title: "Lack of Health Insurance" }],
+		//layers: [{ id: 1, title: "Lack of Health Insurance" }],
 	},
 	housingburden: {
 		title: "Housing Burden",
 		mouseover:"Households that are both earning < 80% of HUD’s Area Median Family Income and spending > 30% of their income on housing costs",
-		url: localRESTurl + "ejscreen/critical_service/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Housing_Burden/FeatureServer/0",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 2, title: "Housing Burden" }],
+		//layers: [{ id: 2, title: "Housing Burden" }],
 	},
 	transportationdisadv: {
 		title: "Transportation Access Burden",
 		mouseover:"Communities and places that spend more, and take longer, to get where they need to go",
-		url: localRESTurl + "ejscreen/critical_service/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Transportation_Access_Burden/FeatureServer/1",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 3, title: "Transportation Access Burden" }],
+		//layers: [{ id: 3, title: "Transportation Access Burden" }],
 	},
 	foodaccess: {
 		title: "Food Desert",
 		mouseover:"Low income areas with low access to grocery stores",
-		url: localRESTurl + "ejscreen/critical_service/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/Food_Desert/FeatureServer/0",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 4, title: "Food Desert" }],
+		//layers: [{ id: 4, title: "Food Desert" }],
 	},
 }
 
@@ -506,47 +505,47 @@ var suggestservicesHEALTH = {
 	lifeexpentancy: {
 		title: "Low Life Expectancy",
 		mouseover:"Average limited life expectancy ranked as percentiles",
-		url: localRESTurl + "ejscreen/health/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services2.arcgis.com/w4yiQqB14ZaAGzJq/arcgis/rest/services/HealthDisparitiesEJScreen/FeatureServer/0",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 0, title: "Low Life Expectancy" }],
+		//layers: [{ id: 0, title: "Low Life Expectancy" }],
 	},
 	heartdisease: {
 		title: "Heart Disease",
 		mouseover:"Heart disease prevalence among adults 18 or older",
-		url: localRESTurl + "ejscreen/health/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services2.arcgis.com/w4yiQqB14ZaAGzJq/arcgis/rest/services/HealthDisparitiesEJScreen/FeatureServer/1",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 1, title: "Coronary Heart Disease" }],
+		//layers: [{ id: 1, title: "Coronary Heart Disease" }],
 	},
 	asthma: {
 		title: "Asthma",
 		mouseover:"Asthma prevalence among adults aged 18 or older",
-		url: localRESTurl + "ejscreen/health/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services2.arcgis.com/w4yiQqB14ZaAGzJq/arcgis/rest/services/HealthDisparitiesEJScreen/FeatureServer/3",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 2, title: "Current Asthma" }],
+		//layers: [{ id: 2, title: "Current Asthma" }],
 	},
 	cancer: {
 		title: "Cancer",
 		mouseover:"Cancer prevalence among adults aged 18 or older",
-		url: localRESTurl + "ejscreen/health/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services2.arcgis.com/w4yiQqB14ZaAGzJq/arcgis/rest/services/HealthDisparitiesEJScreen/FeatureServer/2",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 3, title: "Cancer" }],
+		//layers: [{ id: 3, title: "Cancer" }],
 	},
 	personswithdisabilities: {
 		title: "Persons with Disabililties",
 		mouseover:"Percent of all persons with disabilities",
-		url: localRESTurl + "ejscreen/health/MapServer",
-		type: "agsdynamic",
+		layerurl: "https://services2.arcgis.com/w4yiQqB14ZaAGzJq/arcgis/rest/services/HealthDisparitiesEJScreen/FeatureServer/4",
+		type: "featurelayer",
 		removable: true,
 		opacity: "1",
-		layers: [{ id: 4, title: "Persons with Disabililties" }],
+		//layers: [{ id: 4, title: "Persons with Disabililties" }],
 	}
 };
 
@@ -1150,13 +1149,13 @@ var serviceJSON_SBS = {
 	justice40: {								   
 		description: "Justice40 (CEJST)",
 		mouseover:"Communities identified as disadvantaged by CEQ for purposes of Justice40",
-		type: "portallayer",
+		type: "featurelayer",
 		visible: false,
 		dynamic: true,
 		//for portallayer use id vs url, assumes arcgis portal for now
 		layerurl:
 			"f95344889cab44bd84207052f44cb940",
-		service: "",
+		//service: "",
 		transparency: "0.8",
 		removable: false,
 		defaultlayer: [-1],
@@ -1265,10 +1264,8 @@ var serviceJSON_SBS = {
 				type: "featurelayer",
 				visible: false,
 				dynamic: true,
-				layerurl:
-				
-					localRESTurl + "ejscreen/environmental_climate_justice_program/MapServer/0",
-				service: "",
+				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_Environmental_and_Climate_Justice_Program/FeatureServer/0",
+				//service: "",
 				transparency: "0.5",
 				removable: false,
 				defaultlayer: [-1],
@@ -1792,7 +1789,7 @@ var coloniasJSON = {
 		visible: true,
 		dynamic: true,
 		layerurl:
-			"https://geopub.epa.gov/arcgis/rest/services/ejscreen/Colonias_NM/MapServer/0",
+			"https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/New_Mexico_Colonias/FeatureServer/0",
 		service: "",
 		transparency: "0.8",
 		removable: false,
@@ -1814,16 +1811,15 @@ var justice40iraJSON ={
 	justice40:{
 	description: "Justice40 (CEJST)",
 	mouseover:"Communities identified as disadvantaged by CEQ for purposes of Justice40",
-	type: "portallayer",
+	type: "featurelayer",
 	visible: false,
-	dynamic: true,
+	//dynamic: true,
 	//for portallayer use id vs url, assumes arcgis portal for now
-	layerurl:
-		"f95344889cab44bd84207052f44cb940",
-	service: "",
+	layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/CEJST_2/FeatureServer/1",
+	//service: "",
 	transparency: "0.8",
 	removable: false,
-	defaultlayer: [-1],
+	//defaultlayer: [-1],
 	position: 5,
 	imageName: "justice40_16x16.png"
 	},
@@ -1847,20 +1843,20 @@ var justice40iraJSON ={
 			iradisadvantaged2: {
 		description: "EPA IRA Data 2.0",
 		mouseover:"EPA IRA Data 2.0",
-		type: "agsdynamic",
+		type: "featurelayer",
 		visible: true,
-		dynamic: true,
-		layerurl: localRESTurl,		
-		service: "ejscreen/ejscreen_disadvantaged",
+		//dynamic: true,
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_IRA_Disadvantaged_Communities_2/FeatureServer/0",		
+		//service: "ejscreen/ejscreen_disadvantaged",
 		transparency: "0.8",
 		removable: false,
 		//layers: indigSubLayers,
 		///use listlayer for limiting list, dynamic layers object not implemented in Side by Side
 		//list of id's to show, match what's in indigSubLayers object
 		//listlayer: [0],
-		defaultlayer: [-1],
+		//defaultlayer: [-1],
 		position: 6,
-		layers: [{ id: 0, visible:true, title:'EPA IRA Disadvantaged Communities 2.0' }]
+		//layers: [{ id: 0, visible:true, title:'EPA IRA Disadvantaged Communities 2.0' }]
 	},
 
 			/* epairadisadvantaged: {
@@ -1971,11 +1967,11 @@ var justice40iraJSON ={
 			epairadisadvantagedcomm: {
 		description: "EPA IRA Data 1.0",
 		mouseover:"EPA IRA Data 1.0",
-		type: "agsdynamic",
+		type: "featurelayer",
 		visible: false,
-		dynamic: true,
-		layerurl: localRESTurl,
-		service: "ejscreen/ejscreen_disadvantaged_1",
+		//dynamic: true,
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_IRA_Disadvantaged_Communities_1/FeatureServer/2",
+		//service: "ejscreen/ejscreen_disadvantaged_1",
 		//service: "ejscreen/ejscreen_disadvantaged",
 		transparency: "0.8",
 		removable: false,
@@ -1983,25 +1979,24 @@ var justice40iraJSON ={
 		///use listlayer for limiting list, dynamic layers object not implemented in Side by Side
 		//list of id's to show, match what's in indigSubLayers object
 		//listlayer: [0],
-		defaultlayer: [-1],
+		//defaultlayer: [-1],
 		position: 6,
-		layers: [{ id: 0, visible:true, title:'EPA IRA Disadvantaged Communities 1.0' }]
+		//layers: [{ id: 0, visible:true, title:'EPA IRA Disadvantaged Communities 1.0' }]
 	},
 	epairamerged: {
 				description: "EPA Disadvantaged Community Environmental and Climate Justice Program",
 				//description: "EPA Disadvantaged Community Environmental and Climate Justice Program
 				mouseover:"EPA Disadvantaged Community Environmental and Climate Justice Program",
-				type: "agsdynamic",
+				type: "featurelayer",
 				visible: false,
-				dynamic: true,
-				layerurl: localRESTurl,
-				service: "ejscreen/environmental_climate_justice_program",
+				//dynamic: true,
+				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_Environmental_and_Climate_Justice_Program/FeatureServer/0",
 				transparency: "0.8",
 				removable: false,
 				
-				defaultlayer: [-1],
+				//defaultlayer: [-1],
 				position: 6,
-				layers: [{ id: 0, visible:true, title:'EPA Disadvantaged Community Environmental and Climate Justice Program' }]
+				//layers: [{ id: 0, visible:true, title:'EPA Disadvantaged Community Environmental and Climate Justice Program' }]
 						
 		
 			},																					 
