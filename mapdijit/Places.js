@@ -17,7 +17,7 @@ define([
 	"esri/layers/FeatureLayer",
 	"esri/layers/MapImageLayer",
 	"esri/layers/TileLayer",
-	"https://edgi-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js",
+	"https://pedp-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js",
 	"esri/config",
 	"esri/tasks/QueryTask",
     "esri/tasks/support/Query",

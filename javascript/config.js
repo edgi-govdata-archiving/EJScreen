@@ -109,7 +109,7 @@ var glossaryurlSuppIndexes = "https://web.archive.org/web/20241202134502/https:/
 //var glossaryurl = "https://www.epa.gov/ejscreen/glossary-ejscreen-terms";
 //var glossaryurl = "https://ejscreen.epa.gov/ejscreen23/ejscreen-map-descriptions3.html";
 var glossaryurl ="https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions";
-var homeappurl = "https://edgi-ejscreen.azurewebsites.net/";
+var homeappurl = "https://pedp-ejscreen.azurewebsites.net";
 var v1appurl = "ejscreen_v1/index.html";
 var countybndurl =
 	"//geopub.epa.gov/arcgis/rest/services/EMEF/Boundaries/MapServer/5/query";

@@ -25,7 +25,7 @@ define([
 	"esri/layers/FeatureLayer",
 	"esri/layers/ImageryLayer",
 	"esri/layers/TileLayer",
-	"https://edgi-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js",
+	"https://pedp-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js",
 	"esri/core/urlUtils",
 	"dijit/form/Button",
 	"dojo/domReady!",
@@ -274,7 +274,6 @@ define([
 								activeField = domEId.substring(4);
 							}
 							if (radval == "state") {
-								console.log(value)
 								wobj._mapejindex(
 									activeField,
 									domEId,
@@ -933,7 +932,7 @@ define([
 				var n = 0;
 				var p = key.split("|")[0];
 				var s = key.split("|")[1];
-				console.log(ejlayoutJSON[p].items[s])
+				//console.log(ejlayoutJSON[p].items[s])
 				for (var c in ejlayoutJSON[p].items[s].columns) {
 					var optdesc = layerJson[c].description;
 					var tiptext = layerJson[c].hovertext;
@@ -1084,7 +1083,7 @@ define([
 				var listL = ["ejindex_map", "ejindex_map_supp"];
 	
 				if (isMulti == false) {
-					console.log("not multi")
+					//console.log("not multi")
 					this._removeLayers(suggestservicesCLIMATE);
 					this._removeLayers(suggestservicesHEALTH);
 					this._removeLayers(suggestservicesCRITSVCGAPS);
@@ -1129,7 +1128,7 @@ define([
 						tocTitle = ejlayoutJSON.Primary.items[cat].tocLabel;
 					}
 					//var opcvalue = 0.5;
-					console.log(layeridstr, layerindex)
+					//console.log(layeridstr, layerindex)
 					var opcvalue = 1;
 					ejindexlayer = new FeatureLayer({
 						url: renderurl,
@@ -1151,7 +1150,7 @@ define([
 							},
 						], */
 					});
-					console.log("EJINDEX", ejindexlayer)
+					//console.log("EJINDEX", ejindexlayer)
 					//if the btn is already clicked then remove highlight and layer , if not add the layer to the legend
 					listL.forEach((e) => {
 						var lyr = this.map.findLayerById(e);
@@ -1175,7 +1174,7 @@ define([
 						}
 					});
 					//now add new layer and highlght the element
-					console.log(ejindexlayer)
+					//console.log(ejindexlayer)
 					this.map.add(ejindexlayer);
 					$("#" + domElementId).addClass("highlight");
 					//add properties
@@ -1203,9 +1202,9 @@ define([
 					var ltitle = ejIdentifyJSON[fieldname].legendtitle
 					var val = ejIdentifyJSON[fieldname].idfldname.split(",")[1]
 					var txt = ejIdentifyJSON[fieldname].txtname
-					var fips = 
-					infoTemplate.content = "Value: {"+val+"}<br>Percentile: {"+txt+"}";
-					console.log(ejIdentifyJSON[fieldname].idfldname)
+					//infoTemplate.content = "Value: {"+val+"}<br>Percentile: {"+txt+"}";
+					infoTemplate.content = "Percentile: {"+txt+"}";
+					//console.log(ejIdentifyJSON[fieldname].idfldname)
 					//console.log("ejindexlayer", ejindexlayer)
 	
 					ejindexlayer.popupTemplate = infoTemplate
@@ -1271,7 +1270,7 @@ define([
 				//if (frm.slayers[m].checked) {
 				//var sugid = frm.slayers[m].value;
 				var sugid = skey;
-				console.log(skey)
+				//console.log(skey)
 				if (sugid.includes("|")) {
 					this._removeEJLayers()
 					this._removeLayers(suggestservicesCLIMATE);
@@ -1283,7 +1282,7 @@ define([
 				}
 				var lid = sugid + "_map";
 				var mtitle = "";
-				console.log(suggestservices[sugid])
+				//console.log(suggestservices[sugid])
 				if (suggestservices[sugid]) {
 					mtitle = suggestservices[sugid].title;
 				} else {
@@ -1340,7 +1339,7 @@ define([
 					}
 					var templayer = null;
 				   if(!skey.startsWith("noaa")){
-						console.log(surl)
+						//console.log(surl)
 						var domainurl = surl;
 						var domainpat = /^https?:\/\/[A-Za-z0-9_\.]+\//i;
 						var match = surl.match(domainpat);
