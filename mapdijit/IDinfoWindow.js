@@ -89,9 +89,8 @@ define(
 
 
                    
-                
+                console.log(feat.attributes)
                 for (var prop in feat.attributes) {
-                   
                     var fldvalue = feat.attributes[prop];
                     var proplabel = prop;
                     //if feature has layer info try to get alias for the field instead of default field name
@@ -102,7 +101,7 @@ define(
                     //if (suggestservices[sugid].fieldInfos) infoTemplate.fieldInfos = suggestservices[sugid].fieldInfos;
                     //infoTemplate.fieldInfos = [{fieldName:'PCT_BROADBAND',format:{places:3}}];
                     if (feat.layer){
-
+                        
                     	//get fieldInfos from config if set
                     	var lyrcfgnm = feat.layer.id.replace("_map","");
                     	if (suggestservicesFieldDecimalPlacesNAMES[lyrcfgnm]){
@@ -117,6 +116,7 @@ define(
                     	}
 
                         var fldObj = feat.layer.fieldsIndex.get(prop);
+                        console.log(fldObj)
 
                         if (fldObj) {                                            
                     	 
@@ -150,7 +150,7 @@ define(
                     }
                 }
 
-              
+                
                 if (templatestr == "") {
                     this.idinfoNode.style.display = "none";
                 } else {
@@ -161,7 +161,7 @@ define(
                     //console.log(templatestr);
                 }
 
-                var showConvertBtn = true;
+                var showConvertBtn = false; // disabling generate report button for now
 
                 if (feat.geometry.type == "polygon") {
                     if (feat.geometry.rings.length > 1) {
@@ -175,7 +175,7 @@ define(
                             //alert("The defined area is too large for analysis. Please change the project area or buffer distance.");
                             showConvertBtn = false;
                         } else {
-                            showConvertBtn = true;
+                            showConvertBtn = false; // disabling generate report button for now
                         }
                     }
                 }
@@ -185,7 +185,7 @@ define(
                     this.idbtnNode.style.color = "#000";
                 } else {
                     this.idbtnNode.disabled = true;
-                    this.idnoteNode.style.display = "block";
+                    this.idnoteNode.style.display = "none"; // always display none until we fix generate report function
                     //make the button text appear disabled as well
                     this.idbtnNode.style.color = "#999";
                 }
