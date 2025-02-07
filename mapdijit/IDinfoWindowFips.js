@@ -26,7 +26,7 @@ define(
         "esri/layers/FeatureLayer",
         "esri/geometry/Point",
         "esri/PopupTemplate",
-        'https://edgi-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js',
+        'https://pedp-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js',
 
     ],
     function(

@@ -21,7 +21,7 @@ define(
         "esri/Graphic",
         "esri/layers/support/Field",
         "esri/geometry/Polyline",
-        "https://edgi-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js"
+        "https://pedp-ejscreen.azurewebsites.net/mapdijit/IDinfoWindow.js"
 
     ],
     function(

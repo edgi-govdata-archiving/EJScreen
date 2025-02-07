@@ -18,8 +18,8 @@ define(['dojo/_base/declare',
     'dojo/fx/Toggler',
     'dojo/text!mapdijit/templates/ejChart.html',
     "dojox/layout/FloatingPane",
-    'https://edgi-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js',
-    "https://edgi-ejscreen.azurewebsites.net/mapdijit/IDinfoWindowFips.js",
+    'https://pedp-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js',
+    "https://pedp-ejscreen.azurewebsites.net/mapdijit/IDinfoWindowFips.js",
     'esri/widgets/Sketch/SketchViewModel',
     "esri/tasks/QueryTask",
     "esri/tasks/support/Query",
@@ -66,7 +66,7 @@ define(['dojo/_base/declare',
     PopupTemplate,
     Search,
     move) {
-    var a = dojo.create("link", { type: "text/css", rel: "stylesheet", href: "https://edgi-ejscreen.azurewebsites.net/mapdijit/css/draw.css" });
+    var a = dojo.create("link", { type: "text/css", rel: "stylesheet", href: "https://pedp-ejscreen.azurewebsites.net/mapdijit/css/draw.css" });
     dojo.doc.getElementsByTagName("head")[0].appendChild(a);
    
     // var pointsym = { // symbol used for points
