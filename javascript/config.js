@@ -50,20 +50,19 @@ esriConfig.request.timeout = 120000; //2 minutes
 });
 
 
-var localRESTurl = "https://ejscreen.epa.gov/arcgis/rest/services/";
+var localRESTurl = "https://services2.arcgis.com/w4yiQqB14ZaAGzJq/arcgis/rest/services/";
 //var localRESTurl = "https://ejscreen.epa.gov/arcgis/rest/services/";
 var prodRESTurl = "https://geopub.epa.gov/arcgis/rest/services/";
 
-
+//https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EJScreen/FeatureServer // EDN test
 //main ej service for ej report section
-var ejscreenservice = localRESTurl + "ejscreen/ejscreen_v2024_with_as_cnmi_gu_vi/MapServer";
+var ejscreenservice = localRESTurl + "EJScreen_US_Percentiles_Block_Group_gdb_V_2.32_(Parent)_view/FeatureServer/";
 //ej extra service for extra indicators in ej report section
 var ejscreenextraservice = localRESTurl + "ejscreen/ejscreen_extra/MapServer";
 //ej demog for demog section of ej report
 var ejscreendemogservice = localRESTurl + "ejscreen/ejquery/MapServer";
 
-var ejscreenservice_state =  ejscreenservice; //same now
-
+var ejscreenservice_state =  localRESTurl + "EJScreenStatePercentilesBlockGroup/FeatureServer/";
 var ejscreenApiPageUrl =
 	localRESTurl + "ejscreen/ejscreen_v2024_with_as_cnmi_gu_vi/MapServer/exts/EJCensusReports/GetEJScreen";
 
@@ -77,7 +76,6 @@ var ejscreenSOEurl = ejscreenservice4SOE + "/exts/EJCensusReports/GetEJScreen";
 //to do: needed still?
 //var ejcitySOEurl = ejscreenservice4SOE + "/exts/EJCensusReports/GetEJScreenByCity";
 var ejcitySOEurl = ejscreenservice4SOE + "/exts/EJCensusReports/GetEJScreen";
-
 //to do: needed still?
 var ejscreenSOEurl_SUPP = ejscreenservice4SOE_SUPP + "/exts/EJScreen_EJReports/GetEJScreen";
 //to do: needed still?
@@ -105,7 +103,7 @@ var ejscreenenvindexnationalurl = localRESTurl+"ejscreen/ejscreen_v2024_with_as_
 var ejscreenenvindexstateurl = localRESTurl+"ejscreen/ejscreen_v2024_with_as_cnmi_gu_vi/MapServer/34";
 
 
-var helpfileurl = "https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf";
+var helpfileurl = "https://web.archive.org/web/20250000000000*/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf";
 var glossaryurlEJIndexes = "https://web.archive.org/web/20250121194855/https://www.epa.gov/ejscreen/ej-index-descriptions";
 var glossaryurlSuppIndexes = "https://web.archive.org/web/20241202134502/https://www.epa.gov/ejscreen/supplemental-index-descriptions";
 //var glossaryurl = "https://www.epa.gov/ejscreen/glossary-ejscreen-terms";
@@ -122,11 +120,11 @@ var geocoderurl =
 	location.protocol +
 	"//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
 
-var lookuptableindex = 37;
-var ejmapindex = 33; //index of main ej layer in service
-var ejmapindex_state = 34; //index of state ej layer in service
+var lookuptableindex = 0
+var ejmapindex = 0; //index of main ej layer in service
+var ejmapindex_state = 0; //index of state ej layer in service
 var ejmapindexsupp = 0;
-var ejmapindexsupp_state = 1;
+var ejmapindexsupp_state = 0;
 var bgIDfieldname = "ID";
 var recordlimit = 1000;
 var arealimit = 500; //set estimated area limit to 500 sq miles
@@ -1172,7 +1170,7 @@ var serviceJSON_SBS = {
 		type: "agsdynamic",
 		visible: true,
 		dynamic: true,
-		layerurl: localRESTurl,
+		layerurl: prodRESTurl,
 		service: "EMEF/Tribal",
 		transparency: "0.8",
 		removable: false,
@@ -2035,7 +2033,7 @@ var tribalJSON = {
 		type: "agsdynamic",
 		visible: true,
 		dynamic: true,
-		layerurl: localRESTurl,
+		layerurl: prodRESTurl,
 		service: "EMEF/Tribal",
 		transparency: "0.8",
 		removable: false,
@@ -2316,13 +2314,12 @@ var dynamicJSON = {
 	}
 };
 
-
 var ejIdentifyJSON = {};
 var ejlayoutJSON = {
 	Primary: {
 		services: {			
-			"nation":{"url": ejscreenservice, "index" : ejmapindex, "titleSuffix" : "National Percentiles"},
-			"state":{"url": ejscreenservice, "index" : ejmapindex_state, "titleSuffix" : "State Percentiles"}
+			"nation":{"url": ejscreenservice, "index" : 0, "titleSuffix" : "National Percentiles"}, 
+			"state":{"url": ejscreenservice_state, "index" : 0, "titleSuffix" : "State Percentiles"}
 		},		
 		status: false,
 		description: "Primary EJ Indexes",
@@ -2413,8 +2410,8 @@ var ejlayoutJSON = {
 	},
 	Supplementary: {
 		services: {
-			"nation":{"url": ejscreenservice, "index" : ejmapindex, "titleSuffix" : "National Percentiles"},
-			"state":{"url": ejscreenservice, "index" : ejmapindex_state, "titleSuffix" : "State Percentiles"}
+			"nation":{"url": ejscreenservice, "index" : 0, "titleSuffix" : "National Percentiles"},
+			"state":{"url": ejscreenservice_state, "index" : 0, "titleSuffix" : "State Percentiles"}
 		},		
 		status: false,
 		description: "Supplemental Indexes",
