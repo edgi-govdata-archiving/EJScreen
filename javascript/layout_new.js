@@ -180,7 +180,6 @@ require([
 			width: 2,
 		},
 	};
-
 	ParentConstrainedFloatingPane = declare(FloatingPane, {
 		postCreate: function () {
 			this.inherited(arguments);
@@ -199,7 +198,6 @@ require([
 	titlestr =
 		titlestr + "<td valign='middle' align='right'><span id='homelinks'>";
 	// titlestr = titlestr + "<button type='button'  data-toggle='modal' data-target='#myModal'>Toggle Sidebar</button>";
-
 	titlestr =
 		titlestr +
 		"<a href='" +
@@ -884,6 +882,7 @@ var doSplashScreen = true;
 									
 					}*/
 					if (lyr instanceof MapImageLayer || lyr instanceof TileLayer) {
+						console.log("instance")
 						if (lyr.visible) {
 							var vscalelayers = [];
 							lyr.allSublayers.map(function (sublyr) {
@@ -906,11 +905,14 @@ var doSplashScreen = true;
 									var qurl = lyr.url + "/" + j;
 									//field used to draw the layer legend, pushed to outfields as top attribute
 									var renderfield = lyr.renderField;
+									console.log(renderfield)
 									var ltype = lyr.layerType;
 									//lyrTypeRef = ltype;
 									lyrPctLevel = lyr.pctlevel;
 
 									var outfields = [];
+									console.log(dynamicJSON)
+									console.log(ltype)
 
 									for (var afld in dynamicJSON[ltype].headerfields) {
 										outfields.push(afld);
@@ -1098,6 +1100,7 @@ var doSplashScreen = true;
 		var pctpattern = /^pct_/i;
 		if (response.features) {
 			var results = response;
+			console.log(results)
 			var fetcount = results.features.length;
 			for (var m = 0; m < fetcount; m++) {
 				feat = results.features[m];
@@ -1331,6 +1334,7 @@ var doSplashScreen = true;
 			//view.popup.features = feats;
 		} else {
 			var results = response.results;
+			console.log(results)
 			if (results.length > 0) {
 				for (var j = 0; j < results.length; j++) {
 					feat = results[j].feature;
@@ -1394,6 +1398,7 @@ var doSplashScreen = true;
 		
 	}
 	function handleEJQuery(results, ptype) {
+		console.log(results)
 		var feat;
 		var template;
 		var fetcount = results.features.length;
@@ -2620,7 +2625,7 @@ var doSplashScreen = true;
 			toggleSearchPan(panid);
 		};
 
-		var dmwidget = new MapDemographics(
+		/* var dmwidget = new MapDemographics(
 			{
 				view: view,
 				//indextype: ejtype,
@@ -2628,7 +2633,7 @@ var doSplashScreen = true;
 			},
 			"demogDiv"
 		);
-		dmwidget.startup();
+		dmwidget.startup(); */
 
 		//dojo.byId('ejmapwg').style.height = "96%";
 		//dojo.byId('ejmapwg').style.overflow = "auto";
@@ -2968,7 +2973,7 @@ var doSplashScreen = true;
         }, 'chartfloater');
         fp.startup();
         fp.close = toggleChart;*/
-
+		
 		var chartwidget = new ejChart(
 			{
 				view: view,
@@ -3165,6 +3170,7 @@ var doSplashScreen = true;
 	}
 
 	function addServiceByKey(skey, jsonObj) {
+		console.log(jsonObj)
 		if (view.map.findLayerById(skey) && skey === "ejbnd") {
 			if (boundariesJSON.hasOwnProperty(skey)) {
 				var layerVal = view.map.findLayerById(skey);
@@ -3187,8 +3193,9 @@ var doSplashScreen = true;
 			}
 			return false;
 		}
-
+		
 		var stype = jsonObj[skey].type;
+		console.log(jsonObj)
 		var sdesc = jsonObj[skey].description;
 		var surl = jsonObj[skey].layerurl;
 		var trans = jsonObj[skey].transparency;
@@ -3198,6 +3205,7 @@ var doSplashScreen = true;
 			infoTemplate.title = sdesc;
 			infoTemplate.content = idDesc;
 			//infoTemplate.content = "{*}";
+			console.log("surl", surl)
 			var templayer = new FeatureLayer(surl, {
 				mode: FeatureLayer.MODE_ONDEMAND,
 				id: skey,
@@ -3208,6 +3216,7 @@ var doSplashScreen = true;
 			});
 			view.map.add(templayer);
 		} else {
+			console.log(jsonObj)
 			var svcname = jsonObj[skey].service;
 			var agsurl = surl + svcname + "/MapServer";
 			var onlayer = jsonObj[skey].defaultlayer;
@@ -3259,12 +3268,13 @@ var doSplashScreen = true;
 						}
 					}
 				}
+				console.log(templayer)
 				view.map.add(templayer);
 				templayer.on("layerview-create", function (event) {
 					if (onlayer.length > 0 && onlayer[0] != -1) {
 						for (var j = 0; j < onlayer.length; j++) {
 							var o = onlayer[j];
-
+							console.log("templayer")
 							templayer.findSublayerById(o).visible = true;
 						}
 					}
