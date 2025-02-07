@@ -395,318 +395,327 @@ a[title]:hover:after {
 </head>
 
 <body class="claro" onload="checkdevice();">
-   <div id="splash-screen" style="display:none">
-        
-          <!-- <button class="close-button" onclick="this.parentElement.style.display='none';">&#10006;</button> -->
-		   <button class="close-button" onclick="hideSplashScreen(false)">&#10006;</button>
-        <div>
-          <h4 style="text-align: center;font-weight:bold">Welcome!</h4>
-          <p>
-            <b>This is an unofficial copy of EJScreen</b>, hosted by the <a href="https://screening-tools.com/" target="_blank">
-                Public Environmental Data Partners</a>. 
-                We are working on an overhaul, but in the meantime some links and text may incorrectly suggest that this site is affiliated with the US Government.
-          </p>
-          <p>EJScreen is the environmental justice screening and mapping tool that
-            utilizes standard and nationally consistent data to highlight places that may
-            have higher environmental burdens and vulnerable populations.
-          </p>
-          <p>
-            Check out the newly added EJScreen 2.3 features and data <a rel="external" title="This link opens a new webpage." target="_blank" href="https://web.archive.org/web/20250124231616/https://www.epa.gov/ejscreen/ejscreen-change-log">here</a>!
-          </p>
-          <p>
-            First-time users may find the 5-minute  <a rel="external" title="This link opens a new webpage." target="_blank" href="https://web.archive.org/web/20241008150339/https://www.youtube.com/watch?v=HZp3AWDJt5A">EJScreen in 5: A Quick Overview of EJScreen</a> video helpful as an 
-            introduction to the tool.
-            
-          </p>
-          <p>Other helpful resources include:</p>
-          <ul class="ul-spash">
-            <li>
-              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf">EJScreen User Guide</a> for navigating the various features of the tool,
-            </li>
-            <li>
-              <a target="_blank" rel="external" title="This link opens a new webpage." href=https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions">EJScreen Glossary</a> for better understanding the map layers and
-              indicators being displayed in the tool, and
-            </li>
-            <li>
-              <a target="_blank" rel="external" title="This link opens a new webpage." href="https://web.archive.org/web/20250123162243/https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen">Frequent Questions about EJScreen</a>
-            </li>
-          </ul>		 
-		  <p>Please note that the EJScreen downloadable data was edited and updated on August 9, 2024. If you downloaded the EJScreen 2.3 data prior to this date, it is advisable to switch to the newest data. </p>
-		  </div>																																																			   		  
-          <div style="text-align: center;">
-          <button class="btn-splash" onclick="hideSplashScreen(true)">OK</button>
-          <!-- <button>Don't Show This Again</button> -->
-          <button class="btn-splash" onclick="hideSplashScreen(false)">Don't Show This Again</button>
-        </div>
-        </div>
-        
-      </div>
-    <div class="container-fluid">
-        <div id="webmapTitle" class="row">
-        </div> 
-            
-        <!-- <div class="row" id="toolbarRow">
-
-            <div data-dojo-type="dijit/Toolbar">
-                <div id="webmap-toolbar-left"> -->
-        <!--Toolbar buttons (Legend, Details, Edit) created dynamically-->
-        <!-- </div>
-                <div id="webmap-toolbar-right"> -->
-        <!--create the search tool-->
-        <!-- </div>
-                <div id="webmap-toolbar-center"> -->
-        <!--Basemap,measure,share,time and layer list tools added if enabled-->
-        <!-- </div>
-            </div> -->
-
-    </div>
-    <div id="webmapSubTitle" style="display: none;padding:2px";>
-        <div style="padding-left: 5px"><b>This is an unofficial copy of EJScreen</b> hosted by the <a href='https://screening-tools.com' target='_blank'>
-            Public Environmental Data Partners</a>. We are working on an overhaul, but in the meantime some links and text 
-            may incorrectly suggest that this site is affiliated with the US Government.</em>
-        <p><i>Please note: Territory data (except Puerto Rico) is not available as comparable to the US. It is only comparable to the territory itself by using the 'Compare to State' functionality. Likewise, some of the indicators may not be available for territories.</i>
+    <div id="splash-screen" style="display:none">
+         
+           <!-- <button class="close-button" onclick="this.parentElement.style.display='none';">&#10006;</button> -->
+            <button class="close-button" onclick="hideSplashScreen(false)">&#10006;</button>
+         <div>
+           <h4 style="text-align: center;font-weight:bold">Welcome!</h4>
+           <p>
+             <b>This is an unofficial copy of EJScreen</b>, hosted by the <a href="https://screening-tools.com/" target="_blank">
+                 Public Environmental Data Partners</a>. 
+                 We are working on an overhaul, but in the meantime some links and text may incorrectly suggest that this site is affiliated with the US Government.
+           </p>
+           <p>EJScreen is the environmental justice screening and mapping tool that
+             utilizes standard and nationally consistent data to highlight places that may
+             have higher environmental burdens and vulnerable populations.
+           </p>
+           <p>
+             Check out the newly added EJScreen 2.3 features and data <a rel="external" title="This link opens a new webpage." target="_blank" href="https://web.archive.org/web/20250124231616/https://www.epa.gov/ejscreen/ejscreen-change-log">here</a>!
+           </p>
+           <p>
+             First-time users may find the 5-minute  <a rel="external" title="This link opens a new webpage." target="_blank" href="https://web.archive.org/web/20241008150339/https://www.youtube.com/watch?v=HZp3AWDJt5A">EJScreen in 5: A Quick Overview of EJScreen</a> video helpful as an 
+             introduction to the tool.
+             
+           </p>
+           <p>Other helpful resources include:</p>
+           <ul class="ul-spash">
+             <li>
+               <a target="_blank" rel="external" title="This link opens a new webpage." href="https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf">EJScreen User Guide</a> for navigating the various features of the tool,
+             </li>
+             <li>
+               <a target="_blank" rel="external" title="This link opens a new webpage." href=https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions">EJScreen Glossary</a> for better understanding the map layers and
+               indicators being displayed in the tool, and
+             </li>
+             <li>
+               <a target="_blank" rel="external" title="This link opens a new webpage." href="https://web.archive.org/web/20250123162243/https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen">Frequent Questions about EJScreen</a>
+             </li>
+           </ul>		 
+           <p>Please note that the EJScreen downloadable data was edited and updated on August 9, 2024. If you downloaded the EJScreen 2.3 data prior to this date, it is advisable to switch to the newest data. </p>
+           </div>																																																			   		  
+           <div style="text-align: center;">
+           <button class="btn-splash" onclick="hideSplashScreen(true)">OK</button>
+           <!-- <button>Don't Show This Again</button> -->
+           <button class="btn-splash" onclick="hideSplashScreen(false)">Don't Show This Again</button>
+         </div>
+         </div>
+         
        </div>
-       
-    </div>  
-    <div id="viewDiv">
-        <div id="loadingDiv"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div>
-        <!-- <div id="epalogo" class="epalogo"><img src="images/em_logo.gif" alt="epa logo" /></div>
-            <div id="scalediv" class="scalebar"></div> -->
-        <div id="expandDiv"></div>
-		 <div id="informationDiv" style="width: 700px;background-color: white; position:absolute; top:50px; right: 260px; display:none; z-index:100; margin: 0 0 0 0;  overflow-x: auto;">
-            <div id='scrollableDiv'>
-                
+     <div class="container-fluid">
+         <div id="webmapTitle" class="row">
+         </div> 
+             
+         <!-- <div class="row" id="toolbarRow">
+ 
+             <div data-dojo-type="dijit/Toolbar">
+                 <div id="webmap-toolbar-left"> -->
+         <!--Toolbar buttons (Legend, Details, Edit) created dynamically-->
+         <!-- </div>
+                 <div id="webmap-toolbar-right"> -->
+         <!--create the search tool-->
+         <!-- </div>
+                 <div id="webmap-toolbar-center"> -->
+         <!--Basemap,measure,share,time and layer list tools added if enabled-->
+         <!-- </div>
+             </div> -->
+ 
+     </div>
+     <div id="webmapSubTitle" style="display: none;padding:2px";>
+             <div style="padding-left: 5px"><b>This is an unofficial copy of EJScreen</b> hosted by the <a href='https://screening-tools.com' target='_blank'>
+                 Public Environmental Data Partners</a>. We are working on an overhaul, but in the meantime some links and text 
+                 may incorrectly suggest that this site is affiliated with the US Government.</em>
+             <p><i>Please note: Territory data (except Puerto Rico) is not available as comparable to the US. It is only comparable to the territory itself by using the 'Compare to State' functionality. Likewise, some of the indicators may not be available for territories.</i>
             </div>
-        </div>
-        <div id="legendPan"
-            style="width: 260px;background-color: white; position:absolute; top:16px; right: 2px; display:none; z-index:100; margin: 0 0 0 0;  overflow-x: auto;">
-            <table class="legendMain" cellpadding="0" cellspacing="0">
-                <tr
-                    style="background: url(images/blue/toolbar_bg.png) repeat-x #6788a2;opacity:0.9!important;filter:alpha(opacity='90')!important;-moz-opacity: 0.9!important;">
-                    <td align="center" style="color: White">
-                        <span class="dialogTitle">Map Contents</span>
-                    </td>
-                    <td align="right" onmouseover="this.style.cursor = 'pointer';">
-                        <img src="images/collapse_glyph.gif" onclick="toggleContent(this,'twotoc')"
-                            title="Hide map contents">&nbsp;&nbsp;
-                    </td>
-                </tr>
-            </table>
-            <div id="twotoc">
-                <div id="envDiv"></div>
-                <div id="tocDiv"></div>
-
-            </div>
-        </div>
-    </div>
-    </div>
-    <div id="mapimageurl" style="display: none;"></div>
-
-    <div id="viewDiv1">
-        <!-- <div id="loadingDiv1"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div> -->
-        <div id="scalediv1" class="scalebar"></div>
-
-        <div id="legendPan1"
-            style="width: 285px;background-color: white; position:absolute; top:53px; left: 0px; display:block; z-index:100; margin: 0 0 0 0;">
-            <table>
-                <tr>
-                    <td>
-                        <div id="twotoc1" style="width: 270px">
-                            <!-- <div id="envDiv"></div> -->
-                            <ul class="nav nav-tabs" id="tabContent">
-                                <li class="active"><a id="detailsId" href="#details" data-toggle="tab" titl="Maps"
-                                        class="tabLink"><img id="detailsImg"
-                                            src="images/index-page/icons8-stack-of-paper-25_blue.png"
-                                            alt="Environmental Justice Indicators"></a></li>
-                                <li><a id="locationsId" href="#locations" data-toggle="tab" class="tabLink"
-                                        titl="Places"><img id="locationsImg"
-                                            src="images/index-page/icons8-marker-25.png" alt="Locations"></a></li>
-                                <li><a id="menuId" href="#menu" data-toggle="tab" class="tabLink" titl="Reports"><img
-                                            id="menuImg" src="images/index-page/icons8-matt-paper-25.png"
-                                            alt="Menu"></a></li>
-                                <li><a id="toolsId" href="#tools" data-toggle="tab" class="tabLink" titl="Tools"><img
-                                            id="toolsImg" src="images/index-page/icons8-tools-25.png" alt="Tools"></a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="details">
-                                    <div id="ejmapDiv"></div>
-                                    <!--end firsttabl-->
-                                </div>
-
-                                <div class="tab-pane" id="locations">
-
-                                    <div id="locationData">
-
-
-                                    </div>
-
-                                </div>
-                                <!--end secondtabl-->
-                                <div class="tab-pane" id="menu">
-
-
-                                </div>
-                                <!--end third tab-->
-
-                                <div class="tab-pane" id="tools">
-
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                <div id="addMapsandData" title="Maps and Data" class="divBtn divBtnTools">
-                                                    <img class="imgClass" src="mapdijit/templates/images/usa-map_16x16.png">Add Maps & Data
-                                                </div>
-                                                    <div id="addMapsandDataSubCategories" style="display: none;" class="divBtnSub">
-                                                        <ul>
-                                                        <li><div id="addRemoteMaps" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
-                                                       <li> <div id="addShapeFile" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
-                                                       <li> <div id="searchGeoPlatform" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
-                                                      </ul>
-                                                </div></td>
-
-                                            </tr>
-                                            <!-- <tr>
-
-                                                <td>
-                                                    <div id="addRemoteMaps" class="divBtn" style="padding:0px"></div>
-                                                </td>
-                                            </tr> -->
-
-                                            <!-- <tr>
-
-                                                <td>
-                                                    <div id="addShapeFile" class="divBtn" style="padding:0px"></div>
-                                                </td>
-                                            </tr> -->
-
-                                            <!-- <tr>
-
-                                                <td>
-                                                    <div id="searchGeoPlatform" class="divBtn" style="padding:0px">
-                                                    </div>
-                                                </td>
-                                            </tr> -->
-                                            <tr>
-                                                <td>
-                                                    <div id="moreDemographicMaps" class="divBtn" style="padding: 0px"></div>
-                                                </td>
-                                            </tr> 
-                                            <tr>
-
-                                                <td>
-                                                    <div id="ejbnd" class="divBtn" title="Overlay boundaries">
-                                                        <img class="imageClass"
-                                                            src="mapdijit/templates/images/usa-map_16x16.png">
-
-
-                                                        Boundaries
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>
-
-                                                    <div id="measure" class="divBtn" style="padding:0px"></div>
-
-
-                                                </td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>
-                                                    <div id="printButtonDiv" class="divBtn" style="padding: 0px;">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-
-                                                <td>
-                                                    <div id="saveSessions" class="divBtn" style="padding:0px"></div>
-                                                </td>
-                                            </tr>
-                                        
-
-                                            <tr>
-
-                                                <td>
-                                                    <div id="sidebysideComparisons" class="divBtn"
-                                                        onclick="openPage('comparemapper.html')" title="Side by side maps that allow for comparison">
-                                                        <img class="imageClass"
-                                                            src="mapdijit/templates/images/compare_16x16.png">
-
-
-                                                        Side by Side Map Comparisons
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                           
-
-                                            
-
-                                         
-
-                                           
-                                            <tr>
-                                                <td>
-                                                    <div id="thresholdMaps" class="divBtn" style="padding: 0px"></div>
-                                                </td>
-                                            </tr>
-
+            
+         </div>  
+     <div id="viewDiv">
+         <div id="loadingDiv"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div>
+         <!-- <div id="epalogo" class="epalogo"><img src="images/em_logo.gif" alt="epa logo" /></div>
+             <div id="scalediv" class="scalebar"></div> -->
+         <div id="expandDiv"></div>
+          <div id="informationDiv" style="width: 700px;background-color: white; position:absolute; top:50px; right: 260px; display:none; z-index:100; margin: 0 0 0 0;  overflow-x: auto;">
+             <div id='scrollableDiv'>
+                 
+             </div>
+         </div>
+         <div id="legendPan"
+             style="width: 260px;background-color: white; position:absolute; top:16px; right: 2px; display:none; z-index:100; margin: 0 0 0 0;  overflow-x: auto;">
+             <table class="legendMain" cellpadding="0" cellspacing="0">
+                 <tr
+                     style="background: url(images/blue/toolbar_bg.png) repeat-x #6788a2;opacity:0.9!important;filter:alpha(opacity='90')!important;-moz-opacity: 0.9!important;">
+                     <td align="center" style="color: White">
+                         <span class="dialogTitle">Map Contents</span>
+                     </td>
+                     <td align="right" onmouseover="this.style.cursor = 'pointer';">
+                         <img src="images/collapse_glyph.gif" onclick="toggleContent(this,'twotoc')"
+                             title="Hide map contents">&nbsp;&nbsp;
+                     </td>
+                 </tr>
+             </table>
+             <div id="twotoc">
+                 <div id="envDiv"></div>
+                 <div id="tocDiv"></div>
+ 
+             </div>
+         </div>
+     </div>
+     </div>
+     <div id="mapimageurl" style="display: none;"></div>
+ 
+     <div id="viewDiv1">
+         <!-- <div id="loadingDiv1"><img src="images/loading.gif" alt="loading..." />Loading...Please wait</div> -->
+         <div id="scalediv1" class="scalebar"></div>
+ 
+         <div id="legendPan1"
+             style="width: 285px;background-color: white; position:absolute; top:53px; left: 0px; display:block; z-index:100; margin: 0 0 0 0;">
+             <table>
+                 <tr>
+                     <td>
+                         <div id="twotoc1" style="width: 270px">
+                             <!-- <div id="envDiv"></div> -->
+                             <ul class="nav nav-tabs" id="tabContent">
+                                 <li class="active"><a id="detailsId" href="#details" data-toggle="tab" titl="Maps"
+                                         class="tabLink"><img id="detailsImg"
+                                             src="images/index-page/icons8-stack-of-paper-25_blue.png"
+                                             alt="Environmental Justice Indicators"></a></li>
+                                 <li><a id="locationsId" href="#locations" data-toggle="tab" class="tabLink"
+                                         titl="Places"><img id="locationsImg"
+                                             src="images/index-page/icons8-marker-25.png" alt="Locations"></a></li>
+                                 <li><a id="menuId" href="#menu" data-toggle="tab" class="tabLink" titl="Reports"><img
+                                             id="menuImg" src="images/index-page/icons8-matt-paper-25.png"
+                                             alt="Menu"></a></li>
+                                 <li><a id="toolsId" href="#tools" data-toggle="tab" class="tabLink" titl="Tools"><img
+                                             id="toolsImg" src="images/index-page/icons8-tools-25.png" alt="Tools"></a>
+                                 </li>
+                             </ul>
+                             <div class="tab-content">
+                                 <div class="tab-pane active" id="details">
+                                     <div id="ejmapDiv"></div>
+                                     <!--end firsttabl-->
+                                 </div>
+ 
+                                 <div class="tab-pane" id="locations">
+ 
+                                     <div id="locationData">
+ 
+ 
+                                     </div>
+ 
+                                 </div>
+                                 <!--end secondtabl-->
+                                 <div class="tab-pane" id="menu">
+ 
+ 
+                                 </div>
+                                 <!--end third tab-->
+ 
+                                 <div class="tab-pane" id="tools">
+ 
+                                     <table>
+                                         <tbody>
+                                             <tr>
+                                                 <td>
+                                                 <div id="addMapsandData" title="Maps and Data" class="divBtn divBtnTools">
+                                                     <img class="imgClass" src="mapdijit/templates/images/usa-map_16x16.png">Add Maps & Data
+                                                 </div>
+                                                     <div id="addMapsandDataSubCategories" style="display: none;" class="divBtnSub">
+                                                         <ul>
+                                                         <li><div id="addRemoteMaps" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
+                                                        <li> <div id="addShapeFile" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
+                                                        <li> <div id="searchGeoPlatform" class="divSubBtn" style="padding:0px;width: 220px;display: flex;align-items: center; height: 28px;"></div></li>
+                                                       </ul>
+                                                 </div></td>
+ 
+                                             </tr>
                                              <!-- <tr>
-
-                                                <td>
-                                                    <div id="thresholdMaps" class="divBtn" title="Overlay boundaries">
-                                                        <img class="imageClass"
-                                                            src="/mapdijit/templates/images/thresholds_16x16.png">
-
-
-                                                        Threshold Map
-                                                    </div>
-                                                </td>
-                                            </tr>  -->
-
-
-
-                                        </tbody>
-                                    </table>
-                                </div><!-- end fourth tab-->
-                            </div>
-                            <!--end tab content-->
-                        </div>
-                        <!--end twotoc1 content-->
-                    </td>
-                    <td>
-                        <table class="legendMain" cellpadding="0" cellspacing="0"
-                            style="height: 150px;background-color: white;">
-
-                            <tr>
-                                <td align="right" onmouseover="this.style.cursor = 'pointer';"
-                                    style="cursor: pointer;width: 15px;padding: 2px;">
-                                    <!-- onclick="toggleContent(this,'twotoc1')" -->
-                                    <!-- <img id="closePanelImg" src="images/icons8-back-10.png"  title="Hide map contents">&nbsp;&nbsp; -->
-                                    <span id="closePanel" title="Close Panel">
-                                        < </span>
-
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-
-
-
-
-        </div>
-    </div>
-
-
-
-    </div>
-
-</body>
+ 
+                                                 <td>
+                                                     <div id="addRemoteMaps" class="divBtn" style="padding:0px"></div>
+                                                 </td>
+                                             </tr> -->
+ 
+                                             <!-- <tr>
+ 
+                                                 <td>
+                                                     <div id="addShapeFile" class="divBtn" style="padding:0px"></div>
+                                                 </td>
+                                             </tr> -->
+ 
+                                             <!-- <tr>
+ 
+                                                 <td>
+                                                     <div id="searchGeoPlatform" class="divBtn" style="padding:0px">
+                                                     </div>
+                                                 </td>
+                                             </tr> -->
+                                             <tr>
+                                                 <td>
+                                                     <div id="moreDemographicMaps" class="divBtn" style="padding: 0px"></div>
+                                                 </td>
+                                             </tr> 
+                                             <tr>
+ 
+                                                 <td>
+                                                     <div id="ejbnd" class="divBtn" title="Overlay boundaries">
+                                                         <img class="imageClass"
+                                                             src="mapdijit/templates/images/usa-map_16x16.png">
+ 
+ 
+                                                         Boundaries
+                                                     </div>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+ 
+                                                 <td>
+ 
+                                                     <div id="measure" class="divBtn" style="padding:0px"></div>
+ 
+ 
+                                                 </td>
+                                             </tr>
+                                             <tr>
+ 
+                                                 <td>
+                                                     <div id="printButtonDiv" class="divBtn" style="padding: 0px;">
+                                                     </div>
+                                                 </td>
+                                             </tr>
+                                             <tr>
+ 
+                                                 <td>
+                                                     <div id="saveSessions" class="divBtn" style="padding:0px"></div>
+                                                 </td>
+                                             </tr>
+                                         
+                                         
+                                             <tr>
+ 
+                                                 <td>
+                                                     <div id="sidebysideComparisons" class="divBtn" style="display: none;"
+                                                         onclick="openPage('comparemapper.html')" title="Side by side maps that allow for comparison">
+                                                         <img class="imageClass"
+                                                             src="mapdijit/templates/images/compare_16x16.png">
+ 
+ 
+                                                         Side by Side Map Comparisons
+                                                     </div>
+                                                 </td>
+                                             </tr>
+                                         
+ 
+                                             
+ 
+                                          
+ 
+                                            
+                                             <tr>
+                                                 <td>
+                                                     <div id="thresholdMaps" class="divBtn" style="padding: 0px; display: none;"></div>
+                                                 </td>
+                                             </tr>
+                                              
+                                             
+                                             <tr>
+                                                 <td>
+                                                     <div id="multiSiteTool" class="divBtn" style="padding: 0px" onclick="openPage('https://shiny.epa.gov/ejscreen-multisite')" title="Multisite Tool">
+                                                          Multisite Tool
+                                                     </div>
+                                                 </td>
+                                             </tr>
+ 
+                                              <!-- <tr>
+ 
+                                                 <td>
+                                                     <div id="thresholdMaps" class="divBtn" title="Overlay boundaries">
+                                                         <img class="imageClass"
+                                                             src="/mapdijit/templates/images/thresholds_16x16.png">
+ 
+ 
+                                                         Threshold Map
+                                                     </div>
+                                                 </td>
+                                             </tr>  -->
+ 
+ 
+ 
+                                         </tbody>
+                                     </table>
+                                 </div><!-- end fourth tab-->
+                             </div>
+                             <!--end tab content-->
+                         </div>
+                         <!--end twotoc1 content-->
+                     </td>
+                     <td>
+                         <table class="legendMain" cellpadding="0" cellspacing="0"
+                             style="height: 150px;background-color: white;">
+ 
+                             <tr>
+                                 <td align="right" onmouseover="this.style.cursor = 'pointer';"
+                                     style="cursor: pointer;width: 15px;padding: 2px;">
+                                     <!-- onclick="toggleContent(this,'twotoc1')" -->
+                                     <!-- <img id="closePanelImg" src="images/icons8-back-10.png"  title="Hide map contents">&nbsp;&nbsp; -->
+                                     <span id="closePanel" title="Close Panel">
+                                         < </span>
+ 
+                                 </td>
+                             </tr>
+                         </table>
+                     </td>
+                 </tr>
+             </table>
+ 
+ 
+ 
+ 
+         </div>
+     </div>
+ 
+ 
+ 
+     </div>
+ 
+ </body>
 
 </html>

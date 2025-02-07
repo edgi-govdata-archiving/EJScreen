@@ -274,6 +274,7 @@ define([
 							activeField = domEId.substring(4);
 						}
 						if (radval == "state") {
+							console.log(value)
 							wobj._mapejindex(
 								activeField,
 								domEId,
@@ -932,6 +933,7 @@ define([
 			var n = 0;
 			var p = key.split("|")[0];
 			var s = key.split("|")[1];
+			console.log(ejlayoutJSON[p].items[s])
 			for (var c in ejlayoutJSON[p].items[s].columns) {
 				var optdesc = layerJson[c].description;
 				var tiptext = layerJson[c].hovertext;
@@ -1012,7 +1014,7 @@ define([
 				}
 			});
 		},
-		_removeNoaaLayers: function() {
+		_removeNoaaLayers: function() { //jquery-1.12.4.js:1502 Uncaught Error: Syntax error, unrecognized expression: #noaa|usslr1
 			var noaaLayerIds =["noaa|usslr1",
 			"noaa|usslr2",
 			"noaa|usslr3", 
@@ -1082,6 +1084,7 @@ define([
 			var listL = ["ejindex_map", "ejindex_map_supp"];
 
 			if (isMulti == false) {
+				console.log("not multi")
 				this._removeLayers(suggestservicesCLIMATE);
 				this._removeLayers(suggestservicesHEALTH);
 				this._removeLayers(suggestservicesCRITSVCGAPS);
@@ -1126,13 +1129,17 @@ define([
 					tocTitle = ejlayoutJSON.Primary.items[cat].tocLabel;
 				}
 				//var opcvalue = 0.5;
+				console.log(layeridstr, layerindex)
 				var opcvalue = 1;
-				ejindexlayer = new MapImageLayer({
+				ejindexlayer = new FeatureLayer({
 					url: renderurl,
 					title: tocTitle,
 					id: layeridstr,
+					layerId: layerindex,//feature not mapserver?
 					opacity: opcvalue,
-					sublayers: [
+					renderer: clsrenderer, //feature not mapserver?
+					visible: true  //feature not mapserver?
+					/* sublayers: [
 						{
 							id: layerindex,
 							title: fielddesc,
@@ -1142,7 +1149,7 @@ define([
 								mapLayerId: layerindex,
 							},
 						},
-					],
+					], */
 				});
 				//if the btn is already clicked then remove highlight and layer , if not add the layer to the legend
 				listL.forEach((e) => {
@@ -1167,6 +1174,7 @@ define([
 					}
 				});
 				//now add new layer and highlght the element
+				console.log(ejindexlayer)
 				this.map.add(ejindexlayer);
 				$("#" + domElementId).addClass("highlight");
 				//add properties
@@ -1197,7 +1205,7 @@ define([
 				}
 
 				var opcvalue = 0.5;
-				ejindexlayer = new MapImageLayer({
+				ejindexlayer = new FeatureLayer({
 					url: renderurl,
 					title: "EJScreen Map",
 					id: layeridstr,

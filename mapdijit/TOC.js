@@ -284,14 +284,17 @@ define([
 				if (rootLayer.name) {
 					// this is a featureLayer
 					title = rootLayer.name;
+					
 				} else {
 					var start = rootLayer.url.toLowerCase().indexOf("/rest/services/");
 					var end = rootLayer.url.toLowerCase().indexOf("/mapserver", start);
 					title = rootLayer.url.substring(start + 15, end);
+					console.log(title);
 				}
 			}
 			rootLayer.collapsed = this.rootLayerTOC.config.collapsed;
-
+			console.log("rootlayer")
+			console.log(rootLayer)
 			if (!this.rootLayerTOC.config.noLegend) {
 				if (rootLayer._tocInfos) {
 					this._createChildrenNodes(rootLayer._tocInfos, "serviceLayer");
@@ -314,6 +317,7 @@ define([
 				} else if (rootLayer.renderer) {
 					// for feature layers
 					var r = rootLayer.renderer;
+					console.log(r)
 					if (r.infos) {
 						//UniqueValueRenderer |ClassBreaksRenderer
 						var legs = r.infos;
@@ -366,6 +370,7 @@ define([
 				}
 			} else {
 				// no legend means no need for plus/minus sign
+				console.log("no legend?")
 				domStyle.set(this.iconNode, "visibility", "hidden");
 			}
 			this.labelNode.innerHTML = title;
