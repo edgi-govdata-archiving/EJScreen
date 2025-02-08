@@ -8,6 +8,6 @@ First-time users may find the 5-minute [EJScreen in 5: A Quick Overview of EJScr
 
 Other helpful resources include:
 
-[EJScreen User Guide](https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf) for navigating the various features of the tool,
-[EJScreen Glossary](https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions) for better understanding the map layers and indicators being displayed in the tool, and
-[Frequent Questions about EJScreen](https://web.archive.org/web/20250123162243/https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen)
+- [EJScreen User Guide](https://web.archive.org/web/20250121194015/https://ejscreen.epa.gov/mapper/help/ejscreen_help.pdf) for navigating the various features of the tool,
+- [EJScreen Glossary](https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions) for better understanding the map layers and indicators being displayed in the tool, and
+- [Frequent Questions about EJScreen](https://web.archive.org/web/20250123162243/https://www.epa.gov/ejscreen/frequent-questions-about-ejscreen)
