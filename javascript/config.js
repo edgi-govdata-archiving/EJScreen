@@ -234,6 +234,101 @@ var metanchors = {
 	ejbnd: { metalink: metaroot + "#boun" }	
 };
 
+//RENDERING SUPPORT
+function pctrend (fieldname) {
+	rend = {
+		type: "class-breaks", // autocasts as new ClassBreaksRenderer()
+		field: fieldname,
+		//normalizationField: "EDUCBASECY",
+		legendOptions: {
+		title: "Percentile"
+		},
+		defaultSymbol: {
+		type: "simple-fill", // autocasts as new SimpleFillSymbol()
+		color: "black",
+		style: "backward-diagonal",
+		outline: {
+			width: 0.2,
+			color: [105, 105, 105, 0.5]
+		}
+		},
+		defaultLabel: "Data Not Available",
+		classBreakInfos: [
+		{
+			minValue: 0,
+			maxValue: 20,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#fed976",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "< 20"
+		},
+		{
+			minValue: 21,
+			maxValue: 39,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#feb24c",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 20 - 40"
+		},
+		{
+			minValue: 40,
+			maxValue: 59,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#fd8d3c",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 40 - 60"
+		},
+		{
+			minValue: 60,
+			maxValue: 79,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#fc4e2a",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 60 - 80"
+		},
+		{
+			minValue: 80,
+			maxValue: 99,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#e31a1c",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 80 - 100"
+		}
+		]
+	}
+	return rend;
+}
+
 //round fields to specified decimals places. Key must match layer name in one of the other config sections below
 //for featurelayer types, key is used and field name is used in NAMES object. For dynamiclayers, key is currently not used and fields are search in the ALIAS object
 var suggestservicesFieldDecimalPlacesNAMES = {
@@ -509,6 +604,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: pctrend("P_LIFEEXP")
 		//layers: [{ id: 0, title: "Low Life Expectancy" }],
 	},
 	heartdisease: {
@@ -518,6 +614,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: pctrend("P_HEARTDISEASE")
 		//layers: [{ id: 1, title: "Coronary Heart Disease" }],
 	},
 	asthma: {
@@ -527,6 +624,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: pctrend("P_ASTHMA")
 		//layers: [{ id: 2, title: "Current Asthma" }],
 	},
 	cancer: {
@@ -536,6 +634,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		//renderer: pctrend("Cancer")
 		//layers: [{ id: 3, title: "Cancer" }],
 	},
 	personswithdisabilities: {
@@ -545,6 +644,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		//renderer: pctrend("DISABILITYPCT")
 		//layers: [{ id: 4, title: "Persons with Disabililties" }],
 	}
 };
