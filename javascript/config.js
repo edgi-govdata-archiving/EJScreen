@@ -1146,23 +1146,20 @@ var serviceJSON_SBS = {
 		imageName: "colonias_16x16.png",
 	},
 	
-	justice40: {								   
+	justice40:{
 		description: "Justice40 (CEJST)",
 		mouseover:"Communities identified as disadvantaged by CEQ for purposes of Justice40",
 		type: "featurelayer",
 		visible: false,
-		dynamic: true,
-		//for portallayer use id vs url, assumes arcgis portal for now
-		layerurl:
-			"f95344889cab44bd84207052f44cb940",
+		//dynamic: true,
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/CEJST_2/FeatureServer/1",
 		//service: "",
 		transparency: "0.8",
 		removable: false,
-		defaultlayer: [-1],
+		//defaultlayer: [-1],
 		position: 5,
 		imageName: "justice40_16x16.png"
-
-	},
+		},
 	tribe: {
 		description: "Tribal Lands",
 		mouseover:"American Indian Tribal lands in the lower 48 states and Alaska",
