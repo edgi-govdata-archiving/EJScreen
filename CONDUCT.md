@@ -1,0 +1,1 @@
+EDGI's Code of Conduct can be found [here](https://envirodatagov.org/edgis-code-of-conduct/).
