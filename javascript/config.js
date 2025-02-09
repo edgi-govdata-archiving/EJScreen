@@ -1029,6 +1029,7 @@ var serviceJSON_SBS = {
 		position: 5,
 		imageName: "environment_16x16.png",
 	},
+	/*
 	communitylandmarks: {
 		description: "Community Landmarks",
 		mouseover:"Community Landmarks",
@@ -1086,7 +1087,7 @@ var serviceJSON_SBS = {
 		defaultlayer: [-1],
 		position: 6,	
 		imageName: "chapel_16x16.png",
-	},
+	}, */
 	//"ejtribal": { "description": "Tribal Lands", "type": "agsdynamic", "visible": false, "dynamic": true, "layerurl": prodRESTurl, "service": "EMEF/tribal", "transparency": "0.8", "identify": "yes", "removable": false, "defaultlayer": [-1], "position": 3,"imageName":"tribal-symbols_16x16.png" },
 	// tribalcat: {
 	// 	description: "Tribal Lands & Indigenous Areas",
