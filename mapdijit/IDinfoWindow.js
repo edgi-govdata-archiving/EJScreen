@@ -161,7 +161,7 @@ define(
                     //console.log(templatestr);
                 }
 
-                var showConvertBtn = false; // disabling generate report button for now
+                var showConvertBtn = true; // disabling generate report button for now
 
                 if (feat.geometry.type == "polygon") {
                     if (feat.geometry.rings.length > 1) {
@@ -175,7 +175,7 @@ define(
                             //alert("The defined area is too large for analysis. Please change the project area or buffer distance.");
                             showConvertBtn = false;
                         } else {
-                            showConvertBtn = false; // disabling generate report button for now
+                            showConvertBtn = true; // disabling generate report button for now
                         }
                     }
                 }

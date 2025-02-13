@@ -165,7 +165,7 @@ define(
                     //console.log(templatestr);
                 }
 
-                var showConvertBtn = true;
+                var showConvertBtn = true; //disabling generate report button for now
                 //if territory, do not show report button and show message
                 //Guam, Virgin Islands, American Samoa, Mariana Islands - no report
                 var terrAry = ["GU","VI","AS","MP"];

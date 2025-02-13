@@ -5,7 +5,6 @@ define(
         "dojo/_base/lang",
         "dojo/on",
         "dojo/dom-construct",
-
         'dijit/_Widget',
         'dijit/_Templated',
         'dijit/_WidgetBase',
@@ -160,12 +159,14 @@ define(
                 wobj.dtype = key;
                 var dgObj = demogJSON[key];
                 this.demogtitle.innerHTML = dgObj.title;
+                console.log("wobj", wobj)
+                console.log("dgObj", dgObj)
                 if (dgObj.process) {
                     wobj.createCatList(key);
                     wobj.setDefaultListIndex(dgObj.defaultCategoryIndex);
                 } else {
-                    var lookuptableurl = dgObj.layerurl + dgObj.service + "/MapServer/" + dgObj.lookupindex;
-                    //console.log(lookuptableurl)
+                    var lookuptableurl = dgObj.layerurl + dgObj.service + "FeatureServer/" + dgObj.lookupindex;
+                    console.log(lookuptableurl)
                     var queryTask = new QueryTask(lookuptableurl);
                     var query = new Query();
                     query.returnGeometry = false;
@@ -177,68 +178,71 @@ define(
                     //get features in order by cat and label
                     query.orderByFields = ["CATEGORY", "DESCRIPTION"];
                     queryTask.execute(query).then(function(featset) {
+                        console.log(featset)
                         if (featset.features.length > 0) {
                             var fetcount = featset.features.length;
                             var catJson = {};
                             var layerJson = {};
                             var tableJson = {};
                             for (var m = 0; m < fetcount; m++) {
-                                var cat = dojo.trim(featset.features[m].attributes["CATEGORY"]);
-                                var colname = dojo.trim(featset.features[m].attributes["FIELD_NAME"]);
-                                var desc = dojo.trim(featset.features[m].attributes["DESCRIPTION"]);
-                                if (wobj.dfield == colname) wobj.catType = cat;
-                                var bgmin = featset.features[m].attributes["BG_MIN"];
-                                var bgmax = featset.features[m].attributes["BG_MAX"];
-                                var bgmean = featset.features[m].attributes["BG_MEAN"];
-                                var bgstd = featset.features[m].attributes["BG_STD"];
-                                var trmin = featset.features[m].attributes["TR_MIN"];
-                                var trmax = featset.features[m].attributes["TR_MAX"];
-                                var trmean = featset.features[m].attributes["TR_MEAN"];
-                                var trstd = featset.features[m].attributes["TR_STD"];
-                                var cntymin = featset.features[m].attributes["CNTY_MIN"];
-                                var cntymax = featset.features[m].attributes["CNTY_MAX"];
-                                var cntymean = featset.features[m].attributes["CNTY_MEAN"];
-                                var cntystd = featset.features[m].attributes["CNTY_STD"];
-                                var stmin = featset.features[m].attributes["ST_MIN"];
-                                var stmax = featset.features[m].attributes["ST_MAX"];
-                                var stmean = featset.features[m].attributes["ST_MEAN"];
-                                var ststd = featset.features[m].attributes["ST_STD"];
-                                layerJson[colname] = {};
-                                layerJson[colname].description = desc;
-                                layerJson[colname].bg_min = bgmin;
-                                layerJson[colname].bg_max = bgmax;
-                                layerJson[colname].bg_mean = bgmean;
-                                layerJson[colname].bg_std = bgstd;
-                                layerJson[colname].tr_min = trmin;
-                                layerJson[colname].tr_max = trmax;
-                                layerJson[colname].tr_mean = trmean;
-                                layerJson[colname].tr_std = trstd;
-                                layerJson[colname].cnty_min = cntymin;
-                                layerJson[colname].cnty_max = cntymax;
-                                layerJson[colname].cnty_mean = cntymean;
-                                layerJson[colname].cnty_std = cntystd;
-                                layerJson[colname].st_min = stmin;
-                                layerJson[colname].st_max = stmax;
-                                layerJson[colname].st_mean = stmean;
-                                layerJson[colname].st_std = ststd;
+                                if (featset.features[m].attributes["FIELD_NAME"]){ //temporary fix until lookuptable can be updated
+                                    var cat = dojo.trim(featset.features[m].attributes["CATEGORY"]);
+                                    var colname = dojo.trim(featset.features[m].attributes["FIELD_NAME"]);
+                                    var desc = dojo.trim(featset.features[m].attributes["DESCRIPTION"]);
+                                    if (wobj.dfield == colname) wobj.catType = cat;
+                                    var bgmin = featset.features[m].attributes["BG_MIN"];
+                                    var bgmax = featset.features[m].attributes["BG_MAX"];
+                                    var bgmean = featset.features[m].attributes["BG_MEAN"];
+                                    var bgstd = featset.features[m].attributes["BG_STD"];
+                                    var trmin = featset.features[m].attributes["TR_MIN"];
+                                    var trmax = featset.features[m].attributes["TR_MAX"];
+                                    var trmean = featset.features[m].attributes["TR_MEAN"];
+                                    var trstd = featset.features[m].attributes["TR_STD"];
+                                    var cntymin = featset.features[m].attributes["CNTY_MIN"];
+                                    var cntymax = featset.features[m].attributes["CNTY_MAX"];
+                                    var cntymean = featset.features[m].attributes["CNTY_MEAN"];
+                                    var cntystd = featset.features[m].attributes["CNTY_STD"];
+                                    var stmin = featset.features[m].attributes["ST_MIN"];
+                                    var stmax = featset.features[m].attributes["ST_MAX"];
+                                    var stmean = featset.features[m].attributes["ST_MEAN"];
+                                    var ststd = featset.features[m].attributes["ST_STD"];
+                                    layerJson[colname] = {};
+                                    layerJson[colname].description = desc;
+                                    layerJson[colname].bg_min = bgmin;
+                                    layerJson[colname].bg_max = bgmax;
+                                    layerJson[colname].bg_mean = bgmean;
+                                    layerJson[colname].bg_std = bgstd;
+                                    layerJson[colname].tr_min = trmin;
+                                    layerJson[colname].tr_max = trmax;
+                                    layerJson[colname].tr_mean = trmean;
+                                    layerJson[colname].tr_std = trstd;
+                                    layerJson[colname].cnty_min = cntymin;
+                                    layerJson[colname].cnty_max = cntymax;
+                                    layerJson[colname].cnty_mean = cntymean;
+                                    layerJson[colname].cnty_std = cntystd;
+                                    layerJson[colname].st_min = stmin;
+                                    layerJson[colname].st_max = stmax;
+                                    layerJson[colname].st_mean = stmean;
+                                    layerJson[colname].st_std = ststd;
 
-                                if (typeof featset.features[m].attributes["BLK_MIN"] != 'undefined') {
-                                    var blkmin = featset.features[m].attributes["BLK_MIN"];
-                                    var blkmax = featset.features[m].attributes["BLK_MAX"];
-                                    var blkmean = featset.features[m].attributes["BLK_MEAN"];
-                                    var blkstd = featset.features[m].attributes["BLK_STD"];
-                                    layerJson[colname].blk_min = blkmin;
-                                    layerJson[colname].blk_max = blkmax;
-                                    layerJson[colname].blk_mean = blkmean;
-                                    layerJson[colname].blk_std = blkstd;
-                                    //alert("Block: " + blkmin + ": " + blkmax);
+                                    if (typeof featset.features[m].attributes["BLK_MIN"] != 'undefined') {
+                                        var blkmin = featset.features[m].attributes["BLK_MIN"];
+                                        var blkmax = featset.features[m].attributes["BLK_MAX"];
+                                        var blkmean = featset.features[m].attributes["BLK_MEAN"];
+                                        var blkstd = featset.features[m].attributes["BLK_STD"];
+                                        layerJson[colname].blk_min = blkmin;
+                                        layerJson[colname].blk_max = blkmax;
+                                        layerJson[colname].blk_mean = blkmean;
+                                        layerJson[colname].blk_std = blkstd;
+                                        //alert("Block: " + blkmin + ": " + blkmax);
+                                    }
+
+                                    if (typeof catJson[cat] == 'undefined') {
+                                        catJson[cat] = [];
+
+                                    }
+                                    catJson[cat].push(colname);
                                 }
-
-                                if (typeof catJson[cat] == 'undefined') {
-                                    catJson[cat] = [];
-
-                                }
-                                catJson[cat].push(colname);
 
                             }
 
@@ -488,7 +492,7 @@ define(
                 //var dclass = this.classNumNode.value;
                 var dclass = 5;
                 //var opcvalue = 1 - this.sliderNode.value;
-                var opcvalue = 1;
+                var opcvalue = .75;
                 //var linewidth = parseInt(this.value);
                 var linewidth = 1;
                 //var linecolor = this.bColorNode.value;
@@ -545,7 +549,7 @@ define(
                 var linewidth = renderobj.linewidth;
                 var linecolor = renderobj.linecolor;
                 demogJSON[this.dtype].dynamiclayers[fieldid] = renderobj;
-                var dataUrl = demogJSON[maptype].layerurl + demogJSON[maptype].service + "/MapServer";
+                var dataUrl = demogJSON[maptype].layerurl + demogJSON[maptype].service + "FeatureServer";
 
                 var alyrindex = demogJSON[maptype].baselayers[activelayer].layeridx;
                 var dlayerurl = dataUrl + "/" + alyrindex;
@@ -568,11 +572,11 @@ define(
 
                 }
                 var templayer = new FeatureLayer({
-                    url: dataUrl + "/" + alyrindex
+                    url: dlayerurl
                         //definitionExpression: fieldid + " > 0"
 
                 });
-
+                console.log("activelayer",activelayer)
 
                 var mycolors = this.generateColors(renderobj.classes, renderobj.fromcolor, renderobj.tocolor);
 
@@ -597,7 +601,18 @@ define(
                             width: linewidth
                         };
                     }
-                    var demoglayer = new MapImageLayer({
+
+                    var demoglayer = new FeatureLayer({
+                        url: dlayerurl,
+                        title: titlestr,
+                        id: alyrindex,
+                        "id": layeridstr,
+                        layerId: alyrindex, //feature not mapserver?
+                        opacity: opcvalue,
+                        renderer: brkinfos, //feature not mapserver?
+                        visible: true //feature not mapserver?
+                    })
+                    /* var demoglayer = new MapImageLayer({
                         url: dataUrl,
                         title: titlestr,
                         "id": layeridstr,
@@ -614,7 +629,7 @@ define(
                             }
                         }]
 
-                    });
+                    }); */
 
                     demoglayer.isDynamic = true;
                     demoglayer.renderobj = renderobj;
@@ -651,22 +666,17 @@ define(
                                 };
                             }
                             demogJSON[maptype].dynamiclayers[fieldid][catbreakid] = response.renderer;
-                            var demoglayer = new MapImageLayer({
-                                url: dataUrl,
+                            //console.log()
+                            var demoglayer = new FeatureLayer({
+                                url: dlayerurl,
                                 title: titlestr,
+                                id: alyrindex,
                                 "id": layeridstr,
+                                layerId: alyrindex, //feature not mapserver?
                                 opacity: opcvalue,
-                                sublayers: [{
-                                    id: alyrindex,
-                                    title: sourcestr,
-                                    renderer: response.renderer,
-                                    visible: true,
-                                    source: {
-                                        mapLayerId: alyrindex
-                                    }
-                                }]
-
-                            });
+                                renderer: response.renderer, //feature not mapserver?
+                                visible: true //feature not mapserver?
+                            })
 
                             demoglayer.isDynamic = true;
                             demoglayer.renderobj = renderobj;
