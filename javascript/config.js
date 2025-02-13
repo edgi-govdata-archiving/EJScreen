@@ -2156,7 +2156,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_0: {
+	ejdemog_1: {
 		description: "2014-2018 ACS demographics by Blockgroup",
 		headerfields: {
 			STCNTRBG: "Blockgroup ID",
@@ -2167,7 +2167,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_1: {
+	ejdemog_5: {
 		description: "2014-2018 ACS demographics by Tract",
 		headerfields: {
 			STCNTR: "Tract ID",
@@ -2178,7 +2178,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_2: {
+	ejdemog_0: {
 		description: "2014-2018 ACS demographics by County",
 		headerfields: {
 			CNTYNAME: "County Name",
@@ -2190,7 +2190,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_3: {
+	ejdemog_2: {
 		description: "2014-2018 ACS demographics by State",
 		headerfields: { STATE_NAME: "State", TOTALPOP: "Total Population" },
 		footerfields: {},
@@ -3180,9 +3180,9 @@ var demogJSON = {
 		tiptext: "2018-2022 ACS",
 		dynamic: false,
 		type: "agsdemog",
-		"layerurl": localRESTurl,	
-		service: "ejscreen/census2022acs",
-		lookupindex: 4,
+		"layerurl": "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EJScreen_Census/",//replace with my feature service link
+		service: "",
+		lookupindex: 6,
 		description:
 			"2018-2022 ACS demographics are a set of variables derived based on a subset of 2018-2022 American Community Survey data.",
 		process: false,
@@ -3195,7 +3195,7 @@ var demogJSON = {
 			bg: {
 				minlevel: 10,
 				maxlevel: 20,
-				layeridx: 0,
+				layeridx: 1,
 				level: "2018-2022 ACS (Blockgroup)",
 				headerfields: {
 					STCNTRBG: "Blockgroup ID",
@@ -3206,7 +3206,7 @@ var demogJSON = {
 			tr: {
 				minlevel: 8,
 				maxlevel: 10,
-				layeridx: 1,
+				layeridx: 5,
 				level: "2018-2022 ACS (Tract)",
 				headerfields: {
 					STCNTR: "Tract ID",
@@ -3217,7 +3217,7 @@ var demogJSON = {
 			cnty: {
 				minlevel: 4,
 				maxlevel: 8,
-				layeridx: 2,
+				layeridx: 0,
 				level: "2018-2022 ACS (County)",
 				headerfields: {
 					CNTYNAME: "County Name",
@@ -3229,13 +3229,13 @@ var demogJSON = {
 			st: {
 				minlevel: 0,
 				maxlevel: 4,
-				layeridx: 3,
+				layeridx: 2,
 				level: "2018-2022 ACS (State)",
 				headerfields: { STATE_NAME: "State", TOTALPOP: "Total Population" },
 			},
 		},
 		dynamiclayers: {},
-	}//,
+	} //,
 // RW 7/2/24 -removed 2010 from demog widget
 /* 	census2010: {
 		title: "2010 Census",
