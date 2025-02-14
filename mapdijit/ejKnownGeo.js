@@ -24,7 +24,7 @@ define(['dojo/_base/declare',
     "esri/Graphic",
     "esri/geometry/Polygon",
     "esri/PopupTemplate",
-    'https://pedp-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js'
+    './mapdijit/EJinfoWindow.js'
 ], function(
     declare,
     has,

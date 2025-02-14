@@ -18,7 +18,7 @@ define(
         "esri/layers/FeatureLayer",
         "esri/Graphic",
         "esri/PopupTemplate",
-        "https://pedp-ejscreen.azurewebsites.net/mapdijit/EJinfoWindow.js"
+        "./mapdijit/EJinfoWindow.js"
     ],
     function(
         declare,

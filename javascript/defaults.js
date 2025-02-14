@@ -104,8 +104,9 @@
   //of the application.
   //ArcGIS.com. Enter link values for the link1 and link2 and text to add links. For example
   //url:'http://www.esri.com',text:'Esri'
+  //    url: homeappurl,
   link1: {
-      url: homeappurl,
+      url: location.pathname.replace(/\/[^/]*$/, ''),
       text: 'EJScreen Home'
   },
   link2: {

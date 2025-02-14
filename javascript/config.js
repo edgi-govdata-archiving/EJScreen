@@ -44,6 +44,7 @@ var versionDetailed = "2.3.01"; //detailed version number for dev records, not e
 var enableGoogleTagManager = true;
 
 
+// require(["https://js.arcgis.com/4.20/esri/config"], function (esriConfig) { 
 require(["esri/config"], function (esriConfig) { 
 //Timeout in milliseconds for all esriRequests. Used for call to EJ services for reports.
 esriConfig.request.timeout = 120000; //2 minutes
@@ -109,7 +110,7 @@ var glossaryurlSuppIndexes = "https://web.archive.org/web/20241202134502/https:/
 //var glossaryurl = "https://www.epa.gov/ejscreen/glossary-ejscreen-terms";
 //var glossaryurl = "https://ejscreen.epa.gov/ejscreen23/ejscreen-map-descriptions3.html";
 var glossaryurl ="https://web.archive.org/web/20250123161322/https://www.epa.gov/ejscreen/ejscreen-map-descriptions";
-var homeappurl = "https://pedp-ejscreen.azurewebsites.net";
+// var homeappurl = "http://localhost:8000"; --SH--What is this used for?
 var v1appurl = "ejscreen_v1/index.html";
 var countybndurl =
 	"//geopub.epa.gov/arcgis/rest/services/EMEF/Boundaries/MapServer/5/query";
@@ -1029,6 +1030,7 @@ var serviceJSON_SBS = {
 		position: 5,
 		imageName: "environment_16x16.png",
 	},
+	/*
 	communitylandmarks: {
 		description: "Community Landmarks",
 		mouseover:"Community Landmarks",
@@ -1086,7 +1088,7 @@ var serviceJSON_SBS = {
 		defaultlayer: [-1],
 		position: 6,	
 		imageName: "chapel_16x16.png",
-	},
+	}, */
 	//"ejtribal": { "description": "Tribal Lands", "type": "agsdynamic", "visible": false, "dynamic": true, "layerurl": prodRESTurl, "service": "EMEF/tribal", "transparency": "0.8", "identify": "yes", "removable": false, "defaultlayer": [-1], "position": 3,"imageName":"tribal-symbols_16x16.png" },
 	// tribalcat: {
 	// 	description: "Tribal Lands & Indigenous Areas",
@@ -1146,23 +1148,20 @@ var serviceJSON_SBS = {
 		imageName: "colonias_16x16.png",
 	},
 	
-	justice40: {								   
+	justice40:{
 		description: "Justice40 (CEJST)",
 		mouseover:"Communities identified as disadvantaged by CEQ for purposes of Justice40",
 		type: "featurelayer",
 		visible: false,
-		dynamic: true,
-		//for portallayer use id vs url, assumes arcgis portal for now
-		layerurl:
-			"f95344889cab44bd84207052f44cb940",
+		//dynamic: true,
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/CEJST_2/FeatureServer/1",
 		//service: "",
 		transparency: "0.8",
 		removable: false,
-		defaultlayer: [-1],
+		//defaultlayer: [-1],
 		position: 5,
 		imageName: "justice40_16x16.png"
-
-	},
+		},
 	tribe: {
 		description: "Tribal Lands",
 		mouseover:"American Indian Tribal lands in the lower 48 states and Alaska",
@@ -1234,11 +1233,11 @@ var serviceJSON_SBS = {
 				description: "EPA IRA Disadvantaged Communities 1.0",
 				type: "featurelayer",
 				visible: false,
-				dynamic: true,
-				layerurl:
+				//dynamic: true,
+				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_IRA_Disadvantaged_Communities_1/FeatureServer/2",
 					//localRESTurl + "ejscreen/EPA_IRA_Disadvantaged_Communities/MapServer/0",
-					localRESTurl + "ejscreen/ejscreen_disadvantaged_1/MapServer/0",
-				service: "",
+					//localRESTurl + "ejscreen/ejscreen_disadvantaged_1/MapServer/0",
+				//service: "",
 				transparency: "0.5",
 				removable: false,
 				defaultlayer: [-1],
@@ -1249,21 +1248,20 @@ var serviceJSON_SBS = {
 				description: "EPA IRA Disadvantaged Communities 2.0",
 				type: "featurelayer",
 				visible: false,
-				dynamic: true,
-				layerurl:					
-					localRESTurl + "ejscreen/ejscreen_disadvantaged/MapServer/0",
-				service: "",
+				//dynamic: true,
+				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_IRA_Disadvantaged_Communities_2/FeatureServer/0",
+				//service: "",
 				transparency: "0.5",
 				removable: false,
 				defaultlayer: [-1],
-	            position: 7,
+				position: 7,
 				
 			},
 			epairamerged: { //side by side entry
 				description: "EPA Disadvantaged Community Environmental and Climate Justice Program",
 				type: "featurelayer",
 				visible: false,
-				dynamic: true,
+				//dynamic: true,
 				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_Environmental_and_Climate_Justice_Program/FeatureServer/0",
 				//service: "",
 				transparency: "0.5",

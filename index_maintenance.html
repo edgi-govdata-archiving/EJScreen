@@ -34,7 +34,8 @@
  
 
     <script>
-        var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        var path_location = location.pathname.replace(/\/[^/]*$/, '')
+        // var path_location = location.pathname.replace(/\/[^/]+$/, '');
         var dojoConfig = {
             has: {
                 "esri-native-promise": true
@@ -42,7 +43,7 @@
             parseOnLoad: true,
             packages: [{
                 name: "mapdijit",
-                location: 'https://pedp-ejscreen.azurewebsites.net/mapdijit'
+                location: path_location + '/mapdijit'
             }]
         };
 
