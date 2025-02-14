@@ -21,7 +21,7 @@ define(
         "esri/Graphic",
         "esri/layers/support/Field",
         "esri/geometry/Polyline",
-        "http://localhost:8000/mapdijit/IDinfoWindow.js"
+        "./mapdijit/IDinfoWindow.js"
 
     ],
     function(
