@@ -202,7 +202,8 @@
 } */
     </style>
     <script>
-        var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        // var path_location = location.pathname.replace(/\/[^/]+$/, '');
+        var path_location = location.pathname.replace(/\/[^/]*$/, '')
         var dojoConfig = {
             has: {
                 "esri-native-promise": true
@@ -210,7 +211,7 @@
             parseOnLoad: true,
             packages: [{
                 name: "mapdijit",
-                location: 'https://pedp-ejscreen.azurewebsites.net/mapdijit'
+                location: path_location + '/mapdijit'
             }]
         };
     </script>
@@ -229,7 +230,7 @@
                 "labelid": "lab1",
                 "legendid": "legenddiv1",
                 "theme": "ejindex",
-                "field": "B_PTRAF",
+                "field": "B_NO2", //B_NO2
                 "category": "P_ENV", //category the field belongs to
                 "group":"Primary", //config group the field belongs to
                 "pcttype": "nation"
@@ -238,18 +239,12 @@
                 "btnid": "btn2",
                 "labelid": "lab2",
                 "legendid": "legenddiv2",
-                "theme": "demog",
-                "field": "PCT_LOWINC",
-                "description": "",
-                "customrenderer": {
-                    "classnum": "5",
-                    "method": "quantile",
-                    "colorindex": "2",
-                    "linewidth": "1",
-                    "linecolor": "#000000",
-                    "opacity": "0.5"
-                }
-            }
+                "theme": "ejindex",
+                "field": "B_D2_DWATER", //
+                "category": "P_EJ2", //category the field belongs to
+                "group":"Primary", //config group the field belongs to
+                "pcttype": "nation"
+            },
             // "map3": {
             //     "btnid": "btn3",
             //     "labelid": "lab3",
@@ -298,8 +293,8 @@
             "dijit/TooltipDialog",
             "dojo/dom-construct",
             "esri/config",
-            "https://pedp-ejscreen.azurewebsites.net/mapdijit/CompareMaps.js",
-            "https://pedp-ejscreen.azurewebsites.net/mapdijit/sliderItem.js",
+            "./mapdijit/CompareMaps.js",
+            "./mapdijit/sliderItem.js",
             "dojo/dom-attr",
             "dijit/registry",
             "dojo/domReady!"
