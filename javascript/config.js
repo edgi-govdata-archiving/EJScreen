@@ -438,7 +438,7 @@ var suggestservicesCLIMATE = {
 	floodrisk: {
 		title: "Flood Risk (National Percentile)",
 		mouseover:"Model representing the risk of flooding",
-		url: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_EJScreen_Flood_Risk/FeatureServer/0",
+		url: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_EJScreen_Flood_Risk/FeatureServer/7",
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
