@@ -125,33 +125,35 @@ define([
 			startup: function () {},
 		    postCreate: function () {
 				var wobj = this;
-				var lookuptableurl = ejscreenservice + "/" + lookuptableindex;						
+				var lookuptableurl = "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EJScreen_Lookup_USBG/FeatureServer/4" //ejscreenservice + "/" + lookuptableindex;						
 				var queryTask = new QueryTask(lookuptableurl);
 				var query = new Query();
 				query.returnGeometry = false;
 				query.outFields = ["*"];
 				var dirty = new Date().getTime();
-				query.where = "FOR_DATA='Y' AND " + dirty + "=" + dirty;
-
+				query.where = dirty + "=" + dirty; // "FOR_DATA='Y' AND " + 
+				console.log("query", query)
 				queryTask
 					.execute(query)
 					.then(function (featset) {
+						console.log("features", featset)
 						if (featset.features.length > 0) {
 							
-							 var sortedFeats = [];
-                        //dataobj from config with report field order
-						//clone global and remove ST records so don't show in drop down list
-						var dataobjNoST = JSON.parse(JSON.stringify(dataobj));
-						//remove ST for Explore	
-						delete dataobjNoST['DEMOGIDX_2ST'];
-						delete dataobjNoST['DEMOGIDX_5ST'];
-                        for (var doboj in dataobjNoST) {
-                            for (var i = 0; i < featset.features.length; i++) {
-                                  if (doboj == featset.features[i].attributes["FIELD_NAME"]) {
-                                    sortedFeats.push(featset.features[i]);
-                                    break;
-                                  }
-                            }
+							var sortedFeats = [];
+							//dataobj from config with report field order
+							//clone global and remove ST records so don't show in drop down list
+							var dataobjNoST = JSON.parse(JSON.stringify(dataobj));
+							//remove ST for Explore	
+							delete dataobjNoST['DEMOGIDX_2ST'];
+							delete dataobjNoST['DEMOGIDX_5ST'];
+							console.log("DONOST", dataobjNoST)
+							for (var doboj in dataobjNoST) {
+								for (var i = 0; i < featset.features.length; i++) {
+									if (doboj == featset.features[i].attributes["FIELD_NAME"]) {
+										sortedFeats.push(featset.features[i]);
+										break;
+									}
+								}
                         }
 						//RW 4/22/24 update field names from lookup to remove USA label, not needed in Explore Charts and Compare, only Comm Report
 						for (var i = 0; i < featset.features.length; i++) {
@@ -172,7 +174,7 @@ define([
 							ejlayoutJSON["Primary"].status = true;
 							var fetcount = sortedFeats.length;
 							var catJson = {};
-
+							console.log("sorted", sortedFeats)
 							for (var m = 0; m < fetcount; m++) {								
 								// var cat = dojo.trim(
 									// sortedFeats[m].attributes["IndexCode"]
@@ -190,7 +192,8 @@ define([
 								// var fulldesc = dojo.trim(
 									// sortedFeats[m].attributes["RPT_NAME"]
 								// );		
-                                var fulldesc = dojo.trim(sortedFeats[m].attributes["RPT_NAME"] || '');								
+                                var fulldesc = dojo.trim(sortedFeats[m].attributes["RPT_NAME"] || '');
+								console.log(fulldesc)								
 								// var legendtitle = dojo.trim(
 									// sortedFeats[m].attributes["TOC_NAME"]
 								// );	
@@ -245,6 +248,7 @@ define([
 								catJson[cat][colname] = layerJson[colname];
 								
 							}
+							console.log("catjson",layerCatJson)
 
 							
 
@@ -520,7 +524,7 @@ define([
 				}
 			},
 			highlightStyle: function (obj, v) {
-				console.log(v);
+				console.log(obj, v);
 				for (var k = 0; k < obj.childNodes.length; k++) {
 					var currentv = obj.childNodes[k].value;
 					if (v == currentv) {
@@ -592,9 +596,10 @@ define([
 						container: mapdivStr,
 					});
 				}
-
+				console.log("mappy", mapsJson)
 				var field = mapsJson[mapdivStr].field;
 				var theme = mapsJson[mapdivStr].theme;
+				console.log(theme)
 				var category = mapsJson[mapdivStr].category;
 				var group = mapsJson[mapdivStr].group;
 
@@ -690,8 +695,11 @@ define([
 				var layeridstr = "ejindex_map";
 				var renderurl, layerindex, titlesuffix;
 				var desc;
+				console.log("catcat", layerCatJson[cat])
+				console.log("fieldname", fieldname)
 				if (layerJson[fieldname] && layerJson[fieldname].fulldesc) {
 					//desc = layerJson[fieldname].fulldesc;
+					
 					desc = layerCatJson[cat][fieldname].fulldesc;					
 				} else {
 					desc = "not found";
@@ -712,12 +720,15 @@ define([
 				// }
 				clsrenderer.field = fieldname;
 				var opcvalue = 1;
-				var ejindexlayer = new MapImageLayer({
+				var ejindexlayer = new FeatureLayer({ // should be FeatureLayer?
 					url: renderurl,
 					title: "EJScreen Map",
 					id: layeridstr,
 					opacity: opcvalue,
-					sublayers: [
+					renderer: clsrenderer,
+					visible: true,
+					layerId: layerindex
+					/* sublayers: [
 						{
 							id: layerindex,
 							title: "EJSCREEN",
@@ -727,11 +738,11 @@ define([
 								mapLayerId: layerindex,
 							},
 						},
-					],
+					], */
 				});
 
 				map.add(ejindexlayer);
-				ejindexlayer.isDynamic = true;
+				ejindexlayer.isDynamic = false;//true;
 				ejindexlayer.renderField = fieldname;
 				ejindexlayer.layerType = "ejscreen";
 				ejindexlayer.pctlevel = ptype;
@@ -883,8 +894,7 @@ define([
 							dojo.byId("otherwidget").style.display = "block";
 						}
 					} else {
-						dojo.byId("demogwidget_" + this.mapArray[i].id).style.display =
-							"none";
+						dojo.byId("demogwidget_" + this.mapArray[i].id).style.display ="none";
 						dojo.byId("threshold_" + this.mapArray[i].id).style.display =
 							"none";
 						dojo.byId("morewidget_" + this.mapArray[i].id).style.display =
@@ -915,7 +925,7 @@ define([
 							);
 							dgwidget.startup();
 						}
-						break;
+						break; 
 					case "threshold":
 						this._hideOtherWidgets("thresholdDiv");
 						if (
@@ -1059,6 +1069,7 @@ define([
 						var queryTask = new QueryTask(qurl);
 						var levelstr = "";
 						if (lid == "ejindex_map") {
+							console.log("renderfield", ejIdentifyJSON)//ejIdentifyJSON[renderfield])
 							var idfldfield = ejIdentifyJSON[renderfield].idfldname;
 							var idflds = idfldfield.split(",");
 							for (var m = 0; m < idflds.length; m++) {
@@ -1077,10 +1088,13 @@ define([
 						query.returnGeometry = true;
 						query.geometry = evt.mapPoint;
 						query.outFields = outfields;
-						//query.where = "1=1 AND " + dirty + "=" + dirty;
+						var dirty = new Date().getTime();
+						query.where = "1=1 AND " + dirty + "=" + dirty;
+						console.log("query",query)
 						queryTask
 							.execute(query)
 							.then(function (results) {
+								console.log("results", results)
 								var feats = [];
 								var fetcount = results.features.length;
 
@@ -1155,6 +1169,7 @@ define([
 									}
 								}
 							});
+							console.log("layer", lyr)
 							identifyTask = new IdentifyTask(lyr.url);
 							//idTaskAry.push(identifyTask);
 

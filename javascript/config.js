@@ -1222,6 +1222,7 @@ var serviceJSON_SBS = {
 		position: 5,
 		imageName: "environment_16x16.png",
 	},
+	/*
 	communitylandmarks: {
 		description: "Community Landmarks",
 		mouseover:"Community Landmarks",
@@ -1279,7 +1280,7 @@ var serviceJSON_SBS = {
 		defaultlayer: [-1],
 		position: 6,	
 		imageName: "chapel_16x16.png",
-	},
+	}, */
 	//"ejtribal": { "description": "Tribal Lands", "type": "agsdynamic", "visible": false, "dynamic": true, "layerurl": prodRESTurl, "service": "EMEF/tribal", "transparency": "0.8", "identify": "yes", "removable": false, "defaultlayer": [-1], "position": 3,"imageName":"tribal-symbols_16x16.png" },
 	// tribalcat: {
 	// 	description: "Tribal Lands & Indigenous Areas",
@@ -1339,23 +1340,20 @@ var serviceJSON_SBS = {
 		imageName: "colonias_16x16.png",
 	},
 	
-	justice40: {								   
+	justice40:{
 		description: "Justice40 (CEJST)",
 		mouseover:"Communities identified as disadvantaged by CEQ for purposes of Justice40",
 		type: "featurelayer",
 		visible: false,
-		dynamic: true,
-		//for portallayer use id vs url, assumes arcgis portal for now
-		layerurl:
-			"f95344889cab44bd84207052f44cb940",
+		//dynamic: true,
+		layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/CEJST_2/FeatureServer/1",
 		//service: "",
 		transparency: "0.8",
 		removable: false,
-		defaultlayer: [-1],
+		//defaultlayer: [-1],
 		position: 5,
 		imageName: "justice40_16x16.png"
-
-	},
+		},
 	tribe: {
 		description: "Tribal Lands",
 		mouseover:"American Indian Tribal lands in the lower 48 states and Alaska",
@@ -1427,11 +1425,11 @@ var serviceJSON_SBS = {
 				description: "EPA IRA Disadvantaged Communities 1.0",
 				type: "featurelayer",
 				visible: false,
-				dynamic: true,
-				layerurl:
+				//dynamic: true,
+				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_IRA_Disadvantaged_Communities_1/FeatureServer/2",
 					//localRESTurl + "ejscreen/EPA_IRA_Disadvantaged_Communities/MapServer/0",
-					localRESTurl + "ejscreen/ejscreen_disadvantaged_1/MapServer/0",
-				service: "",
+					//localRESTurl + "ejscreen/ejscreen_disadvantaged_1/MapServer/0",
+				//service: "",
 				transparency: "0.5",
 				removable: false,
 				defaultlayer: [-1],
@@ -1442,21 +1440,20 @@ var serviceJSON_SBS = {
 				description: "EPA IRA Disadvantaged Communities 2.0",
 				type: "featurelayer",
 				visible: false,
-				dynamic: true,
-				layerurl:					
-					localRESTurl + "ejscreen/ejscreen_disadvantaged/MapServer/0",
-				service: "",
+				//dynamic: true,
+				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_IRA_Disadvantaged_Communities_2/FeatureServer/0",
+				//service: "",
 				transparency: "0.5",
 				removable: false,
 				defaultlayer: [-1],
-	            position: 7,
+				position: 7,
 				
 			},
 			epairamerged: { //side by side entry
 				description: "EPA Disadvantaged Community Environmental and Climate Justice Program",
 				type: "featurelayer",
 				visible: false,
-				dynamic: true,
+				//dynamic: true,
 				layerurl: "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EPA_Environmental_and_Climate_Justice_Program/FeatureServer/0",
 				//service: "",
 				transparency: "0.5",
@@ -2352,7 +2349,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_0: {
+	ejdemog_1: {
 		description: "2014-2018 ACS demographics by Blockgroup",
 		headerfields: {
 			STCNTRBG: "Blockgroup ID",
@@ -2363,7 +2360,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_1: {
+	ejdemog_5: {
 		description: "2014-2018 ACS demographics by Tract",
 		headerfields: {
 			STCNTR: "Tract ID",
@@ -2374,7 +2371,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_2: {
+	ejdemog_0: {
 		description: "2014-2018 ACS demographics by County",
 		headerfields: {
 			CNTYNAME: "County Name",
@@ -2386,7 +2383,7 @@ var dynamicJSON = {
 		usefooteralias: true,
 		titlefields: {}
 	},
-	ejdemog_3: {
+	ejdemog_2: {
 		description: "2014-2018 ACS demographics by State",
 		headerfields: { STATE_NAME: "State", TOTALPOP: "Total Population" },
 		footerfields: {},
@@ -3376,9 +3373,9 @@ var demogJSON = {
 		tiptext: "2018-2022 ACS",
 		dynamic: false,
 		type: "agsdemog",
-		"layerurl": localRESTurl,	
-		service: "ejscreen/census2022acs",
-		lookupindex: 4,
+		"layerurl": "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EJScreen_Census/",//replace with my feature service link
+		service: "",
+		lookupindex: 6,
 		description:
 			"2018-2022 ACS demographics are a set of variables derived based on a subset of 2018-2022 American Community Survey data.",
 		process: false,
@@ -3391,7 +3388,7 @@ var demogJSON = {
 			bg: {
 				minlevel: 10,
 				maxlevel: 20,
-				layeridx: 0,
+				layeridx: 1,
 				level: "2018-2022 ACS (Blockgroup)",
 				headerfields: {
 					STCNTRBG: "Blockgroup ID",
@@ -3402,7 +3399,7 @@ var demogJSON = {
 			tr: {
 				minlevel: 8,
 				maxlevel: 10,
-				layeridx: 1,
+				layeridx: 5,
 				level: "2018-2022 ACS (Tract)",
 				headerfields: {
 					STCNTR: "Tract ID",
@@ -3413,7 +3410,7 @@ var demogJSON = {
 			cnty: {
 				minlevel: 4,
 				maxlevel: 8,
-				layeridx: 2,
+				layeridx: 0,
 				level: "2018-2022 ACS (County)",
 				headerfields: {
 					CNTYNAME: "County Name",
@@ -3425,13 +3422,13 @@ var demogJSON = {
 			st: {
 				minlevel: 0,
 				maxlevel: 4,
-				layeridx: 3,
+				layeridx: 2,
 				level: "2018-2022 ACS (State)",
 				headerfields: { STATE_NAME: "State", TOTALPOP: "Total Population" },
 			},
 		},
 		dynamiclayers: {},
-	}//,
+	} //,
 // RW 7/2/24 -removed 2010 from demog widget
 /* 	census2010: {
 		title: "2010 Census",
