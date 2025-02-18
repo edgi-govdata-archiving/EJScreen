@@ -234,6 +234,194 @@ var metanchors = {
 	ejbnd: { metalink: metaroot + "#boun" }	
 };
 
+//RENDERING SUPPORT
+function pctrend (fieldname) {
+	rend = {
+		type: "class-breaks", // autocasts as new ClassBreaksRenderer()
+		field: fieldname,
+		//normalizationField: "EDUCBASECY",
+		legendOptions: {
+		title: "Percentile"
+		},
+		defaultSymbol: {
+		type: "simple-fill", // autocasts as new SimpleFillSymbol()
+		color: "black",
+		style: "backward-diagonal",
+		outline: {
+			width: 0.2,
+			color: [105, 105, 105, 0.5]
+		}
+		},
+		defaultLabel: "Data Not Available",
+		classBreakInfos: [
+		{
+			minValue: 0,
+			maxValue: 20,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#fed976",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "< 20"
+		},
+		{
+			minValue: 21,
+			maxValue: 39,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#feb24c",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 20 - 40"
+		},
+		{
+			minValue: 40,
+			maxValue: 59,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#fd8d3c",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 40 - 60"
+		},
+		{
+			minValue: 60,
+			maxValue: 79,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#fc4e2a",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 60 - 80"
+		},
+		{
+			minValue: 80,
+			maxValue: 99,
+			symbol: {
+				type: "simple-fill", // autocasts as new SimpleFillSymbol()
+				color: "#e31a1c",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			},
+			label: "> 80 - 100"
+		}
+		]
+	}
+	return rend;
+}
+
+function valrend(fieldname) {
+	var rend = {
+		type: "unique-value",
+		valueExpression: `
+		var val = $feature.`+fieldname+`;
+		var newval = Replace(val, " %ile", "")
+		var num = Number(newval);
+		When(
+              num > 80, "> 80-100",
+              num > 60, "> 60-80",
+              num > 40, "> 40-60",
+			  num > 20, "> 20-40",
+			  num >= 0, "> 0-20",
+              "Data Not Available"
+            );
+		`,
+		valueExpressionTitle: "Percentile",
+		defaultSymbol: {
+            type: "simple-fill", // autocasts as new SimpleFillSymbol()
+            color: "black",
+            style: "backward-diagonal",
+            outline: {
+              width: 0.2,
+			  color: [105, 105, 105, 0.5]
+            }
+          },
+        defaultLabel: "Data Not Available",
+		uniqueValueInfos: [{
+			value: "> 80-100",
+			symbol: {
+				type: "simple-fill",
+				color: "#e31a1c",
+				width: "6px",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			}
+			}, {
+			value:"> 60-80",
+			symbol: {
+				type: "simple-fill",
+				color: "#fc4e2a",
+				width: "3px",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			}
+			}, {
+			value: "> 40-60",
+			symbol: {
+				type: "simple-fill",
+				color: "#fd8d3c",
+				width: "1px",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			}
+			}, {
+			value: "> 20-40",
+			symbol: {
+				type: "simple-fill",
+				color: "#feb24c",
+				width: "1px",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			}
+			}, {
+			value: "> 0-20",
+			symbol: {
+				type: "simple-fill",
+				color: "#fed976",
+				width: "1px",
+				style: "solid",
+				outline: {
+				width: 0.2,
+				color: [105, 105, 105, 0.5]
+				}
+			}
+			}
+		]
+	}
+	return rend
+  };
+
 //round fields to specified decimals places. Key must match layer name in one of the other config sections below
 //for featurelayer types, key is used and field name is used in NAMES object. For dynamiclayers, key is currently not used and fields are search in the ALIAS object
 var suggestservicesFieldDecimalPlacesNAMES = {
@@ -509,6 +697,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: pctrend("P_LIFEEXP")
 		//layers: [{ id: 0, title: "Low Life Expectancy" }],
 	},
 	heartdisease: {
@@ -518,6 +707,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: pctrend("P_HEARTDISEASE")
 		//layers: [{ id: 1, title: "Coronary Heart Disease" }],
 	},
 	asthma: {
@@ -527,6 +717,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: pctrend("P_ASTHMA")
 		//layers: [{ id: 2, title: "Current Asthma" }],
 	},
 	cancer: {
@@ -536,6 +727,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: valrend("T_CANCER")
 		//layers: [{ id: 3, title: "Cancer" }],
 	},
 	personswithdisabilities: {
@@ -545,6 +737,7 @@ var suggestservicesHEALTH = {
 		type: "featurelayer",
 		removable: true,
 		opacity: "1",
+		renderer: valrend("T_DISABILITYPCT ")
 		//layers: [{ id: 4, title: "Persons with Disabililties" }],
 	}
 };
