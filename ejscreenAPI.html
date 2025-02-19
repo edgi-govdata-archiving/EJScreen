@@ -179,7 +179,6 @@
                     var kvpairs = [];
 
                     // HANDLE QUERY PARAMS HERE
-                    // CURRENTLY WORKS FOR SHAPES, NOT FIPS
                     var validParams = ["distance", "geometry", "namestr"] // list of the params we can work with
                     for (var i = 0; i < ejscreenform.elements.length; i++) {
                         var e = ejscreenform.elements[i];
@@ -609,10 +608,11 @@
                         var featureAttributes = feature.attributes;
                         areaid = featureAttributes[idfield];
                         namestr = featureAttributes[namefld];
-
+                        
+                        // handle counties differently for the purposes of API requests
+                        // if type == county, namestr = areaid
+                        namestr = areaid
                         ejscreenform.areaid.value = areaid;
-
-
                         ejscreenform.namestr.value = namestr;
                         ejscreenform.geometry.value = "";
                         ejscreenform.distance.value = "";
