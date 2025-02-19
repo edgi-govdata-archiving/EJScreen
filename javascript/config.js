@@ -2265,15 +2265,15 @@ var tribalJSON = {
 };
 //var dwmapurl = localRESTurl + "ejscreen/census2020acs/MapServer";
 //var dwmapurl = localRESTurl + "ejscreen/census2021acs/MapServer";
-var dwmapurl = localRESTurl + "ejscreen/census2022acs/MapServer";
+var dwmapurl = "https://services.arcgis.com/EXyRv0dqed53BmG2/arcgis/rest/services/EJScreen_Census/FeatureServer";
 
-
+// FOR API
 var typelookup = {
 	blockgroup: {
 		description: "Blockgroup",
 		note: "Please enter a 12-digit census block group ID (example: 060750229021) or click on the map to select a census block group",
 		url: dwmapurl,
-		layer: "0",
+		layer: "1",
 		idfield: "STCNTRBG",
 		namefield: "STCNTRBG",
 		displayfield: ["STCNTRBG"],
@@ -2284,14 +2284,14 @@ var typelookup = {
 		description: "Tract",
 		note: "Please enter a 11-digit census tract ID (example: 06075022902) or click on the map to select a census tract",
 		url: dwmapurl,
-		layer: "1",
+		layer: "5",
 		idfield: "STCNTR",
 		namefield: "STCNTR",
 		displayfield: ["STCNTR"],
 		regstr: /^(\d{11}, {0,}){0,}\d{11}$/,
 		placeholder: "Enter a census tract ID",
 	},
-	city: {
+	/* city: {
 		description: "City",
 		note: "Please enter a 7-digit Place code (example: 5168000) or click on the map to select a city",
 		url: ejscreenservice,
@@ -2301,12 +2301,12 @@ var typelookup = {
 		displayfield: ["PLFIPS", "NAME"],
 		regstr: /^(\d{7}, {0,}){0,}\d{7}$/,
 		placeholder: "Enter a city name or place code",
-	},
+	}, */
 	county: {
 		description: "County",
 		note: "Please enter a county name and state abbreviation and select a desired entry from the suggestion list (example: Arlington County, VA)",
 		url: dwmapurl,
-		layer: "2",
+		layer: "0",
 		idfield: "STCN",
 		namefield: "CNTYNAME",
 		displayfield: ["STCN", "CNTYNAME"],
