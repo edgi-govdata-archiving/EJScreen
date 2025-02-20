@@ -340,13 +340,13 @@ define(
             _getEJscreen: function(e) {
                 var rptid = e.target.id;
                 var url = reportsJSON[rptid].reporturl;
-                var newWindow = window.open();
+                /* var newWindow = window.open();
                 if (!newWindow) {
                     alert(popupblockedMessage);
                     return false;
                     //} else {
                     //    newWindow.close();
-                }
+                } */
                 //newWindow.document.write("Loading...Please wait!");
                 var vd = this.validateDistance();
                 if (vd === false) {
@@ -356,7 +356,7 @@ define(
 
 
                 var wobj = this;
-                wobj.getEJReport(url, newWindow);
+                wobj.getEJReport(url);
                 // PRINT OPTIONS BELOW? 
                 //var legend_layers = this.get_legend_layers();
                 /* var lytmp = "A3 Landscape";
@@ -445,7 +445,7 @@ define(
                 if (((gtype == "point") || (gtype == "polyline")) && (parseFloat(radius) == 0)) return false;
                 else return true;
             },
-            getEJReport: function(url, myWindow) {
+            getEJReport: function(url) {
                 //alert("url:" + url)
                 var frm = document.getElementById("infoform");
 
@@ -465,7 +465,10 @@ define(
                     // Not currently working - doesn't recognize any features as "known geo"
                     var namestr = this.currentGraphic.attributes["names"]; // FIPS
                     html = html + "fips="+namestr
-                } else if ((gtype == "point") || (gtype == "polygon") || (gtype == "polyline")) { //seprate out points and do lat/lon instead of shape
+                } else if (gtype == "point"){
+                    var partsOfStr = geomString.split(',');
+                    html = html + "lon=" + parseFloat(partsOfStr[0]) + "&" + "lat=" + parseFloat(partsOfStr[1])
+                } else if ((gtype == "polygon") || (gtype == "polyline")) { //seprate out points and do lat/lon instead of shape
                     // split at commas and join every two items
                     var matches = geomString.match(/[^,]+,[^,]+/g);
                     var listCoords = [];
@@ -474,6 +477,8 @@ define(
                         var pair = [parseFloat(partsOfStr[0]),parseFloat(partsOfStr[1])];
                         listCoords.push(pair)
                     }
+                    gtype = gtype == "polyline" ? "LineString" : "Polygon"
+                    listCoords = gtype == "LineString" ? listCoords : [listCoords] // if line, don't need outer list
                     var geojson = {
                         "type": "FeatureCollection",
                         "features": [
@@ -481,10 +486,8 @@ define(
                             "type": "Feature",
                             "properties": {},
                             "geometry": {
-                              "coordinates": [
-                                listCoords
-                              ],
-                              "type": String(gtype).charAt(0).toUpperCase() + String(gtype).slice(1) // may not work with polyline
+                              "coordinates": listCoords,
+                              "type": gtype
                             }
                           }
                         ]
