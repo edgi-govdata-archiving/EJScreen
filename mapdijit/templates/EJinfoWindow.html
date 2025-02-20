@@ -12,7 +12,7 @@
             <input type="text" name="radius" data-dojo-attach-point="distNode" data-dojo-attach-event="onchange: _setValue" size="3" maxlength="10" value="" />
             <select name="unit" data-dojo-attach-point="unitNode" data-dojo-attach-event="onchange: _setValue">
             <option value="miles" selected>mi</option>
-            <option value="kilometers">km</option>
+            <!-- <option value="kilometers">km</option> -->
             </select>
             <input type="button" value="Add to Map" data-dojo-attach-event="onclick: _addBuffer2Map" />
         </div>
@@ -21,12 +21,12 @@
 			<li class="pdf">
                 <a href="javascript: void(0);" data-dojo-attach-event="onclick: _getEJscreen" id="ejsrpt" class="bold-link">EJScreen Community Report</a>
             </li>
-            <li class="chart">
+            <!-- <li class="chart">
                 <a href="javascript: void(0);" data-dojo-attach-event="onclick: _showCharts" value="test">Explore Charts</a>
-            </li>           
+            </li>   -->         
 			
-            <li class="pdf"><a href="javascript: void(0);" data-dojo-attach-event="onclick: _getDemogReport" id="acs2022">Socioeconomic (ACS) Report</a></li>
-            <!--
+           <!--  <li class="pdf"><a href="javascript: void(0);" data-dojo-attach-event="onclick: _getDemogReport" id="acs2022">Socioeconomic (ACS) Report</a></li>
+ -->            <!--
             <li data-dojo-attach-point="demog2010Node" class="pdf"><a href="javascript: void(0);" data-dojo-attach-event="onclick: _getDemogReport" id="demog2010">Get 2010 Census report...</a></li>
             <li data-dojo-attach-point="demog2000Node" class="pdf"><a href="javascript: void(0);"  data-dojo-attach-event="onclick: _getDemogReport" id="demog2000">Get 2000 Census report...</a></li>
             <li data-dojo-attach-point="cdcNode" class="pdf"><a href="javascript: void(0);" data-dojo-attach-event="onclick: _getCDCReport" id="cdcReport">Get CDC report...<span class="exit-disclaimer" title="EPA's External Link Disclaimer">Exit EPA</span></a></li>

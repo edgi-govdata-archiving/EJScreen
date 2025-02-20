@@ -611,7 +611,7 @@
                         
                         // handle counties differently for the purposes of API requests
                         // if type == county, namestr = areaid
-                        namestr = areaid
+                        namestr = areaid // this temp fixes county issue
                         ejscreenform.areaid.value = areaid;
                         ejscreenform.namestr.value = namestr;
                         ejscreenform.geometry.value = "";
