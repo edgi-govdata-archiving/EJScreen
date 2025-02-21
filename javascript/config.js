@@ -2351,7 +2351,7 @@ var dynamicJSON = {
 		titlefields: {}
 	},
 	ejdemog_1: {
-		description: "2014-2018 ACS demographics by Blockgroup",
+		description: "2014-2018 ACS demographics by Blockgroup", //should be 2018-2022???
 		headerfields: {
 			STCNTRBG: "Blockgroup ID",
 			STUSAB: "State",

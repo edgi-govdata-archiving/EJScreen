@@ -75,6 +75,7 @@ define(
         dojo.doc.getElementsByTagName("head")[0].appendChild(a);
 
 
+
         var EJinfoWindow = declare([_WidgetBase, _TemplatedMixin], {
             templateString: dijittemplate,
 

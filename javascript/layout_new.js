@@ -1094,6 +1094,7 @@ var doSplashScreen = true;
 	}
 
 	function handleOneQuery(response, lyType, pctlevel, formatObj) {
+		console.log("handling one query")
 
 		var wobj = this;
 	

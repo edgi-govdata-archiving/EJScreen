@@ -1135,12 +1135,21 @@ function(
                     tocTitle = ejlayoutJSON.Primary.items[cat].tocLabel;
                 }
                 //var opcvalue = 0.5;
-                console.log(layeridstr, layerindex)
                 var opcvalue = 1;
+
+                var infoTemplate = new PopupTemplate();
+                infoTemplate.title = ejIdentifyJSON[fieldname].description; 
+                infoTemplate.content = this._idDesc;
+
+                var ofs = ejIdentifyJSON[fieldname].idfldname.split(",")
+                // learn how to get the right outfields for the right selection
+
                 ejindexlayer = new FeatureLayer({
                     url: renderurl,
                     title: tocTitle,
                     id: layeridstr,
+                    popupTemplate: infoTemplate,
+                    outFields: ofs,
                     layerId: layerindex, //feature not mapserver?
                     opacity: opcvalue,
                     renderer: clsrenderer, //feature not mapserver?
@@ -1157,7 +1166,9 @@ function(
                     	},
                     ], */
                 });
-                console.log("EJINDEX", ejindexlayer)
+                console.log(ejindexlayer)
+                
+
                 //if the btn is already clicked then remove highlight and layer , if not add the layer to the legend
                 listL.forEach((e) => {
                     var lyr = this.map.findLayerById(e);
@@ -1181,7 +1192,6 @@ function(
                     }
                 });
                 //now add new layer and highlght the element
-                console.log(ejindexlayer)
                 this.map.add(ejindexlayer);
                 $("#" + domElementId).addClass("highlight");
                 //add properties
@@ -1197,29 +1207,6 @@ function(
                 ejindexlayer.domElemId = domElementId;
                 ejindexlayer.pctlevel = ptype;
                 ejindexlayer.cat = layerJson[fieldname].cat;
-
-                // TEST POPUP HERE
-                var infoTemplate = new PopupTemplate();
-
-                infoTemplate.title = ejIdentifyJSON[fieldname].description; // want alias...
-                //console.log(ejindexlayer)
-                //infoTemplate.content = `Decription: ${${fieldname}}`
-                //infoTemplate.content = this._idDesc;
-                var description = ejIdentifyJSON[fieldname].description;
-                var ltitle = ejIdentifyJSON[fieldname].legendtitle
-                var val = ejIdentifyJSON[fieldname].idfldname.split(",")[1]
-                var txt = ejIdentifyJSON[fieldname].txtname
-                console.log(ejIdentifyJSON[fieldname].description)
-                console.log(ejindexlayer.cat)
-                if (ejindexlayer.cat == "P_ENV") {
-                    infoTemplate.content = "Value: {" + val + "}<br>Percentile: {" + txt + "}";
-                } else {
-                    infoTemplate.content = "Percentile: {" + txt + "}";
-                }
-                console.log(ejIdentifyJSON[fieldname].idfldname)
-                //console.log("ejindexlayer", ejindexlayer)
-
-                ejindexlayer.popupTemplate = infoTemplate
             }
 
             //  }
@@ -1469,6 +1456,7 @@ function(
             }
         },
         _idDesc: function(e) {
+            console.log("e",e)
             var infowidget = new IDinfoWindow({
                     view: view,
                     idgraphic: e.graphic

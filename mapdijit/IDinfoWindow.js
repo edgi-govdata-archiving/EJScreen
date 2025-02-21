@@ -67,6 +67,29 @@ define(
                 width: 2
             }
         };
+
+        function getEnvText(invalue,digsig) {
+            invalue = parseFloat(invalue);
+            digsig = parseInt(digsig);
+            var invaluestr = roundNumber(invalue,0) + "";
+            var dint = invaluestr.length;
+        
+            var v = 0;
+            if (invalue > 0) {
+                if (dint <= 2) {
+                    var dig = digsig - 1 - Math.floor(Math.log(Math.abs(invalue)) / Math.log(10));
+                    //v = invalue.toFixed(dig);
+                    v = roundNumber(invalue,dig);
+                    //alert(invalue + ": " + dig);
+                    //v = Math.round(invalue,digsig - 1 - (parseInt(Math.log(Math.abs(invalue))) / Math.log(10)));
+                } else {
+                   var m = dint - 2;
+                    v = Math.round(invalue / Math.pow(10, m)) * Math.pow(10, m);
+                }
+            }
+            return v;
+        }
+
         var IDinfoWindow = declare([_WidgetBase, _TemplatedMixin], {
             templateString: dijittemplate,
 
@@ -86,10 +109,7 @@ define(
                 var feat = this.idgraphic;
                 var templatestr = "";
 
-
-
-                   
-                console.log(feat.attributes)
+                console.log("Id info window feat", feat)
                 for (var prop in feat.attributes) {
                     var fldvalue = feat.attributes[prop];
                     var proplabel = prop;
@@ -139,7 +159,101 @@ define(
                     }
 
 
-           
+                    if (feat.layer.maptype == "ejscreen"){
+                        //handle ejscreen ID here - used to be done in layout_new when it was map server image
+                        console.log("EJSCREEN LABELING")
+                        console.log(prop, )
+                        var pctpattern = /^pct_/i;
+                        var lyType = feat.layer.maptype
+                        var formatObj = ejIdentifyJSON[feat.sourceLayer.renderField]
+                        var fldobj = fldObj;
+                        var prop = fldObj.name;
+                        var falias = al;
+                        console.log(lyType,formatObj, fldobj, prop, falias)
+                        //if footerfields are set in config, use those alias values for the alias instead of from service
+                        //only apply if the usefooteralias is true, otherwise skip and use alias from service
+                        if (dynamicJSON[lyType].footerfields[prop] && dynamicJSON[lyType].usefooteralias == true) {
+                            falias = dynamicJSON[lyType].footerfields[prop];
+                        }
+                        
+                        // don't include "B_" properties as these are map bin values
+                        if (fldObj.name.includes("B_")){
+                            continue
+                        }
+                        // switch "Map popup text" "T_" for "Percentile"
+                        if (falias.includes("Map popup text")) {
+                            falias = falias.replace("Map popup text for", "")
+                        }
+
+                        var fldvalue = fldvalue;
+                        if (fldvalue == null) fldvalue = "N/A";
+                        if (
+                            (pctpattern.test(prop) || prop == "POP_DEN") &&
+                            typeof fldvalue == "number"
+                        ) {
+                            fldvalue = fldvalue.toFixed(2);
+                        }
+                        
+                        if (lyType == "ejscreen" || lyType == "ejscreen_supp" || lyType == "ejscreen_multi" || lyType === "health") {
+                            
+                            //override default alias if set in formatter
+                            if (formatObj && formatObj.formatter && formatObj.formatter.aliasnew && formatObj.formatter.aliasnew[prop] ){							
+                                falias = formatObj.formatter.aliasnew[prop];							
+                            }
+                            //append optional values to alias
+                            //prefix text
+                            if (formatObj && formatObj.formatter && formatObj.formatter.prefixtext && formatObj.formatter.prefixtext[prop]  ){
+                                falias = formatObj.formatter.prefixtext[prop] + " " + falias;						
+                            }
+                            //suffix text
+                            if (formatObj && formatObj.formatter && formatObj.formatter.suffixtext && formatObj.formatter.suffixtext[prop]  ){
+                                falias += " " + formatObj.formatter.suffixtext[prop];							
+                            }	
+                            //adjust pct values by multiple if needed
+                            if (formatObj && formatObj.formatter && formatObj.formatter.multiplier && formatObj.formatter.multiplier[prop] ){
+                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric					
+                                    fldvalue = fldvalue * formatObj.formatter.multiplier[prop];	
+                                }							
+                            }						
+                            //format p_env using significant digit rounding to match SOE
+                            if (formatObj && formatObj.formatter && formatObj.formatter.signifdigits){
+                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
+                                        fldvalue = getEnvText(fldvalue,formatObj.formatter.signifdigits[prop])						
+                                }							
+                            }
+                            //format values to round to match return from SOE
+                            if (formatObj && formatObj.formatter && formatObj.formatter.roundplaces){
+                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
+                                        fldvalue = fldvalue.toFixed(formatObj.formatter.roundplaces[prop]);						
+                                }							
+                            }
+                            //format decimal places or round p_env using significant digit rounding to match SOE
+                            if (formatObj && formatObj.formatter && formatObj.formatter.ispercent){	
+                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric		
+                                        fldvalue = Math.round(fldvalue);
+                                }
+                            }		
+                            //NOTE: do any string operations to fldvalue after above, all above assumes number, after this all are string operations.
+                            
+                            //for all number values, format to show comma if > 1000
+                            if (typeof fldvalue === 'number') {
+                                fldvalue = fldvalue.toLocaleString("en-US");
+                            }
+
+                            
+                            //append optional units to value
+                            if (formatObj && formatObj.formatter && formatObj.formatter.units && formatObj.formatter.units[prop] ){						
+                                fldvalue += " " + formatObj.formatter.units[prop];							
+                            }
+                            
+                            //append optional % to value
+                            if (formatObj && formatObj.formatter && formatObj.formatter.pctsign && formatObj.formatter.pctsign[prop] ){						
+                                fldvalue += " " + formatObj.formatter.pctsign[prop];							
+                            }
+                        }
+                        proplabel = falias
+
+                    }
                    
 
                     var httpreg = /^https?:/i;
@@ -160,12 +274,11 @@ define(
                     //console.log("templatestr");
                     //console.log(templatestr);
                 }
-
-                var showConvertBtn = true; // disabling generate report button for now
+                var showConvertBtn = true;
 
                 if (feat.geometry.type == "polygon") {
                     if (feat.geometry.rings.length > 1) {
-                        showConvertBtn = false;
+                        showConvertBtn = false; // no reports on multipart polygons?
                     } else {
                         var geom = feat.geometry;
                         if (geom.spatialReference.wkid == "102100") geom = webMercatorUtils.webMercatorToGeographic(feat.geometry);
@@ -175,7 +288,7 @@ define(
                             //alert("The defined area is too large for analysis. Please change the project area or buffer distance.");
                             showConvertBtn = false;
                         } else {
-                            showConvertBtn = true; // disabling generate report button for now
+                            showConvertBtn = true; 
                         }
                     }
                 }
@@ -185,7 +298,7 @@ define(
                     this.idbtnNode.style.color = "#000";
                 } else {
                     this.idbtnNode.disabled = true;
-                    this.idnoteNode.style.display = "none"; // always display none until we fix generate report function
+                    //this.idnoteNode.style.display = "none";
                     //make the button text appear disabled as well
                     this.idbtnNode.style.color = "#999";
                 }
@@ -211,7 +324,7 @@ define(
                         symbol = linesym;
                         break;
                 }
-
+               
                 var mgeometry = feature.geometry;
                 var graphic = new Graphic(mgeometry);
                 var gcounter = 0;

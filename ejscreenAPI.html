@@ -218,7 +218,9 @@
                     console.log("qstring: ", queryString)
                     //var poststr = kvpairs.join("<br />");
 
-                    if (ejscreenform.f.value == "report") {
+                    // just do window.open(ejscreenReportfile + "?" + queryString) instead of embedding
+                    window.open(ejscreenReportfile + "?" + queryString)
+                    /* if (ejscreenform.f.value == "report") {
                         dojo.byId("jsondiv").style.display = "none";
                         dojo.byId("reportdiv").style.display = "block";
                         if (!(dojo.byId("reportframe"))) {
@@ -242,7 +244,7 @@
                             }
                         }
                         document.getElementById('urlcontent').scrollIntoView();
-                    }
+                    } */
                 }
             });
 /*             on(dojo.byId("submitpost"), "click", function (event) {
