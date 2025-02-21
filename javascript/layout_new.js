@@ -870,7 +870,7 @@ var doSplashScreen = true;
 						var queryTask = new QueryTask(qurl);
 						var query = new Query();
 
-						query.returnGeometry = false;
+						query.returnGeometry = true; // return geometry?
 						query.geometry = evt.mapPoint;
 						
 						//headerfields
