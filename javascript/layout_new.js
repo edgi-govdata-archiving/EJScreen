@@ -863,7 +863,6 @@ var doSplashScreen = true;
 				var formatterObj = {};
 				
 				view.map.layers.map(function (lyr) {
-					console.log("layer", lyr)
 					if(lyr.maptype === "demog_more"){
 						//add index
 						var qurl = lyr.url+"/"+lyr.renderIndex;
@@ -884,7 +883,6 @@ var doSplashScreen = true;
 									
 					}
 					if (lyr instanceof MapImageLayer || lyr instanceof TileLayer) {
-						console.log("instance")
 						if (lyr.visible) {
 							var vscalelayers = [];
 							lyr.allSublayers.map(function (sublyr) {
@@ -907,14 +905,11 @@ var doSplashScreen = true;
 									var qurl = lyr.url + "/" + j;
 									//field used to draw the layer legend, pushed to outfields as top attribute
 									var renderfield = lyr.renderField;
-									console.log(renderfield)
 									var ltype = lyr.layerType;
 									//lyrTypeRef = ltype;
 									lyrPctLevel = lyr.pctlevel;
 
 									var outfields = [];
-									console.log(dynamicJSON)
-									console.log(ltype)
 
 									for (var afld in dynamicJSON[ltype].headerfields) {
 										outfields.push(afld);
@@ -1094,7 +1089,6 @@ var doSplashScreen = true;
 	}
 
 	function handleOneQuery(response, lyType, pctlevel, formatObj) {
-		console.log("handling one query")
 
 		var wobj = this;
 	
@@ -1103,7 +1097,6 @@ var doSplashScreen = true;
 		var pctpattern = /^pct_/i;
 		if (response.features) {
 			var results = response;
-			console.log(results)
 			var fetcount = results.features.length;
 			for (var m = 0; m < fetcount; m++) {
 				feat = results.features[m];
@@ -1337,7 +1330,6 @@ var doSplashScreen = true;
 			//view.popup.features = feats;
 		} else {
 			var results = response.results;
-			console.log(results)
 			if (results.length > 0) {
 				for (var j = 0; j < results.length; j++) {
 					feat = results[j].feature;
@@ -1401,7 +1393,6 @@ var doSplashScreen = true;
 		
 	}
 	function handleEJQuery(results, ptype) {
-		console.log(results)
 		var feat;
 		var template;
 		var fetcount = results.features.length;

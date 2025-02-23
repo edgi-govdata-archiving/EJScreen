@@ -109,7 +109,6 @@ define(
                 var feat = this.idgraphic;
                 var templatestr = "";
 
-                console.log("Id info window feat", feat)
                 for (var prop in feat.attributes) {
                     var fldvalue = feat.attributes[prop];
                     var proplabel = prop;
@@ -136,7 +135,6 @@ define(
                     	}
 
                         var fldObj = feat.layer.fieldsIndex.get(prop);
-                        console.log(fldObj)
 
                         if (fldObj) {                                            
                     	 
@@ -148,14 +146,13 @@ define(
 
                         if (feat.layer.maptype == "ejscreen"){
                             //handle ejscreen ID here - used to be done in layout_new when it was map server image
-                            console.log("EJSCREEN LABELING")
+                            //console.log("EJSCREEN LABELING")
                             var pctpattern = /^pct_/i;
                             var lyType = feat.layer.maptype
                             var formatObj = ejIdentifyJSON[feat.sourceLayer.renderField]
                             var fldobj = fldObj;
                             var prop = fldObj.name;
                             var falias = al;
-                            console.log(lyType,formatObj, fldobj, prop, falias)
                             //if footerfields are set in config, use those alias values for the alias instead of from service
                             //only apply if the usefooteralias is true, otherwise skip and use alias from service
                             if (dynamicJSON[lyType].footerfields[prop] && dynamicJSON[lyType].usefooteralias == true) {

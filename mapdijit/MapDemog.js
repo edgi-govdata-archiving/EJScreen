@@ -159,14 +159,11 @@ define(
                 wobj.dtype = key;
                 var dgObj = demogJSON[key];
                 this.demogtitle.innerHTML = dgObj.title;
-                console.log("wobj", wobj)
-                console.log("dgObj", dgObj)
                 if (dgObj.process) {
                     wobj.createCatList(key);
                     wobj.setDefaultListIndex(dgObj.defaultCategoryIndex);
                 } else {
                     var lookuptableurl = dgObj.layerurl + dgObj.service + "FeatureServer/" + dgObj.lookupindex;
-                    console.log(lookuptableurl)
                     var queryTask = new QueryTask(lookuptableurl);
                     var query = new Query();
                     query.returnGeometry = false;
@@ -178,7 +175,6 @@ define(
                     //get features in order by cat and label
                     query.orderByFields = ["CATEGORY", "DESCRIPTION"];
                     queryTask.execute(query).then(function(featset) {
-                        console.log(featset)
                         if (featset.features.length > 0) {
                             var fetcount = featset.features.length;
                             var catJson = {};
@@ -252,7 +248,6 @@ define(
                             dgObj.process = true;
                             demogJSON[key].defaultCategoryIndex = wobj.catType;
                             wobj.createCatList(key);
-                            console.log(wobj.catType + "; " + wobj.dfield)
                             wobj.setDefaultListIndex(wobj.catType);
                             if (wobj.mapdefault) wobj._setDefRender();
 
@@ -576,7 +571,6 @@ define(
                         //definitionExpression: fieldid + " > 0"
 
                 });
-                console.log("activelayer",activelayer)
 
                 var mycolors = this.generateColors(renderobj.classes, renderobj.fromcolor, renderobj.tocolor);
 

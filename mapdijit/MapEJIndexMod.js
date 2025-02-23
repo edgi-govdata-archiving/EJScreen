@@ -281,7 +281,6 @@ function(
                             activeField = domEId.substring(4);
                         }
                         if (radval == "state") {
-                            console.log(value)
                             wobj._mapejindex(
                                 activeField,
                                 domEId,
@@ -495,7 +494,7 @@ function(
                     //removeHighlight(this);
                 }
                 //console.log(str);
-                console.log("here in climateChangeDataCategories");
+                //console.log("here in climateChangeDataCategories");
                 evt.stopPropagation();
             });
 
@@ -938,7 +937,6 @@ function(
             var n = 0;
             var p = key.split("|")[0];
             var s = key.split("|")[1];
-            console.log(ejlayoutJSON[p].items[s])
             for (var c in ejlayoutJSON[p].items[s].columns) {
                 var optdesc = layerJson[c].description;
                 var tiptext = layerJson[c].hovertext;
@@ -1090,7 +1088,6 @@ function(
             var listL = ["ejindex_map", "ejindex_map_supp"];
 
             if (isMulti == false) {
-                console.log("not multi")
                 this._removeLayers(suggestservicesCLIMATE);
                 this._removeLayers(suggestservicesHEALTH);
                 this._removeLayers(suggestservicesCRITSVCGAPS);
@@ -1166,7 +1163,6 @@ function(
                     	},
                     ], */
                 });
-                console.log(ejindexlayer)
                 
 
                 //if the btn is already clicked then remove highlight and layer , if not add the layer to the legend
@@ -1267,7 +1263,6 @@ function(
             //if (frm.slayers[m].checked) {
             //var sugid = frm.slayers[m].value;
             var sugid = skey;
-            console.log(skey)
             if (sugid.includes("|")) {
                 this._removeEJLayers()
                 this._removeLayers(suggestservicesCLIMATE);
@@ -1279,7 +1274,6 @@ function(
             }
             var lid = sugid + "_map";
             var mtitle = "";
-            console.log(suggestservices[sugid])
             if (suggestservices[sugid]) {
                 mtitle = suggestservices[sugid].title;
             } else {
@@ -1336,7 +1330,6 @@ function(
                 }
                 var templayer = null;
                 if (!skey.startsWith("noaa")) {
-                    console.log(surl)
                     var domainurl = surl;
                     var domainpat = /^https?:\/\/[A-Za-z0-9_\.]+\//i;
                     var match = surl.match(domainpat);
@@ -1456,7 +1449,6 @@ function(
             }
         },
         _idDesc: function(e) {
-            console.log("e",e)
             var infowidget = new IDinfoWindow({
                     view: view,
                     idgraphic: e.graphic
