@@ -1511,9 +1511,6 @@ var doSplashScreen = true;
 	}
 
 	function idDesc2(e, p1) {
-		console.log(e.graphic);
-		console.log(p1);
-
 		var infowidget = new IDinfoWindow(
 			{
 				view: view,
@@ -3173,7 +3170,6 @@ var doSplashScreen = true;
 	}
 
 	function addServiceByKey(skey, jsonObj) {
-		console.log(jsonObj)
 		if (view.map.findLayerById(skey) && skey === "ejbnd") {
 			if (boundariesJSON.hasOwnProperty(skey)) {
 				var layerVal = view.map.findLayerById(skey);
@@ -3198,7 +3194,6 @@ var doSplashScreen = true;
 		}
 		
 		var stype = jsonObj[skey].type;
-		console.log(jsonObj)
 		var sdesc = jsonObj[skey].description;
 		var surl = jsonObj[skey].layerurl;
 		var trans = jsonObj[skey].transparency;
@@ -3208,7 +3203,7 @@ var doSplashScreen = true;
 			infoTemplate.title = sdesc;
 			infoTemplate.content = idDesc;
 			//infoTemplate.content = "{*}";
-			console.log("surl", surl)
+			//console.log("surl", surl)
 			var templayer = new FeatureLayer(surl, {
 				mode: FeatureLayer.MODE_ONDEMAND,
 				id: skey,
@@ -3219,7 +3214,6 @@ var doSplashScreen = true;
 			});
 			view.map.add(templayer);
 		} else {
-			console.log(jsonObj)
 			var svcname = jsonObj[skey].service;
 			var agsurl = surl + svcname + "/MapServer";
 			var onlayer = jsonObj[skey].defaultlayer;
@@ -3271,13 +3265,11 @@ var doSplashScreen = true;
 						}
 					}
 				}
-				console.log(templayer)
 				view.map.add(templayer);
 				templayer.on("layerview-create", function (event) {
 					if (onlayer.length > 0 && onlayer[0] != -1) {
 						for (var j = 0; j < onlayer.length; j++) {
 							var o = onlayer[j];
-							console.log("templayer")
 							templayer.findSublayerById(o).visible = true;
 						}
 					}

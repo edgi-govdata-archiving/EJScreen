@@ -162,7 +162,6 @@ define(
                     if (feat.layer.maptype == "ejscreen"){
                         //handle ejscreen ID here - used to be done in layout_new when it was map server image
                         console.log("EJSCREEN LABELING")
-                        console.log(prop, )
                         var pctpattern = /^pct_/i;
                         var lyType = feat.layer.maptype
                         var formatObj = ejIdentifyJSON[feat.sourceLayer.renderField]
