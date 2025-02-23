@@ -105,7 +105,6 @@ define(
             postCreate: function() {
 
                 var graphic = this.currentGraphic;
-
                 var desc = "";
                 var coordstr;
                 var defaultradius = 0;
@@ -452,19 +451,16 @@ define(
 
                 //construct query here
                 var html = "?"; //query
-                console.log("url", url) // fix url here
+                //console.log("url", url)
                 //html = html + "<html><head></head><body><form id='formid' method='get' action='" + url + "'>"; //switch to get for now
                 var gtype = frm.type.value;
                 var geomString = frm.coords.value;
                 //var ptitle = frm.ptitle.value;
-                console.log("gtype", gtype)
                 //html = html + "<input type='hidden' name='coords' value='" + geomString + "' />";
-                console.log(geomString) // probably convert to GeoJSON
                 //html = html + "<input type='hidden' name='feattype' value='" + gtype + "' />";
                 //html = html + "<input type='hidden' name='ptitle' value='" + ptitle + "' />";
                 if (this._isKnownGeo(gtype)) {
-                    // Not currently working - doesn't recognize any features as "known geo"
-                    var namestr = this.currentGraphic.attributes["names"]; // FIPS
+                    var namestr = this.currentGraphic.attributes["fips"]; // FIPS
                     html = html + "fips="+namestr
                 } else if (gtype == "point"){
                     var partsOfStr = geomString.split(',');
