@@ -145,6 +145,102 @@ define(
                             	proplabel = al;
                         	}
                         }
+
+                        if (feat.layer.maptype == "ejscreen"){
+                            //handle ejscreen ID here - used to be done in layout_new when it was map server image
+                            console.log("EJSCREEN LABELING")
+                            var pctpattern = /^pct_/i;
+                            var lyType = feat.layer.maptype
+                            var formatObj = ejIdentifyJSON[feat.sourceLayer.renderField]
+                            var fldobj = fldObj;
+                            var prop = fldObj.name;
+                            var falias = al;
+                            console.log(lyType,formatObj, fldobj, prop, falias)
+                            //if footerfields are set in config, use those alias values for the alias instead of from service
+                            //only apply if the usefooteralias is true, otherwise skip and use alias from service
+                            if (dynamicJSON[lyType].footerfields[prop] && dynamicJSON[lyType].usefooteralias == true) {
+                                falias = dynamicJSON[lyType].footerfields[prop];
+                            }
+                            
+                            // don't include "B_" properties as these are map bin values
+                            if (fldObj.name.includes("B_")){
+                                continue
+                            }
+                            // switch "Map popup text" "T_" for "Percentile"
+                            if (falias.includes("Map popup text")) {
+                                falias = falias.replace("Map popup text for", "")
+                            }
+    
+                            var fldvalue = fldvalue;
+                            if (fldvalue == null) fldvalue = "N/A";
+                            if (
+                                (pctpattern.test(prop) || prop == "POP_DEN") &&
+                                typeof fldvalue == "number"
+                            ) {
+                                fldvalue = fldvalue.toFixed(2);
+                            }
+                            
+                            if (lyType == "ejscreen" || lyType == "ejscreen_supp" || lyType == "ejscreen_multi" || lyType === "health") {
+                                
+                                //override default alias if set in formatter
+                                if (formatObj && formatObj.formatter && formatObj.formatter.aliasnew && formatObj.formatter.aliasnew[prop] ){							
+                                    falias = formatObj.formatter.aliasnew[prop];							
+                                }
+                                //append optional values to alias
+                                //prefix text
+                                if (formatObj && formatObj.formatter && formatObj.formatter.prefixtext && formatObj.formatter.prefixtext[prop]  ){
+                                    falias = formatObj.formatter.prefixtext[prop] + " " + falias;						
+                                }
+                                //suffix text
+                                if (formatObj && formatObj.formatter && formatObj.formatter.suffixtext && formatObj.formatter.suffixtext[prop]  ){
+                                    falias += " " + formatObj.formatter.suffixtext[prop];							
+                                }	
+                                //adjust pct values by multiple if needed
+                                if (formatObj && formatObj.formatter && formatObj.formatter.multiplier && formatObj.formatter.multiplier[prop] ){
+                                    if (typeof fldvalue === 'number') {//skip if N/A or non-numeric					
+                                        fldvalue = fldvalue * formatObj.formatter.multiplier[prop];	
+                                    }							
+                                }						
+                                //format p_env using significant digit rounding to match SOE
+                                if (formatObj && formatObj.formatter && formatObj.formatter.signifdigits){
+                                    if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
+                                            fldvalue = getEnvText(fldvalue,formatObj.formatter.signifdigits[prop])						
+                                    }							
+                                }
+                                //format values to round to match return from SOE
+                                if (formatObj && formatObj.formatter && formatObj.formatter.roundplaces){
+                                    if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
+                                            fldvalue = fldvalue.toFixed(formatObj.formatter.roundplaces[prop]);						
+                                    }							
+                                }
+                                //format decimal places or round p_env using significant digit rounding to match SOE
+                                if (formatObj && formatObj.formatter && formatObj.formatter.ispercent){	
+                                    if (typeof fldvalue === 'number') {//skip if N/A or non-numeric		
+                                            fldvalue = Math.round(fldvalue);
+                                    }
+                                }		
+                                //NOTE: do any string operations to fldvalue after above, all above assumes number, after this all are string operations.
+                                
+                                //for all number values, format to show comma if > 1000
+                                if (typeof fldvalue === 'number') {
+                                    fldvalue = fldvalue.toLocaleString("en-US");
+                                }
+    
+                                
+                                //append optional units to value
+                                if (formatObj && formatObj.formatter && formatObj.formatter.units && formatObj.formatter.units[prop] ){						
+                                    fldvalue += " " + formatObj.formatter.units[prop];							
+                                }
+                                
+                                //append optional % to value
+                                if (formatObj && formatObj.formatter && formatObj.formatter.pctsign && formatObj.formatter.pctsign[prop] ){						
+                                    fldvalue += " " + formatObj.formatter.pctsign[prop];							
+                                }
+                            }
+                            proplabel = falias
+    
+                        }
+
                 	} else {
                     //not a feature layer, look up by alias. Map layer passes in aliases only
                     //currently cannot get layer name, look for any alias in alias object list
@@ -158,103 +254,7 @@ define(
                             } 
                     }
 
-
-                    if (feat.layer.maptype == "ejscreen"){
-                        //handle ejscreen ID here - used to be done in layout_new when it was map server image
-                        console.log("EJSCREEN LABELING")
-                        var pctpattern = /^pct_/i;
-                        var lyType = feat.layer.maptype
-                        var formatObj = ejIdentifyJSON[feat.sourceLayer.renderField]
-                        var fldobj = fldObj;
-                        var prop = fldObj.name;
-                        var falias = al;
-                        console.log(lyType,formatObj, fldobj, prop, falias)
-                        //if footerfields are set in config, use those alias values for the alias instead of from service
-                        //only apply if the usefooteralias is true, otherwise skip and use alias from service
-                        if (dynamicJSON[lyType].footerfields[prop] && dynamicJSON[lyType].usefooteralias == true) {
-                            falias = dynamicJSON[lyType].footerfields[prop];
-                        }
-                        
-                        // don't include "B_" properties as these are map bin values
-                        if (fldObj.name.includes("B_")){
-                            continue
-                        }
-                        // switch "Map popup text" "T_" for "Percentile"
-                        if (falias.includes("Map popup text")) {
-                            falias = falias.replace("Map popup text for", "")
-                        }
-
-                        var fldvalue = fldvalue;
-                        if (fldvalue == null) fldvalue = "N/A";
-                        if (
-                            (pctpattern.test(prop) || prop == "POP_DEN") &&
-                            typeof fldvalue == "number"
-                        ) {
-                            fldvalue = fldvalue.toFixed(2);
-                        }
-                        
-                        if (lyType == "ejscreen" || lyType == "ejscreen_supp" || lyType == "ejscreen_multi" || lyType === "health") {
-                            
-                            //override default alias if set in formatter
-                            if (formatObj && formatObj.formatter && formatObj.formatter.aliasnew && formatObj.formatter.aliasnew[prop] ){							
-                                falias = formatObj.formatter.aliasnew[prop];							
-                            }
-                            //append optional values to alias
-                            //prefix text
-                            if (formatObj && formatObj.formatter && formatObj.formatter.prefixtext && formatObj.formatter.prefixtext[prop]  ){
-                                falias = formatObj.formatter.prefixtext[prop] + " " + falias;						
-                            }
-                            //suffix text
-                            if (formatObj && formatObj.formatter && formatObj.formatter.suffixtext && formatObj.formatter.suffixtext[prop]  ){
-                                falias += " " + formatObj.formatter.suffixtext[prop];							
-                            }	
-                            //adjust pct values by multiple if needed
-                            if (formatObj && formatObj.formatter && formatObj.formatter.multiplier && formatObj.formatter.multiplier[prop] ){
-                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric					
-                                    fldvalue = fldvalue * formatObj.formatter.multiplier[prop];	
-                                }							
-                            }						
-                            //format p_env using significant digit rounding to match SOE
-                            if (formatObj && formatObj.formatter && formatObj.formatter.signifdigits){
-                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
-                                        fldvalue = getEnvText(fldvalue,formatObj.formatter.signifdigits[prop])						
-                                }							
-                            }
-                            //format values to round to match return from SOE
-                            if (formatObj && formatObj.formatter && formatObj.formatter.roundplaces){
-                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric									
-                                        fldvalue = fldvalue.toFixed(formatObj.formatter.roundplaces[prop]);						
-                                }							
-                            }
-                            //format decimal places or round p_env using significant digit rounding to match SOE
-                            if (formatObj && formatObj.formatter && formatObj.formatter.ispercent){	
-                                if (typeof fldvalue === 'number') {//skip if N/A or non-numeric		
-                                        fldvalue = Math.round(fldvalue);
-                                }
-                            }		
-                            //NOTE: do any string operations to fldvalue after above, all above assumes number, after this all are string operations.
-                            
-                            //for all number values, format to show comma if > 1000
-                            if (typeof fldvalue === 'number') {
-                                fldvalue = fldvalue.toLocaleString("en-US");
-                            }
-
-                            
-                            //append optional units to value
-                            if (formatObj && formatObj.formatter && formatObj.formatter.units && formatObj.formatter.units[prop] ){						
-                                fldvalue += " " + formatObj.formatter.units[prop];							
-                            }
-                            
-                            //append optional % to value
-                            if (formatObj && formatObj.formatter && formatObj.formatter.pctsign && formatObj.formatter.pctsign[prop] ){						
-                                fldvalue += " " + formatObj.formatter.pctsign[prop];							
-                            }
-                        }
-                        proplabel = falias
-
-                    }
-                   
-
+                    // Label everything here - first testing whether it's a link
                     var httpreg = /^https?:/i;
                     if (httpreg.test(fldvalue)) {
                         templatestr += proplabel + ": <a href='" + fldvalue + "' target=_blank>More info</a></br>";
