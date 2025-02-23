@@ -375,9 +375,9 @@ define(['dojo/_base/declare',
                 case "tractDiv":
                        this.ctype="tract" ;
                        break;
-                case "cityDiv":
+                /* case "cityDiv":
                         this.ctype="city" ;
-                        break;
+                        break; */
                  case "countyDiv":
                         this.ctype="county" ;
                         break;
