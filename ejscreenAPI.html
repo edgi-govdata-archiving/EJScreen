@@ -51,10 +51,11 @@
         }
     </style>
     <link rel="stylesheet" href="css/bootstrap.css" />
+    <script src="https://unpkg.com/@terraformer/arcgis"></script> <!--https://github.com/Esri/arcgis-to-geojson-utils-->
     <script src="https://js.arcgis.com/4.11/"></script>
     <script type="text/javascript" src="javascript/config.js"></script>
     <script type="text/javascript" src="javascript/tagmanager.js"></script>
-    <!-- <script>
+        <!-- <script>
         (function(i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function() {
@@ -145,7 +146,7 @@
             var rooturl = location.protocol + "//" + location.host + pname + "/";
 
             var ejscreenSOEbrokerurl = rooturl + "ejscreenRESTbroker.aspx";
-            var ejscreenReportfile = "EJSCREEN_report.aspx";
+            var ejscreenReportfile = "https://ejamapi-84652557241.us-central1.run.app/report";
             var charLimit = 2048;
 
             var typedesc = {
@@ -155,12 +156,12 @@
                 "rectangle": "Use the location box below to find an address or place. Hold down the mouse and drag left to define a rectangle area. Release the mouse to finish dragging. Or enter/paste a JSON geometry string in the Geometry box.",
                 "blockgroup": "Use the location box below to find an address or place. Click on the map to select a Census block group. Or you can enter a FIPS code for the Census block group.",
                 "tract": "Use the location box below to find an address or place. Click on the map to select a Census tract. Or you can enter a FIPS code for the Census tract.",
-                "city": "Use the location box below to find an address or place. Click on the map to select a city. Or you can enter a FIPS code for the city.",
+                //"city": "Use the location box below to find an address or place. Click on the map to select a city. Or you can enter a FIPS code for the city.",
                 "county": "Use the location box below to find an address or place. Click on the map to select a county. Or you can enter a FIPS code for the county."
             };
 
             //valid areatypes for census based inputs
-            var censusidtypes = ["blockgroup", "tract", "city", "county"];
+            var censusidtypes = ["blockgroup", "tract", "county"];
             //track whether result are from identify, used to distinguish from text input
             var valsById = false;
 
@@ -168,109 +169,87 @@
             //global id and namestr, set by identify or text input;
             var areaid;
             var namestr;
-     const fieldsMapping = {RAW_D_PEOPCOLOR:"RAW_D_MINOR",
-                    RAW_D_DEMOGIDX2:"RAW_D_INDEX",
-                    S_D_PEOPCOLOR:"S_D_MINOR",
-                    S_D_DEMOGIDX2:"S_D_INDEX",
-                    S_D_PEOPCOLOR_PER:"S_D_MINOR_PER",
-                    S_D_DEMOGIDX2_PER:"S_D_INDEX_PER",
-                    S_P2_LEAD:"S_P_LEAD",
-                    S_P2_DIESEL:"S_P_DIESEL",
-                    S_P2_CANCER:"S_P_CANCER",
-                    S_P2_RESP:"S_P_RESP",
-                    S_P2_TRAFFIC:"S_P_TRAFFIC",
-                    S_P2_NPDES:"S_P_NPDES",
-                    S_P2_NPL: "S_P_NPL",
-                    S_P2_RMP: "S_P_RMP",
-                    S_P2_TSDF: "S_P_TSDF",
-                    S_P2_O3: "S_P_O3",
-                    S_P2_PM25: "S_P_PM25",
-                    S_P2_UST: "S_P_UST",
-					S_P2_RSEI_AIR:"S_P_RSEI_AIR",
-                    N_D_PEOPCOLOR: "N_D_MINOR",
-                    N_D_DEMOGIDX2: "N_D_INDEX",
-                    N_D_PEOPCOLOR_PER: "N_D_MINOR_PER",
-                    N_D_DEMOGIDX2_PER: "N_D_INDEX_PER",
-                    N_P2_LEAD: "N_P_LEAD",
-                    N_P2_DIESEL: "N_P_DIESEL",
-                    N_P2_CANCER: "N_P_CANCER",
-                    N_P2_RESP: "N_P_RESP",
-                    N_P2_TRAFFIC: "N_P_TRAFFIC",
-                    N_P2_NPDES: "N_P_NPDES",
-                    N_P2_NPL: "N_P_NPL",
-                    N_P2_RMP: "N_P_RMP",
-                    N_P2_TSDF: "N_P_TSDF",
-                    N_P2_O3: "N_P_O3",
-                    N_P2_PM25: "N_P_PM25",
-                    N_P2_UST: "N_P_UST",
-					N_P2_RSEI_AIR:"N_P_RSEI_AIR"
 
-                    }
-            var fieldDelete =[
-            "RAW_D_DEMOGIDX5",
-                "RAW_D_LIFEEXP",
-			"RAW_D_LIFEEXP",
-			"S_D_LIFEEXP",
-			"S_D_DEMOGIDX5ST",
-			
-			"S_D_LIFEEXP_PER",
-			"S_D_DEMOGIDX5ST_PER",
-			"N_D_LIFEEXP",
-			"N_D_DEMOGIDX5",
-			"N_D_LIFEEXP_PER",
-			"N_D_DEMOGIDX5_PER",
-			"N_P5_DIESEL",
-			"N_P5_CANCER",
-			"N_P5_RESP",
-			"N_P5_TRAFFIC",
-			"N_P5_NPDES",
-			"N_P5_NPL",
-			"N_P5_RMP",
-			"N_P5_TSDF",
-			"N_P5_O3",
-			"N_P5_PM25",
-			"N_P5_UST",
-			"N_P5_LEAD",
-			"N_P5_RSEI_AIR" ,
-			"S_P5_O3",
-			"S_P5_PM25",
-			"S_P5_TSDF",
-			"S_P5_LEAD",
-			"S_P5_DIESEL",
-			"S_P5_CANCER",
-			"S_P5_RESP",
-			"S_P5_TRAFFIC",
-			"S_P5_NPDES",
-			"S_P5_NPL",
-			"S_P5_RMP",
-			"S_P5_UST",
-             "S_P5_RSEI_AIR",
-			"NUM_WATERDIS",
-			  "NUM_AIRPOLL",
-			  "NUM_BROWNFIELD",
-			  "NUM_TRI",
-			  "NUM_SCHOOL",
-			  "NUM_HOSPITAL",
-			  "NUM_CHURCH",
-			  "YESNO_TRIBAL",
-			  "YESNO_CEJSTDIS",
-			  "YESNO_IRADIS",
-			  "YESNO_AIRNONATT",
-			  "YESNO_IMPWATERS",
-			  "YESNO_HOUSEBURDEN",
-			  "YESNO_TRANSDIS",
-			  "YESNO_FOODDESERT",
-			  "centroidX",
-			  "centroidY",
-			    "stateName",
-                "stateAbbr"						   
-			]
             on(dojo.byId("submitget"), "click", function (event) {
-                submitAction("get");
+                //submitAction("get");
+                var method = "get";
+                var r = validateform(ejscreenform);
+                dojo.byId("forjson").style.display = "block";
+                if (r) {
+                    var kvpairs = [];
+
+                    // HANDLE QUERY PARAMS HERE
+                    var validParams = ["distance", "geometry", "namestr"] // list of the params we can work with
+                    for (var i = 0; i < ejscreenform.elements.length; i++) {
+                        var e = ejscreenform.elements[i];
+                        
+                        if (validParams.includes(e.name)) {
+                            if (e.name === "namestr" && e.value.length > 0){
+                                //FIPS case
+                                var name = "fips";
+                                var value = e.value
+                                kvpairs.push(name + "=" + e.value);
+                            }
+                            if (e.name === "geometry" && e.value.length > 0){
+                                //parse geometry obj here
+                                //for points, split into lat and lon?
+                                //or just conver to GeoJson and use shape?
+                                var geomObj = JSON.parse(e.value);
+                                geomObj = Terraformer.arcgisToGeoJSON(geomObj);
+                                geomObj = JSON.stringify(geomObj)
+                                kvpairs.push("shape" + "=" + geomObj);
+                                 /* 
+                                console.log(geomObj)
+                                var name = "lat"
+                                var value = geomObj.y
+                                kvpairs.push(name + "=" + value);
+                                name = "lon"
+                                value = geomObj.x
+                                kvpairs.push(name + "=" + value); */
+                            }
+                            if (e.name === "distance" && e.value.length > 0){
+                                name = "buffer"
+                                kvpairs.push(name + "=" + e.value);
+                            }
+                        } 
+                    }
+                    var queryString = kvpairs.join("&");
+                    //console.log("qstring: ", queryString)
+                    //var poststr = kvpairs.join("<br />");
+
+                    // just do window.open(ejscreenReportfile + "?" + queryString) instead of embedding
+                    dojo.byId("urlcontent").innerHTML = ejscreenReportfile + "?" + queryString;
+                    window.open(ejscreenReportfile + "?" + queryString)
+                    /* if (ejscreenform.f.value == "report") {
+                        dojo.byId("jsondiv").style.display = "none";
+                        dojo.byId("reportdiv").style.display = "block";
+                        if (!(dojo.byId("reportframe"))) {
+                            var iframe = document.createElement('iframe');
+                            iframe.id = "reportframe";
+                            iframe.name = "reportframe";
+                            iframe.src = ejscreenReportfile + "?" + queryString;;
+                            iframe.style.width = "100%";
+                            iframe.style.height = "2140px";
+                            iframe.style.overflow = "auto";
+                            dojo.byId("reportdiv").appendChild(iframe);
+                        }
+                        if (method == "get") {
+                            //dojo.byId("urlcontent").innerHTML = rooturl + ejscreenReportfile + "?" + queryString;
+							var urlcon = ejscreenReportfile + "?" + queryString;
+                            if(urlcon.trim().length > charLimit){
+                                 alert("2048 character limit exceeded for GET. Consider using POST.");
+                                 return false; 
+                            }else{
+                                dojo.byId("urlcontent").innerHTML = urlcon;
+                            }
+                        }
+                        document.getElementById('urlcontent').scrollIntoView();
+                    } */
+                }
             });
-            on(dojo.byId("submitpost"), "click", function (event) {
+/*             on(dojo.byId("submitpost"), "click", function (event) {
                 submitAction("post");
-            });
+            }); */
             on(dojo.byId("copyurl"), "click", function (event) {
                 selectText("urlcontent");
                 document.execCommand('copy');
@@ -297,8 +276,7 @@
             var view = new MapView({
                 container: "map",
                 map: map,
-              //  center: [-100.11, 36.65],
-              center: [-77.0369, 38.9072],
+                center: [-77.0369, 38.9072],
                 zoom: 10
             });
             var drawGraphicsLayer = new GraphicsLayer();
@@ -408,14 +386,36 @@
                 if (r) {
                     var kvpairs = [];
 
+                    // HANDLE QUERY PARAMS HERE
+                    var validParams = ["distance", "geometry"] // list of the params we can work with
                     for (var i = 0; i < ejscreenform.elements.length; i++) {
                         var e = ejscreenform.elements[i];
-                        if (e.type != "submit") {
-                            kvpairs.push(e.name + "=" + e.value);
+                        
+                        if (validParams.includes(e.name)) {
+                            if (e.name === "geometry"){
+                                //parse geometry obj here
+                                //for points, split into lat and lon
+                                var geomObj = JSON.parse(e.value);
+                                e.name = "lat"
+                                e.value = geomObj.y
+                                kvpairs.push(e.name + "=" + e.value);
+                                name = "lon"
+                                value = geomObj.x
+                                kvpairs.push(name + "=" + value);
+                            }
+                            if (e.name === "distance"){
+                                e.name = "buffer"
+                                kvpairs.push(e.name + "=" + e.value);
+                            }
+                        } else {
+                            //delete unwanted params (???)
+                            delete e.name
+                            delete e.value
                         }
                     }
                     var queryString = kvpairs.join("&");
-                    var poststr = kvpairs.join("<br />");
+                    //console.log("qstring: ", queryString)
+                    //var poststr = kvpairs.join("<br />");
 
                     if (ejscreenform.f.value == "report") {
                         dojo.byId("jsondiv").style.display = "none";
@@ -424,7 +424,7 @@
                             var iframe = document.createElement('iframe');
                             iframe.id = "reportframe";
                             iframe.name = "reportframe";
-                            iframe.src = ejscreenReportfile;
+                            iframe.src = ejscreenReportfile + "?" + queryString;;
                             iframe.style.width = "100%";
                             iframe.style.height = "2140px";
                             iframe.style.overflow = "auto";
@@ -432,24 +432,24 @@
                         }
                         if (method == "get") {
                             //dojo.byId("urlcontent").innerHTML = rooturl + ejscreenReportfile + "?" + queryString;
-							var urlcon = rooturl+ejscreenReportfile + "?" + queryString;
+							var urlcon = ejscreenReportfile + "?" + queryString;
                             if(urlcon.trim().length > charLimit){
                                  alert("2048 character limit exceeded for GET. Consider using POST.");
                                  return false; 
                             }else{
                                 dojo.byId("urlcontent").innerHTML = urlcon;
                             }
-                        } else {
+                        } /* else {
 
                             var postcontent = "HTTP POST URL: " + rooturl + ejscreenReportfile + "<br />HTTP POST Body:<div style='padding-left: 10px;'>" + poststr + "</div>";
                             dojo.byId("urlcontent").innerHTML = postcontent;
-                        }
-                        ejscreenform.action = ejscreenReportfile;
+                        } */
+                        ejscreenform.action = urlcon; //ejscreenReportfile;
                         ejscreenform.target = "reportframe";
                         ejscreenform.method = method;
-                        ejscreenform.submit();
+                        //ejscreenform.submit();
                         document.getElementById('urlcontent').scrollIntoView();
-                    } else {
+                    } /* else {
                         if (dojo.byId("reportframe")) {
                             dojo.byId("reportdiv").removeChild(dojo.byId("reportframe"));
                         }
@@ -520,8 +520,8 @@
                                 dojo.byId("resultjson").innerHTML = JSON.stringify(result.data, undefined, 2);
                             }).catch(function (err) {
                                 dojo.byId("resultjson").innerHTML = "error occurred: " + err;
-                            });*/
-                    }
+                            });
+                    } */
                 }
             }
 
@@ -577,7 +577,6 @@
 
 
             function doIdentify(evt) {
-                console.log("identify")
                 showLoading();
                 drawGraphicsLayer.removeAll();
                 var lindex = typelookup[geomtype].layer;
@@ -607,10 +606,11 @@
                         var featureAttributes = feature.attributes;
                         areaid = featureAttributes[idfield];
                         namestr = featureAttributes[namefld];
-
+                        
+                        // handle counties differently for the purposes of API requests
+                        // if type == county, namestr = areaid
+                        namestr = areaid // this temp fixes county issue
                         ejscreenform.areaid.value = areaid;
-
-
                         ejscreenform.namestr.value = namestr;
                         ejscreenform.geometry.value = "";
                         ejscreenform.distance.value = "";
@@ -625,7 +625,7 @@
                     }
                     hideLoading();
                 }).catch(function (err) {
-                    alert("error occurred when querying block group: " + err);
+                    alert("error occurred when querying : " + err);
                     hideLoading();
 
                 });
@@ -680,7 +680,7 @@
                                 alert("Invalid tract ID. It needs to be 11 digits.");
                                 return false;
                             }
-                        } else if (idtype == "city") {
+                        } /* else if (idtype == "city") {
                             var cityreg = /^\d{7}$/;
                             if (cityreg.test(idvalue)) {
                                 return true;
@@ -688,7 +688,7 @@
                                 alert("Invalid city FIPS code. It needs to be 7 digits.");
                                 return false;
                             }
-                        } else if (idtype == "county") {
+                        } */ else if (idtype == "county") {
                             var cnreg = /^\d{5}$/;
                             if (cnreg.test(idvalue)) {
                                 return true;
@@ -775,7 +775,7 @@
                     }
                     if (bufGeoms.length == 1) {
                         var polyarea = geometryEngine.geodesicArea(bufGeoms[0], "square-miles");
-                        console.log("area: " + polyarea);
+                        //console.log("area: " + polyarea);
                         if (parseFloat(polyarea) > arealimit) {
                             showanalysis = false;
                         } else {
@@ -841,9 +841,9 @@
                     <label class="radio-inline">
                         <input type="radio" name="inmethod" value="tract" />Tract
                     </label>
-                    <label class="radio-inline">
+                   <!--  <label class="radio-inline">
                         <input type="radio" name="inmethod" value="city" />City
-                    </label>
+                    </label> -->
                     <label class="radio-inline">
                         <input type="radio" name="inmethod" value="county" />County
                     </label>
@@ -883,7 +883,7 @@
                             <td align="left">
                                 <select name="unit" size="1">
                                     <option value="9035" selected>mile</option>
-                                    <option value="9036">kilometer</option>
+                                    <!-- <option value="9036">kilometer</option> -->
                                 </select>
                             </td>
                         </tr>
@@ -905,8 +905,8 @@
                             <td width="90px">Format:</td>
                             <td align="left">
                                 <select name="f">
-								    <option value="json" selected>json</option>
-                                    <option value="pjson">pjson</option>
+								    <!-- <option value="json" selected>json</option>
+                                    <option value="pjson">pjson</option> -->
                                     <option value="report">report</option>
                                 </select>
                             </td>
@@ -914,7 +914,7 @@
                         <tr>
                             <td colspan="2">
                                 <button id="submitget" title="Get result (GET)">Submit (GET)</button>
-                                <button id="submitpost" title="Get result (POST)">Submit (POST)</button>
+                                <!-- <button id="submitpost" title="Get result (POST)">Submit (POST)</button> -->
                             </td>
                         </tr>
                     </table>

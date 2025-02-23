@@ -54,7 +54,7 @@ define(
 
         var reportsJSON = {
             "ejschart": { "description": "Compare indexes or indicators...", "reporturl": "ejscreen_report.aspx", "category": "ejscreen" },
-            "ejsrpt": { "description": "Get EJScreen report...", "reporturl": "ejscreen_SOE.aspx", "category": "ejscreen" },
+            "ejsrpt": { "description": "Get EJScreen report...", "reporturl": "https://ejamapi-84652557241.us-central1.run.app/report", "category": "ejscreen" },
 			"acs2022": { "description": "Get 2018-2022 ACS report...", "reporturl": "demogreportpdf.aspx?report=acs2022", "category": "demog" },
             "acs2021": { "description": "Get 2017-2021 ACS report...", "reporturl": "demogreportpdf.aspx?report=acs2021", "category": "demog" },
             "acs2019": { "description": "Get 2015-2019 ACS report...", "reporturl": "demogreportpdf.aspx?report=acs2019", "category": "demog" },
@@ -73,6 +73,7 @@ define(
 
         var a = dojo.create("link", { type: "text/css", rel: "stylesheet", href: "mapdijit/css/ejreport.css" });
         dojo.doc.getElementsByTagName("head")[0].appendChild(a);
+
 
 
         var EJinfoWindow = declare([_WidgetBase, _TemplatedMixin], {
@@ -104,7 +105,6 @@ define(
             postCreate: function() {
 
                 var graphic = this.currentGraphic;
-
                 var desc = "";
                 var coordstr;
                 var defaultradius = 0;
@@ -340,14 +340,14 @@ define(
             _getEJscreen: function(e) {
                 var rptid = e.target.id;
                 var url = reportsJSON[rptid].reporturl;
-                var newWindow = window.open();
+                /* var newWindow = window.open();
                 if (!newWindow) {
                     alert(popupblockedMessage);
                     return false;
                     //} else {
                     //    newWindow.close();
-                }
-                newWindow.document.write("Loading...Please wait!");
+                } */
+                //newWindow.document.write("Loading...Please wait!");
                 var vd = this.validateDistance();
                 if (vd === false) {
                     alert("Please specify buffer greater than 0 for point or line!");
@@ -356,8 +356,10 @@ define(
 
 
                 var wobj = this;
+                wobj.getEJReport(url);
+                // PRINT OPTIONS BELOW? 
                 //var legend_layers = this.get_legend_layers();
-                var lytmp = "A3 Landscape";
+                /* var lytmp = "A3 Landscape";
 
                 var layoutOptions = {
                     'scalebarUnit': 'Miles',
@@ -400,7 +402,7 @@ define(
                         document.getElementById("mapimageurl").innerHTML = "";
                         wobj.getEJReport(url, newWindow);
 
-                    });
+                    }); */
 
             },
             get_legend_layers: function() {
@@ -443,35 +445,90 @@ define(
                 if (((gtype == "point") || (gtype == "polyline")) && (parseFloat(radius) == 0)) return false;
                 else return true;
             },
-            getEJReport: function(url, myWindow) {
+            getEJReport: function(url) {
                 //alert("url:" + url)
                 var frm = document.getElementById("infoform");
-                var geomstring = frm.coords.value;
+
+                //construct query here
+                var html = "?"; //query
+                //console.log("url", url)
+                //html = html + "<html><head></head><body><form id='formid' method='get' action='" + url + "'>"; //switch to get for now
                 var gtype = frm.type.value;
-
-                var html = "";
-                html = html + "<html><head></head><body><form id='formid' method='post' action='" + url + "'>";
                 var geomString = frm.coords.value;
-                var ptitle = frm.ptitle.value;
-
-                html = html + "<input type='hidden' name='coords' value='" + geomString + "' />";
-                html = html + "<input type='hidden' name='feattype' value='" + gtype + "' />";
-                html = html + "<input type='hidden' name='ptitle' value='" + ptitle + "' />";
+                //var ptitle = frm.ptitle.value;
+                //html = html + "<input type='hidden' name='coords' value='" + geomString + "' />";
+                //html = html + "<input type='hidden' name='feattype' value='" + gtype + "' />";
+                //html = html + "<input type='hidden' name='ptitle' value='" + ptitle + "' />";
                 if (this._isKnownGeo(gtype)) {
-                    var namestr = this.currentGraphic.attributes["names"];
-                    html = html + "<input type='hidden' name='namestr' value='" + namestr + "' />";
+                    var namestr = this.currentGraphic.attributes["fips"]; // FIPS
+                    html = html + "fips="+namestr
+                } else if (gtype == "point"){
+                    var partsOfStr = geomString.split(',');
+                    html = html + "lon=" + parseFloat(partsOfStr[0]) + "&" + "lat=" + parseFloat(partsOfStr[1])
+                } else if ((gtype == "polygon") || (gtype == "polyline")) { //seprate out points and do lat/lon instead of shape
+                    // split at commas and join every two items
+                    var matches = geomString.match(/[^,]+,[^,]+/g);
+                    var listCoords = [];
+                    for (i in matches) {
+                        var partsOfStr = matches[i].split(',');
+                        var pair = [parseFloat(partsOfStr[0]),parseFloat(partsOfStr[1])];
+                        listCoords.push(pair)
+                    }
+                    gtype = gtype == "polyline" ? "LineString" : "Polygon"
+                    listCoords = gtype == "LineString" ? listCoords : [listCoords] // if line, don't need outer list
+                    var geojson = {
+                        "type": "FeatureCollection",
+                        "features": [
+                          {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                              "coordinates": listCoords,
+                              "type": gtype
+                            }
+                          }
+                        ]
+                      }
+                    html = html + "shape=" + JSON.stringify(geojson)
+                    //var radius = frm.radius.value;
+                    //var unit = frm.unit.value;
+                    //var unitcode = bufferunits[unit].esricode;
+                    //html = html + "<input type='hidden' name='radius' value='" + radius + "' />";
+                    //html = html + "<input type='hidden' name='unit' value='" + unit + "' />";
+                    //html = html + "<input type='hidden' name='unitcode' value='" + unitcode + "' />";
                 }
-                if ((gtype == "point") || (gtype == "polygon") || (gtype == "polyline")) {
-                    var radius = frm.radius.value;
-                    var unit = frm.unit.value;
-                    var unitcode = bufferunits[unit].esricode;
-                    html = html + "<input type='hidden' name='radius' value='" + radius + "' />";
-                    html = html + "<input type='hidden' name='unit' value='" + unit + "' />";
-                    html = html + "<input type='hidden' name='unitcode' value='" + unitcode + "' />";
+                if (frm.radius.value){
+                    var buffer = frm.radius.value;
+                    html = html + "&buffer=" + buffer;
                 }
                 //html = html + "<input type='hidden' name='distunits' value='" + distUnit + "' />";
-                html = html + "</form><script type='text/javascript'>document.getElementById('formid').submit();</script></body></html>";
-                myWindow.document.write(html);
+                //html = html + "</form><script type='text/javascript'>document.getElementById('formid').submit();</script></body></html>";
+                //myWindow.document.write(html);
+                console.log("query", url+html)
+                // jQuery async request
+/*                 $.ajax(
+                    {
+                        url: url + html,
+                        type: "GET", 
+                        dataType: "html",
+                        success: function(data) {
+                            myWindow.document.write(data);
+                        },
+                        error: function(e) 
+                        {
+                            alert('Error: ' + e);
+                        }
+                    }); */
+                // ajax doesn't work locally?
+                var html2 = "<html><body><form method='get' id='fid' action=''> \
+                <input type='hidden' value='Submit' onclick='window.open("+''+")'></form> \
+                <script type='text/javascript'> \
+                    document.getElementById('fid').action = url+html; \
+                    document.getElementById('fid').submit(); \
+                </script>"
+                //console.log(html2)
+                //myWindow.document.write(html2);
+                window.open(url+html)
             },
             _getDemogReport: function(e) {
                 var vd = this.validateDistance();
