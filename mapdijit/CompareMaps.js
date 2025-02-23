@@ -132,11 +132,9 @@ define([
 				query.outFields = ["*"];
 				var dirty = new Date().getTime();
 				query.where = dirty + "=" + dirty; // "FOR_DATA='Y' AND " + 
-				console.log("query", query)
 				queryTask
 					.execute(query)
 					.then(function (featset) {
-						console.log("features", featset)
 						if (featset.features.length > 0) {
 							
 							var sortedFeats = [];
@@ -146,7 +144,6 @@ define([
 							//remove ST for Explore	
 							delete dataobjNoST['DEMOGIDX_2ST'];
 							delete dataobjNoST['DEMOGIDX_5ST'];
-							console.log("DONOST", dataobjNoST)
 							for (var doboj in dataobjNoST) {
 								for (var i = 0; i < featset.features.length; i++) {
 									if (doboj == featset.features[i].attributes["FIELD_NAME"]) {
@@ -174,7 +171,6 @@ define([
 							ejlayoutJSON["Primary"].status = true;
 							var fetcount = sortedFeats.length;
 							var catJson = {};
-							console.log("sorted", sortedFeats)
 							for (var m = 0; m < fetcount; m++) {								
 								// var cat = dojo.trim(
 									// sortedFeats[m].attributes["IndexCode"]
@@ -193,7 +189,6 @@ define([
 									// sortedFeats[m].attributes["RPT_NAME"]
 								// );		
                                 var fulldesc = dojo.trim(sortedFeats[m].attributes["RPT_NAME"] || '');
-								console.log(fulldesc)								
 								// var legendtitle = dojo.trim(
 									// sortedFeats[m].attributes["TOC_NAME"]
 								// );	
@@ -248,8 +243,6 @@ define([
 								catJson[cat][colname] = layerJson[colname];
 								
 							}
-							console.log("catjson",layerCatJson)
-
 							
 
 							//var pa = "Primary";
@@ -524,7 +517,6 @@ define([
 				}
 			},
 			highlightStyle: function (obj, v) {
-				console.log(obj, v);
 				for (var k = 0; k < obj.childNodes.length; k++) {
 					var currentv = obj.childNodes[k].value;
 					if (v == currentv) {
@@ -596,10 +588,8 @@ define([
 						container: mapdivStr,
 					});
 				}
-				console.log("mappy", mapsJson)
 				var field = mapsJson[mapdivStr].field;
 				var theme = mapsJson[mapdivStr].theme;
-				console.log(theme)
 				var category = mapsJson[mapdivStr].category;
 				var group = mapsJson[mapdivStr].group;
 
@@ -695,8 +685,6 @@ define([
 				var layeridstr = "ejindex_map";
 				var renderurl, layerindex, titlesuffix;
 				var desc;
-				console.log("catcat", layerCatJson[cat])
-				console.log("fieldname", fieldname)
 				if (layerJson[fieldname] && layerJson[fieldname].fulldesc) {
 					//desc = layerJson[fieldname].fulldesc;
 					
@@ -1069,7 +1057,6 @@ define([
 						var queryTask = new QueryTask(qurl);
 						var levelstr = "";
 						if (lid == "ejindex_map") {
-							console.log("renderfield", ejIdentifyJSON)//ejIdentifyJSON[renderfield])
 							var idfldfield = ejIdentifyJSON[renderfield].idfldname;
 							var idflds = idfldfield.split(",");
 							for (var m = 0; m < idflds.length; m++) {
@@ -1090,11 +1077,11 @@ define([
 						query.outFields = outfields;
 						var dirty = new Date().getTime();
 						query.where = "1=1 AND " + dirty + "=" + dirty;
-						console.log("query",query)
+						//console.log("query",query)
 						queryTask
 							.execute(query)
 							.then(function (results) {
-								console.log("results", results)
+								//console.log("results", results)
 								var feats = [];
 								var fetcount = results.features.length;
 
@@ -1115,6 +1102,10 @@ define([
 											typeof fldvalue == "number"
 										) {
 											fldvalue = fldvalue.toFixed(2);
+										}
+										// Test for % to multiply by 100
+										if (falias.indexOf('%')==0){
+											fldvalue = fldvalue.toFixed(2) * 100
 										}
 										//new requirement to hide the block group id
 										//if needed, remove this if clause
@@ -1169,7 +1160,6 @@ define([
 									}
 								}
 							});
-							console.log("layer", lyr)
 							identifyTask = new IdentifyTask(lyr.url);
 							//idTaskAry.push(identifyTask);
 
