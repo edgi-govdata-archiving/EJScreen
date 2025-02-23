@@ -182,7 +182,6 @@
                     var validParams = ["distance", "geometry", "namestr"] // list of the params we can work with
                     for (var i = 0; i < ejscreenform.elements.length; i++) {
                         var e = ejscreenform.elements[i];
-                        console.log(e)
                         
                         if (validParams.includes(e.name)) {
                             if (e.name === "namestr" && e.value.length > 0){
@@ -215,10 +214,11 @@
                         } 
                     }
                     var queryString = kvpairs.join("&");
-                    console.log("qstring: ", queryString)
+                    //console.log("qstring: ", queryString)
                     //var poststr = kvpairs.join("<br />");
 
                     // just do window.open(ejscreenReportfile + "?" + queryString) instead of embedding
+                    dojo.byId("urlcontent").innerHTML = ejscreenReportfile + "?" + queryString;
                     window.open(ejscreenReportfile + "?" + queryString)
                     /* if (ejscreenform.f.value == "report") {
                         dojo.byId("jsondiv").style.display = "none";
@@ -390,14 +390,12 @@
                     var validParams = ["distance", "geometry"] // list of the params we can work with
                     for (var i = 0; i < ejscreenform.elements.length; i++) {
                         var e = ejscreenform.elements[i];
-                        console.log(e)
                         
                         if (validParams.includes(e.name)) {
                             if (e.name === "geometry"){
                                 //parse geometry obj here
                                 //for points, split into lat and lon
                                 var geomObj = JSON.parse(e.value);
-                                console.log(geomObj)
                                 e.name = "lat"
                                 e.value = geomObj.y
                                 kvpairs.push(e.name + "=" + e.value);
@@ -416,7 +414,7 @@
                         }
                     }
                     var queryString = kvpairs.join("&");
-                    console.log("qstring: ", queryString)
+                    //console.log("qstring: ", queryString)
                     //var poststr = kvpairs.join("<br />");
 
                     if (ejscreenform.f.value == "report") {
@@ -449,7 +447,6 @@
                         ejscreenform.action = urlcon; //ejscreenReportfile;
                         ejscreenform.target = "reportframe";
                         ejscreenform.method = method;
-                        console.log(ejscreenform)
                         //ejscreenform.submit();
                         document.getElementById('urlcontent').scrollIntoView();
                     } /* else {
@@ -580,7 +577,6 @@
 
 
             function doIdentify(evt) {
-                console.log("identify")
                 showLoading();
                 drawGraphicsLayer.removeAll();
                 var lindex = typelookup[geomtype].layer;
@@ -779,7 +775,7 @@
                     }
                     if (bufGeoms.length == 1) {
                         var polyarea = geometryEngine.geodesicArea(bufGeoms[0], "square-miles");
-                        console.log("area: " + polyarea);
+                        //console.log("area: " + polyarea);
                         if (parseFloat(polyarea) > arealimit) {
                             showanalysis = false;
                         } else {
