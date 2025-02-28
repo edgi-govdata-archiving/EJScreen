@@ -19,8 +19,10 @@ define([
 	"dijit/form/HorizontalRule",
 	"dijit/form/HorizontalRuleLabels",
 	"dojox/form/HorizontalRangeSlider",
-	"esri/layers/MapImageLayer",
+	"esri/layers/FeatureLayer",
 	"esri/rest/query",
+	"esri/tasks/QueryTask",
+	"esri/tasks/support/Query",
 	"dijit/Dialog",
 	"dijit/registry",
 	"dojo/parser",
@@ -52,8 +54,10 @@ define([
 	HorizontalRule,
 	HorizontalRuleLabels,
 	HorizontalRangeSlider,
-	MapImageLayer,
+	FeatureLayer,
 	query,
+	QueryTask,
+	esriquery,
 	Dialog,
 	registry,
 	parser,
@@ -75,7 +79,7 @@ define([
 			this.view = options.view;
 			this.map = this.view.map;
 			this.selectedCheckBoxes = [];
-			this.widgetCSVUrl = dmapCSVdownloadurl;
+			this.widgetCSVUrl = dmapCSVdownloadurl; //update
 			//this.id = dijit.registry.getUniqueId(this.declaredClass);
 			//widgetId is needed for mulitple instances and js and html template communication
 			if (this.view.id == undefined && options.id) {
@@ -111,7 +115,7 @@ define([
 			this.createBoundInputBoxes();
 			this.createEjIndexSlider();
 			this.createEJCheckBoxes();
-			this._createRaioButtons();
+			this._createRadioButtons();
 			this._createIndexRaioButtons();
 			//Below function explain the state of the EJ index slider.
 			this.setExplanation(widgetObj.widgetId, this.selectedEjSlider);
@@ -446,7 +450,7 @@ define([
 			);
 			radioOne3.placeAt(radioLabel3, "first");
 		},
-		_createRaioButtons() {
+		_createRadioButtons() {
 			var radioContainer = dom.byId("usRadio" + widgetObj.widgetId);
 			var radioSpan = document.createElement("span");
 			var radioLabel = dojo.create(
@@ -782,7 +786,8 @@ define([
 				throw new Error("techenical error, please contact help desk");
 			}
 			var queryUrl =
-				widgetObj.thresholdRestURL + "/" + widgetObj.thresholdRestLayerId;
+				widgetObj.thresholdRestURL + "/" + widgetObj.thresholdRestLayerId; //UPDATE
+			console.log("whereClause", whereClause)
 			query
 				.executeForCount(queryUrl, {
 					where: whereClause,
@@ -1102,7 +1107,7 @@ define([
 			//console.log("rawData: "+rawData.query);
 			//console.log("rawDataCnt: "+rawDataCnt.query);
 			if (widgetObj.widgetId ==="ctwg") {
-			    widgetObj.getData(rawData, rawDataCnt);
+			    widgetObj.getData(whereClause, rawDataCnt);
 			}
 			else{
 				widgetObj.checkCompareMapInstances();
@@ -1180,12 +1185,15 @@ define([
 						}
 						compoundTitle = compoundTitle + " indexes are within";
 
-						var layer = new MapImageLayer({
+						var layer = new FeatureLayer({ // make feautre layer
 							url: widgetObj.thresholdRestURL,
-							title: widgetObj.mapLengedTitle,
+							title: widgetObj.mapLengedTitle, //compoundTitle?
 							opacity: defaultOpacity, //opacity from widget config
-							id: "threshold_map",
-							sublayers: [
+							id: "threshold_map", //widgetObj.thresholdRestLayerId
+							definitionExpression: whereClause,
+							renderer: simprenderer,
+							visible: true,
+/* 							sublayers: [
 								{
 									id: widgetObj.thresholdRestLayerId,
 									title: compoundTitle,
@@ -1193,7 +1201,7 @@ define([
 									definitionExpression: whereClause,
 									renderer: simprenderer,
 								},
-							],
+							] */
 						});
 
 						layer.isDynamic = true;
@@ -1310,7 +1318,7 @@ define([
 		},
 
 		//remove this after prod
-		getData: async function (rawData, rawDataCnt) {
+		getData: async function (whereClause, rawDataCnt) {
 			// const res = await fetch(dmapurl + "/csv", {
 			// 	method: "POST",
 			// 	headers: {
@@ -1320,14 +1328,142 @@ define([
 			// 	body: JSON.stringify(rawData),
 			// });
 			// document.getElementById("myDoc" + widgetObj.widgetId).href = res.url;
-			document.getElementById("query" + widgetObj.widgetId).value = rawData.query;
+			document.getElementById("query" + widgetObj.widgetId).value = whereClause;
 			if(widgetObj.selectedIndex === "environmental"){
 			    document.getElementById("help" + widgetObj.widgetId).href = ejHelpUrl;
 			}else if(widgetObj.selectedIndex === "supplemental"){
 				document.getElementById("help" + widgetObj.widgetId).href = supplHelpUrl;
 			}
+			console.log("query", whereClause)
+			console.log("count query", rawDataCnt)
+			/* Don't have to do fetch here? or use bespoke rawDataCnt query?
+			just standard ArcGISserver query
+			e.g. query?where=P_NO2+>+99&objectIds=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&relationParam=&returnGeodetic=false&outFields="*"&returnGeometry=false&returnCentroid=false&returnEnvelope=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&defaultSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=true&returnExtentOnly=false&returnQueryGeometry=false&returnDistinctValues=false&cacheHint=false&collation=&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&returnZ=false&returnM=false&returnTrueCurves=false&returnExceededLimitFeatures=false&quantizationParameters=&sqlFormat=standard&f=pjson&
+			returns count of features where NO2 percentile > 99
+			would also send in envelope to restrict area
+			*/
+			// test querying here
+			//console.log(whereClause, whereClauseStr, whereStr)
+			var fs = "https://services.arcgis.com/EXyRv0dqed53BmG2/ArcGIS/rest/services/EJScreen_Thresholds/FeatureServer/"
+			if(widgetObj.selectedIndex === "environmental"){
+				if (widgetObj.queryToCompareAt === "nation"){
+					fs = fs + "2"
+				} else {
+					fs = fs + "0"
+				}
+			} else if (widgetObj.selectedIndex === "supplemental"){
+				if (widgetObj.queryToCompareAt === "nation"){
+					fs = fs + "3"
+				} else {
+					fs = fs + "1"
+				}
+			}
+			console.log("fs",fs)
+			var queryTask = new QueryTask(fs);
+			var query = new esriquery();
+			//console.log("view", this.view)
+			query.returnGeometry = false;
+			query.geometry = this.view.extent //?
+			query.spatialRelationship = "intersects"; //default
+			query.outFields = ["*"];
+			query.where = whereClause; //whereClause
+			query.returnCountOnly = true;
+			query.returnExceededLimitFeatures = false;
+			console.log("esriquery", query)
+			
+			var operation = queryTask.execute(query);
+			operation.then(function(res) {
+				console.log("response", res)
+				//returnCountOnly not working so this demonstrates mapping a layer
+				var fillcolor = {
+					nation: [232, 190, 255, 255],
+					state: [199, 242, 202, 255],
+				};
 
-			let resp1 = fetch(dmapurl, {
+				var outlinecolor = [110, 110, 110, 255];
+				var selectedRange;
+				if (widgetObj.lowerBound == widgetObj.upperBoundVal) {
+					selectedRange = widgetObj.lowerBound + " percentile";
+				} else {
+					selectedRange =
+						widgetObj.lowerBound +
+						"-" +
+						widgetObj.upperBoundVal +
+						" percentile";
+				}
+
+				var indexlevel = widgetObj.queryToCompareAt;
+
+				var simprenderer = {
+					type: "simple",
+					symbol: {
+						type: "simple-fill",
+						color: fillcolor[indexlevel],
+						outline: {
+							width: 1,
+							color: outlinecolor,
+						},
+					},
+					label: selectedRange,
+				};
+				if (res.features.length > 0) {
+					var layer = new FeatureLayer({ // make feautre layer
+						url: fs,
+						//mode: FeatureLayer.MODE_ONDEMAND,
+						title: widgetObj.mapLengedTitle, //compoundTitle
+						opacity: defaultOpacity, //opacity from widget config
+						//id: "threshold_map", //widgetObj.thresholdRestLayerId
+						definitionExpression: query.where,
+						renderer: simprenderer,
+						visible: true,
+	/* 							sublayers: [
+							{
+								id: widgetObj.thresholdRestLayerId,
+								title: compoundTitle,
+								visible: true,
+								definitionExpression: whereClause,
+								renderer: simprenderer,
+							},
+						] */
+					});
+					widgetObj.map.add(layer);
+
+					//window.open(encodedUri);
+					//document.getElementById("myDoc" + widgetObj.widgetId).setAttribute('window.open('+encodedUri+');')
+					//console.log(encodedUri)
+					//TRY THIS https://www.geeksforgeeks.org/how-to-create-and-download-csv-file-in-javascript/?
+					document.getElementById("myDoc"+ widgetObj.widgetId).onclick = function(){
+						var data = res.features
+						var csvHeader = Object.keys(data[0].attributes).join(',') + '\n'; // header row
+						var csvBody = data.map(row => Object.values(row.attributes).join(',')).join('\n');
+						
+						var hiddenElement = document.createElement('a');
+						hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvHeader + csvBody); //csvHeader + 
+						hiddenElement.target = '_blank';
+						hiddenElement.download = 'EJSCREEN_'+widgetObj.mapLengedTitle+'_data.csv';
+						hiddenElement.click();
+					}
+
+					var cnt = res.features.length.toLocaleString("en-US");
+					document.getElementById("loadData" + widgetObj.widgetId).style.display = "none";
+					if (cnt != "0") {
+						document.getElementById(
+							"cntRecords" + widgetObj.widgetId
+						).textContent = cnt;
+						document.getElementById(
+							"divCntRecords" + widgetObj.widgetId
+						).style.display = "block";
+					}
+					/// TODO: update help/ExceedanceFieldDesc-EJIndex.html files because fields not exactly the same anymore
+					widgetObj.checkCompareMapInstances();
+				}
+
+
+				
+
+			})
+
+			/* let resp1 = fetch(dmapurl, {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
@@ -1337,7 +1473,7 @@ define([
 			})
 				.then((response) => response.json())
 				.then((data) => {
-					//console.log('Success:', data);
+					console.log('Success:', data);
 					var cnt =
 						data.data[
 							"ejscreen__" + widgetObj.thresholdTableName
@@ -1359,7 +1495,7 @@ define([
 					console.error("Error:", error);
 					document.getElementById("loadData" + widgetObj.widgetId).style.display = "none";
 					document.getElementById("loadDataError" + widgetObj.widgetId).style.display = "block";
-				});
+				}); */
 
 			//  document.getElementById("cntRecords").textContent= resp1.data[widgetObj.thresholdTableName][0].count;
 			//document.getElementById("divCntRecords").style.display= 'block';
@@ -1386,6 +1522,7 @@ define([
 
 				queryS += queryEntry.toLowerCase() + ": {equals: " + upperBound + "}";
 			}
+			
 			var rawData = {
 				query:
 					"query ejQuery {ejscreen__" +
@@ -1396,7 +1533,7 @@ define([
 			};
 			var rawDataArr = [];
 			rawDataArr.push(rawData);
-
+			console.log("checkbox query", rawData)
 			var rawData1 = {
 				query:
 					"query ejQuery {ejscreen__" +
