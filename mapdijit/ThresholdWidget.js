@@ -23,6 +23,7 @@ define([
 	"esri/rest/query",
 	"esri/tasks/QueryTask",
 	"esri/tasks/support/Query",
+	"esri/PopupTemplate",
 	"dijit/Dialog",
 	"dijit/registry",
 	"dojo/parser",
@@ -33,6 +34,7 @@ define([
 	"dojo/dom-class",
 	"dojo/query",
 	"dojo/domReady!",
+	"./mapdijit/IDinfoWindowThreshold.js",
 ], function (
 	dojo,
 	declare,
@@ -58,6 +60,7 @@ define([
 	query,
 	QueryTask,
 	esriquery,
+	PopupTemplate,
 	Dialog,
 	registry,
 	parser,
@@ -65,7 +68,8 @@ define([
 	on,
 	DeferredList,
 	domStyle,
-	domClass
+	domClass,
+	IDinfoWindow,
 ) {
 	var ThWidget = declare([dijit._Widget, dijit._Templated], {
 		templateString: dojo.cache("mapdijit", "templates/ThresholdWidget.html"),
@@ -852,7 +856,7 @@ define([
 				}
 			}
 		},
-		_setSuppQueryUrlAndLayerIdOld() {
+		/* _setSuppQueryUrlAndLayerIdOld() {
 			if (widgetObj.selectedIndex == "supplemental") {
 				if (widgetObj.queryToCompareAt == "state") {
 					widgetObj.mapLengedTitle = stateSuppLegendTitle;
@@ -887,7 +891,7 @@ define([
 					}
 				}
 			}
-		},
+		}, */
 
 		_setEnvQueryUrlAndLayerId() {
 			if (widgetObj.selectedIndex == "environmental") {
@@ -936,7 +940,7 @@ define([
 				}
 			}
 		},
-		_setEnvQueryUrlAndLayerIdold() {
+		/* _setEnvQueryUrlAndLayerIdold() {
 			if (widgetObj.selectedIndex == "environmental") {
 				if (widgetObj.queryToCompareAt == "state") {
 					widgetObj.mapLengedTitle = stateLegendTitle;
@@ -970,7 +974,7 @@ define([
 					}
 				}
 			}
-		},
+		}, */
 		_addMapLayers(targetId) {
 			widgetObj.widgetId = targetId.split("_")[1];
 				document.getElementById("loadDataError" + widgetObj.widgetId).style.display =
@@ -1111,10 +1115,11 @@ define([
 			}
 			else{
 				widgetObj.checkCompareMapInstances();
+				widgetObj.getData(whereClause, rawDataCnt);// For compare mapper?
 			}
 			
 			widgetObj.cleanThresholdLayer(targetId);
-			widgetObj._checkResultCount(whereClause, function (rCount) {
+			/* widgetObj._checkResultCount(whereClause, function (rCount) {
 				//alert(rCount);
 
 				if (rCount > 0) {
@@ -1201,7 +1206,7 @@ define([
 									definitionExpression: whereClause,
 									renderer: simprenderer,
 								},
-							] */
+							] 
 						});
 
 						layer.isDynamic = true;
@@ -1252,7 +1257,7 @@ define([
 					noResultFound.show();
 					widgetObj.hideLoadingSpinner();
 				}
-			});
+			}); */
 		},
 		hideLoadingSpinner() {
 			if (document.getElementById("loadingDiv")) {
@@ -1316,7 +1321,6 @@ define([
 		destroy: function () {
 			this.inherited(arguments);
 		},
-
 		//remove this after prod
 		getData: async function (whereClause, rawDataCnt) {
 			// const res = await fetch(dmapurl + "/csv", {
@@ -1407,6 +1411,59 @@ define([
 					label: selectedRange,
 				};
 				if (res.features.length > 0) {
+
+					var infoTemplate = new PopupTemplate();
+					//infoTemplate.title = ejIdentifyJSON[fieldname].description; 
+					function popup (e){
+						// just build basic popup content with e.graphic here
+						var feat = e.graphic;
+						var templatestr = "";
+						var pString = widgetObj.getStringData(whereClause);
+						pString = pString.replace(/['"]+/g, '').toUpperCase().split(", ");
+						console.log(pString)
+						for (var prop in feat.attributes) {
+							if ((prop == "ID") | (prop.indexOf("P_") !== -1) ){ // | (pString.includes(prop)) don't include P for now
+								var proplabel = prop;
+								var fldvalue = feat.attributes[prop];
+								if (prop == "ID"){
+									proplabel = dataobj[prop].description
+								} else if (prop.replace("P_", "") in dataobj){
+									proplabel = dataobj[prop.replace("P_", "")].csvname
+								} 
+								// if checkboxes check if in pstring
+								if (widgetObj.selectedCheckBoxes.length > 0) {
+									if ((pString[0].indexOf(prop) !== -1) & (fldvalue >= widgetObj.lowerBound) & (fldvalue < widgetObj.upperBoundVal)){
+										templatestr += "<b>" + proplabel + ": " + fldvalue.toString() + "</b></br>"
+									} else {
+										templatestr += proplabel + ": " + fldvalue.toString() + "</br>"
+									}	
+								} else if ((fldvalue >= widgetObj.lowerBound) & (fldvalue < widgetObj.upperBoundVal)){
+									templatestr += "<b>" + proplabel + ": " + fldvalue.toString() + "</b></br>"
+								}  // slider case
+								else {
+									templatestr += proplabel + ": " + fldvalue.toString() + "</br>"
+								}
+								
+							}
+						}
+						return templatestr
+						// go through fields in whereclause, lookup alias if available, and get fldvalue
+						/* console.log(e.graphic, this.view)
+						var infowidget = new IDinfoWindow({
+							view: this.view,
+							idgraphic: e.graphic,
+							removefooter : true
+							//templateEJcurrent: wobj.templateEJcurrent
+						},
+						dojo.create("div")
+						);
+						infowidget.startup();
+						console.log(infowidget)
+						return infowidget.domNode; */
+					}
+					infoTemplate.title = widgetObj.mapLengedTitle;
+					infoTemplate.content = popup;
+
 					var layer = new FeatureLayer({ // make feautre layer
 						url: fs,
 						//mode: FeatureLayer.MODE_ONDEMAND,
@@ -1415,6 +1472,8 @@ define([
 						//id: "threshold_map", //widgetObj.thresholdRestLayerId
 						definitionExpression: query.where,
 						renderer: simprenderer,
+						popupTemplate: infoTemplate,
+						outFields: ["*"],
 						visible: true,
 	/* 							sublayers: [
 							{
@@ -1456,6 +1515,15 @@ define([
 					}
 					/// TODO: update help/ExceedanceFieldDesc-EJIndex.html files because fields not exactly the same anymore
 					widgetObj.checkCompareMapInstances();
+					widgetObj.hideLoadingSpinner();
+				} else {
+					var noResultFound = new Dialog({
+						title: "No matching result found",
+						style: "width: auto;",
+					});
+					noResultFound.set("content", noMatchFound);
+					noResultFound.show();
+					widgetObj.hideLoadingSpinner();
 				}
 
 
