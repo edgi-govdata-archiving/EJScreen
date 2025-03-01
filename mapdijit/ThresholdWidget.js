@@ -1420,7 +1420,7 @@ define([
 						var templatestr = "";
 						var pString = widgetObj.getStringData(whereClause);
 						pString = pString.replace(/['"]+/g, '').toUpperCase().split(", ");
-						console.log(pString)
+
 						for (var prop in feat.attributes) {
 							if ((prop == "ID") | (prop.indexOf("P_") !== -1) ){ // | (pString.includes(prop)) don't include P for now
 								var proplabel = prop;
@@ -1447,19 +1447,6 @@ define([
 							}
 						}
 						return templatestr
-						// go through fields in whereclause, lookup alias if available, and get fldvalue
-						/* console.log(e.graphic, this.view)
-						var infowidget = new IDinfoWindow({
-							view: this.view,
-							idgraphic: e.graphic,
-							removefooter : true
-							//templateEJcurrent: wobj.templateEJcurrent
-						},
-						dojo.create("div")
-						);
-						infowidget.startup();
-						console.log(infowidget)
-						return infowidget.domNode; */
 					}
 					infoTemplate.title = widgetObj.mapLengedTitle;
 					infoTemplate.content = popup;
@@ -1475,22 +1462,9 @@ define([
 						popupTemplate: infoTemplate,
 						outFields: ["*"],
 						visible: true,
-	/* 							sublayers: [
-							{
-								id: widgetObj.thresholdRestLayerId,
-								title: compoundTitle,
-								visible: true,
-								definitionExpression: whereClause,
-								renderer: simprenderer,
-							},
-						] */
 					});
 					widgetObj.map.add(layer);
 
-					//window.open(encodedUri);
-					//document.getElementById("myDoc" + widgetObj.widgetId).setAttribute('window.open('+encodedUri+');')
-					//console.log(encodedUri)
-					//TRY THIS https://www.geeksforgeeks.org/how-to-create-and-download-csv-file-in-javascript/?
 					document.getElementById("myDoc"+ widgetObj.widgetId).onclick = function(){
 						var data = res.features
 						var csvHeader = Object.keys(data[0].attributes).join(',') + '\n'; // header row
@@ -1530,43 +1504,6 @@ define([
 				
 
 			})
-
-			/* let resp1 = fetch(dmapurl, {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(rawDataCnt),
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					console.log('Success:', data);
-					var cnt =
-						data.data[
-							"ejscreen__" + widgetObj.thresholdTableName
-						][0].count.toLocaleString("en-US");
-					document.getElementById(
-						"loadData" + widgetObj.widgetId
-					).style.display = "none";
-					if (cnt != "0") {
-						document.getElementById(
-							"cntRecords" + widgetObj.widgetId
-						).textContent = cnt;
-						document.getElementById(
-							"divCntRecords" + widgetObj.widgetId
-						).style.display = "block";
-					}
-					widgetObj.checkCompareMapInstances();
-				})
-				.catch((error) => {
-					console.error("Error:", error);
-					document.getElementById("loadData" + widgetObj.widgetId).style.display = "none";
-					document.getElementById("loadDataError" + widgetObj.widgetId).style.display = "block";
-				}); */
-
-			//  document.getElementById("cntRecords").textContent= resp1.data[widgetObj.thresholdTableName][0].count;
-			//document.getElementById("divCntRecords").style.display= 'block';
 		},
 		getQueryWithChkSelectionsEquals: function (whereClauseStr, tblName) {
 			//var str="( P_PM25_D2 >= 80 and P_PM25_D2 <= 100 ) and ( P_DSLPM_D2 >= 80 and P_DSLPM_D2 <= 100 ) and ( P_RESP_D2 >= 80 and P_RESP_D2 <= 100 )";
