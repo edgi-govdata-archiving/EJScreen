@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/css/main.css">
 
     <script src="https://unpkg.com/@terraformer/arcgis"></script>
-    
+
     <style>
         html,
         body {
@@ -2064,6 +2064,11 @@ var identifyJSON = {
                                     //append optional % to value
                                     if (formatObj && formatObj.formatter && formatObj.formatter.pctsign && formatObj.formatter.pctsign[prop]) {
                                         fldvalue += " " + formatObj.formatter.pctsign[prop];
+                                    }
+
+                                    // remove "map popup" from alias
+                                    if (falias.indexOf("Map popup text for ") != -1){
+                                        falias = falias.replace("Map popup text for ", "")
                                     }
                                     //skip title fields
                                     if (!(dynamicJSON[ltype].titlefields[prop])) {

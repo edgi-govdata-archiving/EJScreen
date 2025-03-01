@@ -14,7 +14,7 @@ define([
 	"dojo/fx/Toggler",
 	"dijit/form/Slider",
 	"dojo/text!mapdijit/templates/MapEJIndexMoile.html",
-	"esri/layers/MapImageLayer",
+	"esri/layers/FeatureLayer",
 	"esri/widgets/Legend",
 	"esri/tasks/QueryTask",
 	"esri/tasks/support/Query",
@@ -36,7 +36,7 @@ define([
 	Toggler,
 	Slider,
 	dijittemplate,
-	MapImageLayer,
+	FeatureLayer,
 	esriLegend,
 	QueryTask,
 	esriquery,
@@ -85,6 +85,14 @@ define([
 					metalink: glossaryurl + "#category-primary",
 					columns: {},
 				},
+				header : {
+					description: "Contextual Information",
+					mouseover:
+						"Basic background information such as total population",
+					selected: false,
+					metalink: glossaryurl + "#category-primary", // update
+					columns: {},
+				}
 				
 				
 			},
@@ -181,8 +189,8 @@ define([
 		postCreate: function () {
 			var wobj = this;
 			//wobj.catJson = {};
-			var lookuptableurl = ejscreenservice + "/" + lookuptableindex;
-			//console.log(lookuptableurl);
+			var lookuptableurl = "https://services.arcgis.com/EXyRv0dqed53BmG2/ArcGIS/rest/services/EJScreen_Lookup_USBG/FeatureServer/4";
+			console.log(lookuptableurl);
 			//var lookuptableurls = [lookuptableurl, lookuptable_supp_url];
 			var lookuptableurls = [lookuptableurl];	
 			lookuptableurls.forEach((lupurl) => {
@@ -193,11 +201,11 @@ define([
 
 				query.outFields = ["*"];
 				var dirty = new Date().getTime();
-				query.where = "FOR_DATA='Y' AND " + dirty + "=" + dirty;
-
+				query.where = dirty + "=" + dirty;
 				var operation = queryTask.execute(query);
 				operation.then(
 					function (featset) {
+						console.log("featset", featset)
 						if (featset.features.length > 0) {
 							ejlayoutJSON["Primary"].status = true;
 							var fetcount = featset.features.length;
@@ -207,51 +215,55 @@ define([
 								var cat = dojo.trim(
 								    featset.features[m].attributes["IndexCode"] === null ? "":featset.features[m].attributes["IndexCode"]
 								);
+								if (cat != "header"){
 									var colname = dojo.trim(
-									featset.features[m].attributes["BIN_NAME"] === null ? "":featset.features[m].attributes["BIN_NAME"]
-								);
-								var desc = dojo.trim(
-									featset.features[m].attributes["SHORT_DESC"] === null ? "":featset.features[m].attributes["SHORT_DESC"]
-								);
-								var legendtitle = dojo.trim(
-									featset.features[m].attributes["TOC_NAME"] === null ? "":featset.features[m].attributes["TOC_NAME"]
-								);
-								var txtname = dojo.trim(
-									featset.features[m].attributes["TXT_NAME"] === null ? "":featset.features[m].attributes["TXT_NAME"]
-								);
-								var idfldname = dojo.trim(
-									featset.features[m].attributes["ID_NAME"] === null ? "":featset.features[m].attributes["ID_NAME"]
-								);
-								var hovertext = dojo.trim(
-									featset.features[m].attributes["MOUSEOVER"] === null ? "":featset.features[m].attributes["MOUSEOVER"]
-								);
-								layerJson[colname] = {};
-								layerJson[colname].description = desc;
-								layerJson[colname].legendtitle = legendtitle;
-								layerJson[colname].txtname = txtname;
-								layerJson[colname].idfldname = idfldname;
-								layerJson[colname].cat = cat;
-								layerJson[colname].hovertext = hovertext;
-
-								ejIdentifyJSON[colname] = layerJson[colname];
-								ejIdentifyJSON[colname].category = cat;
-
-								if(colname === 'B_DEMOGIDX_2'|| colname === 'B_DEMOGIDX_5'){
-									layerJson[colname].description = layerJson[colname].description.replace(" USA", "");
+										featset.features[m].attributes["BIN_NAME"] === null ? "":featset.features[m].attributes["BIN_NAME"]
+									);
+									var desc = dojo.trim(
+										featset.features[m].attributes["SHORT_DESC"] === null ? "":featset.features[m].attributes["SHORT_DESC"]
+									);
+									var legendtitle = dojo.trim(
+										featset.features[m].attributes["TOC_NAME"] === null ? "":featset.features[m].attributes["TOC_NAME"]
+									);
+									var txtname = dojo.trim(
+										featset.features[m].attributes["TXT_NAME"] === null ? "":featset.features[m].attributes["TXT_NAME"]
+									);
+									var idfldname = dojo.trim(
+										featset.features[m].attributes["ID_NAME"] === null ? "":featset.features[m].attributes["ID_NAME"]
+									);
+									var hovertext = dojo.trim(
+										featset.features[m].attributes["MOUSEOVER"] === null ? "":featset.features[m].attributes["MOUSEOVER"]
+									);
+									layerJson[colname] = {};
+									layerJson[colname].description = desc;
+									layerJson[colname].legendtitle = legendtitle;
+									layerJson[colname].txtname = txtname;
+									layerJson[colname].idfldname = idfldname;
+									layerJson[colname].cat = cat;
+									layerJson[colname].hovertext = hovertext;
+	
+									ejIdentifyJSON[colname] = layerJson[colname];
+									ejIdentifyJSON[colname].category = cat;
+	
+									if(colname === 'B_DEMOGIDX_2'|| colname === 'B_DEMOGIDX_5'){
+										layerJson[colname].description = layerJson[colname].description.replace(" USA", "");
+									}
+									
+									if (cat == "P_EJ2SUPP") {
+										//console.log("cat became P_EJ2SUPP");
+										ejIdentifyJSON[colname].catdesc =
+											ejlayoutJSON["Supplementary"].items[cat].description;
+									} else {
+										console.log(pa,cat)
+										ejIdentifyJSON[colname].catdesc =
+											ejlayoutJSON[pa].items[cat].description;
+									}
+									if (typeof catJson[cat] == "undefined") {
+										catJson[cat] = {};
+									}
+									catJson[cat][colname] = layerJson[colname];
 								}
 								
-								if (cat == "P_EJ2SUPP") {
-									//console.log("cat became P_EJ2SUPP");
-									ejIdentifyJSON[colname].catdesc =
-										ejlayoutJSON["Supplementary"].items[cat].description;
-								} else {
-									ejIdentifyJSON[colname].catdesc =
-										ejlayoutJSON[pa].items[cat].description;
-								}
-								if (typeof catJson[cat] == "undefined") {
-									catJson[cat] = {};
-								}
-								catJson[cat][colname] = layerJson[colname];
 							}
 
 							var n = 0;
@@ -386,11 +398,13 @@ define([
 			}
 
 			var opcvalue = 1;
-			ejindexlayer = new MapImageLayer({
+			ejindexlayer = new FeatureLayer({ // FEATURE LAYER
 				url: renderurl,
-				title: "EJScreen Map",
+				title: fielddesc,
 				id: layeridstr,
-				sublayers: [
+				renderer: clsrenderer,
+				opacity: opcvalue
+				/* sublayers: [
 					{
 						id: 0,
 						title: fielddesc,
@@ -402,7 +416,7 @@ define([
 							mapLayerId: layerindex,
 						},
 					},
-				],
+				], */
 			});
 			this.map.add(ejindexlayer);
 
