@@ -222,6 +222,9 @@ define([
 									var desc = dojo.trim(
 										featset.features[m].attributes["SHORT_DESC"] === null ? "":featset.features[m].attributes["SHORT_DESC"]
 									);
+									if (desc.indexOf("Air Toxics") != -1){
+										continue; // This version of EJScreen doesn't use the Air Toxics data, so skip
+									}
 									var legendtitle = dojo.trim(
 										featset.features[m].attributes["TOC_NAME"] === null ? "":featset.features[m].attributes["TOC_NAME"]
 									);
