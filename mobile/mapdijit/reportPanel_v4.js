@@ -140,7 +140,7 @@ define(
     },
         _getEJscreen: function (e) {
             var frm = this.infoformNode;
-		
+            
             var sreg = /^\s?$/;
             var v = frm.distance.value;
             if ((isNaN(v)) || sreg.test(v)) {
@@ -151,12 +151,20 @@ define(
                 this.noteNode.innerHTML = "Please enter a smaller value!";  
                 frm.distance.value = "";
             } else {
-            var cbasemap = this.map.basemap.id;
-            frm.basemap.value = cbasemap;
-            frm.action = ejreporturl;
-            frm.ptitle.value = this.locNode.innerHTML;
-            frm.method = "get";
-            frm.submit();
+                // create API call here
+                var buffer = frm.distance.value;
+                var kvpairs = [];
+                // get point coords
+                var geomObj = JSON.parse(frm.geometry.value);
+                geomObj = Terraformer.arcgisToGeoJSON(geomObj);
+                geomObj = JSON.stringify(geomObj);
+                kvpairs.push("shape" + "=" + geomObj);
+                kvpairs.push("buffer" + "=" + buffer.toString());
+                var queryString = kvpairs.join("&");
+                var ejscreenReportfile = "https://ejamapi-84652557241.us-central1.run.app/report";
+                //console.log(cbasemap, e, frm.ptitle.value, ejreporturl)
+                //frm.submit();
+                window.open(ejscreenReportfile + "?" + queryString)
             }
         },
        
