@@ -219,6 +219,7 @@ define([
 									var colname = dojo.trim(
 										featset.features[m].attributes["BIN_NAME"] === null ? "":featset.features[m].attributes["BIN_NAME"]
 									);
+									if (colname == "B_PRE1960PCT"){colname = "B_LDPNT"} // try to change LDPNT bin name here (we messed up in lookup?)
 									var desc = dojo.trim(
 										featset.features[m].attributes["SHORT_DESC"] === null ? "":featset.features[m].attributes["SHORT_DESC"]
 									);
@@ -231,6 +232,7 @@ define([
 									var txtname = dojo.trim(
 										featset.features[m].attributes["TXT_NAME"] === null ? "":featset.features[m].attributes["TXT_NAME"]
 									);
+									if (txtname == "T_PRE1960PCT"){txtname = "T_LDPNT"} // try to change LDPNT bin name here (we messed up in lookup?)
 									var idfldname = dojo.trim(
 										featset.features[m].attributes["ID_NAME"] === null ? "":featset.features[m].attributes["ID_NAME"]
 									);
