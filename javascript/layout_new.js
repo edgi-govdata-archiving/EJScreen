@@ -204,9 +204,10 @@ require([
 		"<a href='" +
 		homeappurl +
 		"' alt='Go to EJScreen home page' title='Go to EJScreen home page'>EJScreen Website</a>";
+	*/
 	 titlestr =
 		titlestr +
-		" | <a href='mobile/index.html' alt='Go to EJScreen mobile page' title='Go to EJScreen mobile page'>Mobile</a>"; */
+		"<a href='mobile/index.html' alt='Go to EJScreen mobile page' title='Go to EJScreen mobile page'>Mobile</a> | "; 
 	// Report a bug here?
 	titlestr =
 		titlestr +
