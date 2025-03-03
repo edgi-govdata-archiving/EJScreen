@@ -18,6 +18,8 @@
     <!-- ArcGIS JS 4 -->
     <link rel="stylesheet" href="https://js.arcgis.com/4.19/esri/css/main.css">
 
+    <script src="https://unpkg.com/@terraformer/arcgis"></script>
+
     <style>
         html,
         body {
@@ -225,7 +227,7 @@
             <div id="2dTab" class="tab-pane fade in active" role="tabpanel">
                 <div id="mapViewDiv">
                     <div id="epalogo">
-                        <h6>This is an unofficial copy of EJScreen</h6>
+                        <h5>EJScreen (unofficial copy)</h5>
                     </div>
                     <div id="layerswitch" title="toggle layer on/off" style="display: none;">
                         <label class="switch">
@@ -463,13 +465,13 @@ var identifyJSON = {
 	B_D5_PM25: {
 		description: "Particulate Matter 2.5",
 		mouseover: "Annual average concentration of particles 2.5 microns or smaller in air",
-		legendtitle: "EJ Index  Particulate Matter 2.5",
+		legendtitle: "Supplemental Indexes:  Particulate Matter 2.5",
 		txtname: "T_D5_PM25",
 		idfldname: "T_DEMOGIDX_5,T_D5_PM25",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Particulate Matter 2.5 – Fine particulate matter levels in the air",
-		category: "P_EJ2",
+			"Supplemental Indexes: Particulate Matter 2.5 – Fine particulate matter levels in the air",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -478,12 +480,12 @@ var identifyJSON = {
 	B_D5_OZONE: {
 		description: "Ozone",
 		mouseover: "Average of maximum daily ozone concentrations in air",
-		legendtitle: "EJ Index  Ozone",
+		legendtitle: "Supplemental Indexes:  Ozone",
 		txtname: "T_D5_OZONE",
 		idfldname: "T_DEMOGIDX_5,T_D5_OZONE",
-		cat: "P_EJ2",
-		hovertext: "EJ Indexes: Ozone - Ozone level in the air",
-		category: "P_EJ2",
+		cat: "P_EJ5",
+		hovertext: "Supplemental Indexes: Ozone - Ozone level in the air",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -493,13 +495,13 @@ var identifyJSON = {
 		description: "Nitrogen Dioxide (NO\u2082)",
 		mouseover: "Annual average concentration of NO\u2082 levels in air",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nitrogen Dioxide (NO\u2082)",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nitrogen Dioxide (NO\u2082)",
 		txtname: "T_D5_NO2",
 		idfldname: "T_DEMOGIDX_5,T_D5_NO2",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Nitrogen Dioxide (NO\u2082)",
-		category: "P_EJ2",
+			"Supplemental Indexes: Nitrogen Dioxide (NO\u2082)",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -512,13 +514,13 @@ var identifyJSON = {
 		description: "Diesel Particulate Matter",
 		mouseover: "Concentration of diesel particulate matter in air",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diesel Particulate Matter",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diesel Particulate Matter",
 		txtname: "T_D5_DSLPM",
 		idfldname: "T_DEMOGIDX_5,T_D5_DSLPM",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Diesel Particulate Matter - Diesel particulate matter level in the air",
-		category: "P_EJ2",
+			"Supplemental Indexes: Diesel Particulate Matter - Diesel particulate matter level in the air",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -528,12 +530,12 @@ var identifyJSON = {
 		description: "Toxic Releases to Air",
 		mouseover: "Average annual chemical concentrations in air weighted by relative toxicity",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toxic Releases to Air",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toxic Releases to Air",
 		txtname: "T_D5_RSEI_AIR",
 		idfldname: "T_DEMOGIDX_5,T_D5_RSEI_AIR",
 		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Toxic Releases to Air",
+			"Supplemental Indexes: Toxic Releases to Air",
 		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
@@ -544,29 +546,29 @@ var identifyJSON = {
 		description: "Traffic Proximity",
 		mouseover: "Count of vehicles per day at major roads divided by distance",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Traffic Proximity",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Traffic Proximity",
 		txtname: "T_D5_PTRAF",
 		idfldname: "T_DEMOGIDX_5,T_D5_PTRAF",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Traffic Proximity - Count of vehicles per day at major roads divided by the distance",
-		category: "P_EJ2",
+			"Supplemental Indexes: Traffic Proximity - Count of vehicles per day at major roads divided by the distance",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
 		ejmapindex_state: ejmapindex_state,
 	},
-	B_D5_LDPNT: {
+	B_D5_LDPNT: { // 
 		description: "Lead Paint",
 		mouseover: "Housing built before 1960, as indicator of potential exposure to lead paint",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lead Paint",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lead Paint",
 		txtname: "T_D5_LDPNT",
 		idfldname: "T_DEMOGIDX_5,T_D5_LDPNT",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Lead Paint - Percent of housing built before 1960",
-		category: "P_EJ2",
+			"Supplemental Indexes: Lead Paint - Percent of housing built before 1960",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -576,13 +578,13 @@ var identifyJSON = {
 		description: "Superfund Proximity",
 		mouseover: "Count of proposed and listed NPL (National Priorities List) sites divided by distance",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Superfund Proximity",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Superfund Proximity",
 		txtname: "T_D5_PNPL",
 		idfldname: "T_DEMOGIDX_5,T_D5_PNPL",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Superfund Proximity - Count of National Priorities List/Superfund sites divided by the distance",
-		category: "P_EJ2",
+			"Supplemental Indexes: Superfund Proximity - Count of National Priorities List/Superfund sites divided by the distance",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -592,13 +594,13 @@ var identifyJSON = {
 		description: "RMP Facility Proximity",
 		mouseover: "Count of facilities with required Risk Management Plans divided by distance",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMP Facility Proximity",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RMP Facility Proximity",
 		txtname: "T_D5_PRMP",
 		idfldname: "T_DEMOGIDX_5,T_D5_PRMP",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: RMP Facility Proximity - Count of facilities with Risk Management Plans divided by the distance",
-		category: "P_EJ2",
+			"Supplemental Indexes: RMP Facility Proximity - Count of facilities with Risk Management Plans divided by the distance",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -608,13 +610,13 @@ var identifyJSON = {
 		description: "Hazardous Waste Proximity",
 		mouseover: "Count of TSDFs and LQGs divided by distance",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hazardous Waste Proximity",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hazardous Waste Proximity",
 		txtname: "T_D5_PTSDF",
 		idfldname: "T_DEMOGIDX_5,T_D5_PTSDF",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Waste Facility Proximity - Count of Transfer, Storage, and Disposal Facilities divided by the distance",
-		category: "P_EJ2",
+			"Supplemental Indexes: Waste Facility Proximity - Count of Transfer, Storage, and Disposal Facilities divided by the distance",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -624,13 +626,13 @@ var identifyJSON = {
 		description: "Underground Storage Tanks",
 		mouseover: "Count of Leaking UST and USTs within a buffered block group",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underground Storage Tanks",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underground Storage Tanks",
 		txtname: "T_D5_UST",
 		idfldname: "T_DEMOGIDX_5,T_D5_UST",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Underground Storage Tanks - UST facilities/square km",
-		category: "P_EJ2",
+			"Supplemental Indexes: Underground Storage Tanks - UST facilities/square km",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -640,13 +642,13 @@ var identifyJSON = {
 		description: "Wastewater Discharge",
 		mouseover: "Average annual chemical concentrations in water weighted by relative toxicity",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wastewater Discharge",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wastewater Discharge",
 		txtname: "T_D5_PWDIS",
 		idfldname: "T_DEMOGIDX_2,T_D5_PWDIS",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Wastewater Discharge - Toxicity-weighted concentration/meter distance",
-		category: "P_EJ2",
+			"Supplemental Indexes: Wastewater Discharge - Toxicity-weighted concentration/meter distance",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
@@ -656,18 +658,50 @@ var identifyJSON = {
 		description: "Drinking Water Non-Compliance",
 		mouseover: "Number of drinking water violations for community water systems in non-compliance",
 		legendtitle:
-			"EJ Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drinking Water Non-Compliance",
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drinking Water Non-Compliance",
 		txtname: "T_D5_DWATER",
 		idfldname: "T_DEMOGIDX_5,T_D5_DWATER",
-		cat: "P_EJ2",
+		cat: "P_EJ5",
 		hovertext:
-			"EJ Indexes: Drinking Water Non-Compliance",
-		category: "P_EJ2",
+			"Supplemental Indexes: Drinking Water Non-Compliance",
+		category: "P_EJ5",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	},/* 
+    B_D5_CANCER: {
+		description: "Air Toxics Cancer Risk",
+		mouseover: "", //TBD
+		legendtitle:
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air Toxics Cancer Risk",
+		txtname: "T_D5_CANCER",
+		idfldname: "T_DEMOGIDX_5,T_D5_CANCER",
+		cat: "P_EJ5",
+		hovertext:
+			"Supplemental Indexes: Air Toxics Cancer Risk",
+		category: "P_EJ5",
 		nationalServiceURL: ejscreenservice, //defined in config.js file
 		stateServiceURL: ejscreenservice,
 		ejmapindex: ejmapindex,
 		ejmapindex_state: ejmapindex_state,
 	},
+	B_D5_RESP: {
+		description: "Air Toxics Respiratory HI",
+		mouseover: "", //TBD
+		legendtitle:
+			"Supplemental Index<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air Toxics Respiratory HI",
+		txtname: "T_D5_RESP",
+		idfldname: "T_DEMOGIDX_5,T_D5_RESP",
+		cat: "P_EJ5",
+		hovertext:
+			"Supplemental Indexes: Air Toxics Respiratory HI",
+		category: "P_EJ5",
+		nationalServiceURL: ejscreenservice, //defined in config.js file
+		stateServiceURL: ejscreenservice,
+		ejmapindex: ejmapindex,
+		ejmapindex_state: ejmapindex_state,
+	}, */
 	B_D2_PM25: {
 		description: "Particulate Matter 2.5",
 		legendtitle: "EJ Index  Particulate Matter 2.5",
@@ -1205,7 +1239,7 @@ var identifyJSON = {
 		description: "Unemployment Rate",
 		legendtitle:
 			"Demographic Data<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unemployment Rate",
-		txtname: "T_DISABILITYPCT",
+		txtname: "T_UNEMPPCT",
 		idfldname:
 			"T_DEMOGIDX_5,T_DEMOGIDX_2,UNEMPPCT,T_UNEMPPCT",
 		cat: "P_DEM",
@@ -2062,6 +2096,11 @@ var identifyJSON = {
                                     //append optional % to value
                                     if (formatObj && formatObj.formatter && formatObj.formatter.pctsign && formatObj.formatter.pctsign[prop]) {
                                         fldvalue += " " + formatObj.formatter.pctsign[prop];
+                                    }
+
+                                    // remove "map popup" from alias
+                                    if (falias.indexOf("Map popup text for ") != -1){
+                                        falias = falias.replace("Map popup text for ", "")
                                     }
                                     //skip title fields
                                     if (!(dynamicJSON[ltype].titlefields[prop])) {
