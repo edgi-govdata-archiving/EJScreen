@@ -96,10 +96,13 @@
 		<form action="${widgetCSVUrl}" id="export-query-format" method="POST">
 		<!-- <input type="hidden" name="query" value="query ejQuery {ejscreen__national_exceedances_2023(where: { p_d2_pm25: {between: {lower: 80, upper: 100}}}) { __all_columns__ }}"> -->
 		<input type="hidden" id="query${widgetId}" name="query" value="">
-		<div style="display:none" id="divCntRecords${widgetId}">
-			<a style="color: #337ab7" id="myDoc${widgetId}" href="" onclick="document.getElementById('export-query-format').submit(); return false;">Download selected <span id="cntRecords${widgetId}" > </span> records.</a>
-			<a style="color: #337ab7"id="help${widgetId}" href="" target="_blank">(Field Descriptions).</a>
-	   </div>
+		
+			
+	   
 		<!-- <a href="#" onclick="document.getElementById('export-query-format').submit(); return false;">Export as CSV</a> -->
-	</form> 
+	</form>
+	<div style="display:none" id="divCntRecords${widgetId}">
+		<a style="color: #337ab7" id="myDoc${widgetId}" target="_blank">Download <span id="cntRecords${widgetId}" > </span> records for this area.</a>
+		<a style="color: #337ab7"id="help${widgetId}" href="" target="_blank">(Field Descriptions).</a>
+	</div>
 </div>
